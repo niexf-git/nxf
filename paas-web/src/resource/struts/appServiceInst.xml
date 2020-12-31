@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 实例管理 appServiceInstance -->
+	<package name="appinst" extends="global-struts" namespace="/appServiceInstance">
+
+		<action name="instanceAction"
+			class="com.cmsz.paas.web.appserviceinst.action.InstanceAction">
+		</action>
+		
+		<action name="queryInst"
+			class="com.cmsz.paas.web.appserviceinst.action.InstanceAction" method="queryInst">
+		</action>
+		
+		<action name="restartInst"
+			class="com.cmsz.paas.web.appserviceinst.action.InstanceAction" method="restartInst">
+		</action>
+		
+		<action name="diagnosisAppService"
+			class="com.cmsz.paas.web.appserviceinst.action.InstanceAction" method="diagnosisAppService">
+		</action>
+
+		<action name="dialogContainerDetails"
+			class="com.cmsz.paas.web.appserviceinst.action.InstanceAction" method="dialogContainerDetails">
+		</action>
+		<action name="queryAppServiceInstById"
+			class="com.cmsz.paas.web.appserviceinst.action.InstanceAction"
+			method="queryAppServiceInstById">
+			<result>/jsp/monitoroperation/instanceInfo.jsp</result>
+		</action>
+		
+		<action name="queryNewAppServiceInstById"
+			class="com.cmsz.paas.web.appserviceinst.action.InstanceAction"
+			method="queryNewAppServiceInstById">
+			<result>/jsp/newmonitor/newInstanceInfo.jsp</result>
+		</action>
+		
+		<action name="queryPodDetail"
+			class="com.cmsz.paas.web.appserviceinst.action.InstanceAction" method="queryPodDetail">
+			<result>/jsp/appservice/instDetail.jsp</result>
+		</action>
+	</package>
+
+</struts>

@@ -1,0 +1,72 @@
+ <button name="" type="button" style="margin-left:10px;cursor: pointer;" ng-class="{true:'notClick', false:'canClick'}[canClick.PROJECTINFO.APPINFO.id === '0']" data-toggle="modal" data-target="#createSerialModal" ng-click="initCheckbox();" ng-disabled="canClick.PROJECTINFO.APPINFO.id === '0'">
+      <i><img ng-src="{{svnUrlPrefix}}images/2.png" width="11" height="11" /></i>
+      <span><a style="color:#fff;">创建流水</a></span>
+</button>
+<strong style="color:#999; font-weight:normal; margin-left:5px; font-size:12px;" ng-show="canClick.PROJECTINFO.APPINFO.id === '0'"><i class="fa fa-exclamation-circle" style="margin-right:5px;"></i>创建流水需要先选择应用</strong>
+
+<!-- <button ng-click="test();">test</button> -->
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="createSerialModal" style="position: fixed;" data-backdrop="static">
+    <div class="creatDevOps" style="width:670px;">
+          <div class="creatDevOps-title">
+              <div class="name">新建流水</div>
+              <div class="close" data-dismiss="modal" ng-click="initModal();"><a><i class="fa fa-close"></i></a></div>
+                 <!-- <div class="close"><a href="index2.html"><i class="fa fa-close"></i></a></div> -->
+           </div>
+           <form name="createSerialForm">
+             <div class="creatDevOps-content">
+                <div class="commonBox">
+                    <div class="creatDevOps-content-title" style="line-height: 50px;"><span class="RED">*</span>名称：</div>
+                    <div class="input">
+                      <input name="createName" type="text" ng-model="serial.name" required ng-pattern="/^[a-zA-Z][a-zA-Z0-9]{0,15}$/" ng-maxlength="16" >
+
+                    </div>
+                    <strong ng-show="createSerialForm.createName.$invalid && createSerialForm.createName.$dirty " style="color: red; line-height: 50px;">字母开头，数字、英文组合，并且最长16个字符</strong>
+                </div>
+               <div class="commonBox" style="margin-top: 20px;">
+                <div class="creatDevOps-content-title">
+                  <span class="RED"></span><span style="padding-left: 6px;">描述：</span>
+                </div>
+                  <div class="ant-switch">
+                    <textarea name="createDescription" cols="" rows="" style="width:536px; resize:none;" ng-model="serial.description" maxlength="120" ng-maxlength="120"></textarea>
+                  </div>
+                  <!-- <strong ng-show="createSerialForm.createDescription.$invalid"  style="margin-left: 50px; color:#999;">流水描述不得超过50个字符
+                  </strong> -->
+               </div>
+               <div class="creatDevOps-step">
+                <p>流水步骤</p>
+                   <div class="creatDevOps-step-main">
+                      <div class="creatDevOps-stepBOX" ng-repeat="step in steps track by $index">
+                       <input type="checkbox" name="flowSteps" value="{{step.isChoise}}" info="{{step}}" ng-true-value="1" ng-false-value="0" ng-model="step.isChoise" ng-disabled="$index === 0 || $index === 1">
+                       <span class="stepName" >{{step.stepName | checkStepName}}</span>
+                       <i class="fa fa-question" title="{{step.description}}"></i>
+                      </div>
+                       <!-- <ul style="padding-left:0px;" ng-repeat="arr in flowSteps">
+                        <li ng-repeat="step in arr"> -->
+                          <!-- <a href="" >
+                           <div class="mycheck">
+                                <i class="fa fa-check-square-o"></i>
+                            </div>
+                           <strong>{{step.value}}</strong>
+                           <i class="fa fa-exclamation-circle"></i></a> -->
+
+                           <!-- <input type="checkbox" name="flowSteps" value="{{step.key}}">
+                           <span>{{step.value}}</span>
+                        </li>
+                       </ul> -->
+                   </div>
+               </div>
+               <div class="clear"></div>
+            </div>
+             <div class="modalBtnBox">
+
+                 <button type="button"  style="margin-right:10px;background:#02a0da; color:#fff;" ng-if="!createSerialForm.$invalid"
+                 ng-class="{true:'ant-btn-ghost', false: 'buildBtn'}[createSerialForm.$invalid]"  ng-click="createSerial();">确定</button>
+                 <button type="button"  style="margin-right:10px;background:#02a0da; color:#fff;" ng-if="createSerialForm.$invalid"
+                 ng-class="{true:'ant-btn-ghost', false: 'buildBtn'}[createSerialForm.$invalid]" ng-click="createSerial('请正确填写所有信息项');">确定</button>
+                  <button id="createSerialModalCancel" type="button" class="ant-btn-ghost" style=" background:#ededed; color:#666;" ng-click="initModal();" data-dismiss="modal">取消</button>
+             </div>
+          </form>
+         </div>
+</div>

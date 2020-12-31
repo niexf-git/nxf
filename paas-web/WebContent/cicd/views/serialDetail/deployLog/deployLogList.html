@@ -1,0 +1,91 @@
+<!-- 执行记录列表 -->
+<div id="TenxFLowDetailLog" name="deployLog" class="ant-card ant-card-bordered">
+  <div class="ant-card-body">
+    <div class="DeployLogList">
+      <div class="LogDetail" ng-repeat="p in resData">
+        <div class="LogListleft">
+          <!-- <p class="fail title">{{p.status | executeStatus}}</p>
+          <i class="fail fa fa-dot-circle-o dot"></i> -->
+          <!-- 0：未执行；1：执行成功；2：执行失败；3.执行中；4：等待中 -->
+          <span ng-style="statusColor(p.status)" style="font-size: 14px;">{{p.status | executeStatus}}</span>
+          <img ng-if="p.status == '3'" ng-src="{{svnUrlPrefix}}images/building.gif" width="12" style="margin-left:26px;"/>
+          <img ng-if="p.status == '1'" ng-src="{{svnUrlPrefix}}images/build_success.png" width="12" style="margin-left:26px;"/>
+          <img ng-if="p.status == '0'" ng-src="{{svnUrlPrefix}}images/build_call_fail.png" width="12" style="margin-left:40px;"/>
+          <img ng-if="p.status == '2'" ng-src="{{svnUrlPrefix}}images/failStatus.png" width="12" style="margin-left:26px;"/>
+          <i class="fa fa-clock-o" ng-if="p.status == '4'" style="margin-left:31px;"></i>
+          <!-- <span ng-style="statusColor(p.status)">{{p.status | executeStatus}}</span> -->
+        </div>
+        <div class="LogListright">
+          <p class="title">{{p.aliasName}}</p>
+          <div class="mainBox" style="position: relative;">
+            <div class="user"><i class="fa fa-adjust"></i>{{p.imageVersion}}</div>
+            <div class="user"><i class="fa fa-code"></i>{{p.codeVersion}}</div>
+            <span class="costTime"><i class="fa fa-clock-o" style="margin-right:5px;"></i>耗时{{p.runTime}}秒</span>
+            <span class="updateTM"><i class="fa fa-clock-o" style="margin-right:5px;"></i>{{p.beginTime}}</span>
+
+            <div class="btnBox">
+              <div class="ant-dropdown-button" style="float:right; margin-right:20px;">
+              <div class="oprea">
+                 <a style="color:#666;">
+                  <button type="button" class="ant-btn-ghost" style="padding-right:0px;" ng-style='(flowInfo.operType !== "1" || $index !== 0 || initParams.page !== 1) && {"background-color": "#ccc"}' ui-sref="PaaS5.serialDetail.codeCheck" ng-click="problemList(p.flowRecordId,$index)" ng-disabled="flowInfo.operType !== '1' || $index !== 0 || initParams.page !== 1"><span
+                    class="active"><i  class="fa fa-newspaper-o"></i>代码详情</span></button>
+                </a>
+            <!--     <a style="color:#666;" ng-if="$index !== 0">
+                  <button type="button" class="ant-btn-ghost" style="padding-right:0px; cursor:not-allowed;"><span
+                    class="active"><i class="fa fa-newspaper-o"></i>代码详情</span></button>
+                </a> -->
+              </div>
+              <div name="hoverName">
+                <i class="anticon-down" check-report-show><img ng-src="{{svnUrlPrefix}}images/anticon-down.png" width="10" height="5"></i>
+                <!-- <div id="build" name="checkReport" check-report-show style="display:none;" >
+                  <a style="color:#666;">
+                    <button type="button" class="delete-build" ><span class="active"><i
+                      class="fa fa-cloud-download"></i>查看报告</span>
+                    </button>
+                  </a>
+                </div> -->
+              </div>
+              </div>
+              <div class="reportDownload" style="display: none;top: 30px; right: 20px;cursor:pointer;">
+                <span ng-click="goScanReport(p.flowRecordId)" ng-show="flowInfo.operType === '1'"><a><i class="fa fa-cloud-download" ></i>安全扫描报告</a></span>
+                <span ng-click="goTestReport(p.flowRecordId)"><a><i class="fa fa-cloud-download"></i>自动测试报告</a></span>
+                <span ng-click="goReport(p.flowRecordId)"><a><i class="fa fa-cloud-download"></i>集成测试报告</a></span>
+                <span ng-click="goPerformanceReport(p.flowRecordId)"><a><i class="fa fa-cloud-download"></i>性能测试报告</a></span>
+                <span ng-click="goUnitReport(p.flowRecordId)" ng-show="flowInfo.operType === '1'"><a><i class="fa fa-cloud-download"></i>单元测试报告</a></span>
+                <!-- <span ng-click="goCoverageRateReport()"><a><i class="fa fa-cloud-download"></i>覆盖率报告</a></span> -->
+              </div>
+              <!-- </div> -->
+              <div class="btnBox">
+                <button type="botton" ng-click="showExecutionRecordPanel(p)"
+                        class="ant-btn ant-btn-primary ant-btn-lg operaBtn">
+                  <i class="fa fa-book"></i>
+                  <span>执行记录</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+      <page limit="10" current-page="1" params="initParams" total="totalCount" data="resData" query="init()"></page>
+
+<!-- 报告模态框（Modal） -->
+<div class="modal fade" tabindex="-1" role="dialog" style="position: fixed;">
+  <div class="creatDevOps" id="scanReportModal"  style="width:670px;">
+    <div class="creatDevOps-title">
+      <div class="name">报告</div>
+      <!-- <div class="close"><a ><i class="fa fa-close"></i></a></div> -->
+      <button type="button" class="close" ng-click="closeDia('scanReportModal')"><i
+        class="fa fa-close"></i></a></button>
+    </div>
+    <div class="creatDevOps-content" style="height: 300px">
+      {{res}}
+    </div>
+  </div>
+</div>
+
+

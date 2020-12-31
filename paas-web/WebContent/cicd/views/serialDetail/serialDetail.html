@@ -1,0 +1,98 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-left:220px;" ng-init="init();">
+  <div id="CICD">
+    <div class="CICDContent">
+      <div class="ant-card-body">
+        <div class="imgBox" style="margin-left: 20px;">
+          <img ng-src="{{svnUrlPrefix}}images/imgBox.jpg" width="78" height="78">
+        </div>
+        <div class="msgBox">
+          <div style="height:20px; margin-bottom: 10px;">
+            <span class="title" style=" width: 154px;">流水名称：{{flowDetailInfo.flowName}}</span>
+            <span class="title" style=" width: 140px;">创建人：{{flowDetailInfo.createBy}}</span>
+            <span class="title" style=" width: 112px;">构建次数：{{flowDetailInfo.buildCount}}</span>
+            <div class="title" style="float: left;">
+              <span style="float: left; font-weight: normal; font-size:12px; ">镜像名称：</span>
+              <strong>{{flowDetailInfo.imageName}}</strong>
+            </div>
+          </div>
+          <div style="height:20px;margin-bottom: 10px;">
+
+            <span class="title" style="width: 154px;">
+              <span>状态：</span>
+              <div style="float: left;">
+                <img ng-if="flowDetailInfo.buildStatus == '3'" ng-src="{{svnUrlPrefix}}images/building.gif" width="12" style="margin-right:5px;" />
+                <img ng-if="flowDetailInfo.buildStatus == '1'" ng-src="{{svnUrlPrefix}}images/build_success.png" width="12" style="margin-right:5px;" />
+                <img ng-if="flowDetailInfo.buildStatus == '0'" ng-src="{{svnUrlPrefix}}images/build_call_fail.png" width="12" style="margin-right:5px;" />
+                <img ng-if="flowDetailInfo.buildStatus == '2'" ng-src="{{svnUrlPrefix}}images/failStatus.png" width="12" style="margin-right:5px;" />
+                <i class="fa fa-clock-o" ng-if="flowDetailInfo.buildStatus == '4'"></i>
+              </div>
+              <!-- 0：未执行；1：执行成功；2：执行失败；3.执行中；4：等待中 -->
+              <span ng-style="statusColor(flowDetailInfo.buildStatus)">{{flowDetailInfo.buildStatus | executeStatus}}</span>
+            </span>
+
+            <span class="title" style=" width: 250px;">创建时间：{{flowDetailInfo.createTime}}</span>
+            <span class="title" style=" width: 230px;">上次构建时间：{{flowDetailInfo.preBuildTime}}</span>
+          </div>
+          <div>
+            <span class="title" style="width: 154px;">构建用时：{{flowDetailInfo.runTime}}s</span>
+            <div class="title" style="float: left;"><strong style="float: left; width: 50px;">描述：</strong><span style=" word-wrap:break-word; width: 450px;">{{flowDetailInfo.flowDescription}}</span></div>
+          </div>
+          <!-- <p style="margin:0px;">
+            <span class="title">构建用时：{{flowDetailInfo.runTime}}s</span>
+          </p>
+          <p style="margin:0px;">
+            <span class="title">描述：{{flowDetailInfo.flowDescription}}</span>
+          </p> -->
+        </div>
+        <div class="btnBox" style="float:right;">
+          <p>
+            <button type="button" class="ant-btn-ghost" ng-click="showExecutionRecordPanel()">
+              <i class="fa fa-calendar-minus-o"></i>执行记录
+            </button>
+            <button type="button" class="ant-btn-ghost" ng-click="openImage()" ng-disabled="!flowDetailInfo.loadData" style="background: #02a0da; color: #fff;">
+              <i class="fa fa-eye" style="color: #fff;"></i>查看镜像</button>
+          </p>
+          <p>
+
+            <button ng-if="!(flowDetailInfo.buildStatus === '3' || (flowDetailInfo.operType.indexOf('2') !== -1 && (flowDetailInfo.deployType == 1 || flowDetailInfo.deployType == 2)))"
+              type="button" class="ant-btn-ghost" ng-click="build(fresh);" style=" background: #02a0da; color: #fff;">
+              <i class="fa fa-building-o" style="color: #fff;"></i>立即构建</button>
+            <button ng-if="(flowDetailInfo.operType.indexOf('2') !== -1 && (flowDetailInfo.deployType == 1 || flowDetailInfo.deployType == 2))" type="button"
+              class="ant-btn-ghost" style="background: #ccc;" disabled>
+              <i class="fa fa-building-o"></i>立即构建</button>
+            <button ng-show="flowDetailInfo.buildStatus === '3' && !(userInfo.operType === '2' && (flowDetailInfo.deployType == 1 || flowDetailInfo.deployType == 2))"
+              type="button" class="ant-btn-ghost" style="padding-right:0px;" ng-click="stopBuild(fresh);" >
+              <span class="active">
+                <i class="fa fa-building-o"></i>停止构建
+              </span>
+            </button>
+            <button type="button" class="ant-btn-ghost" style="text-align:left; padding-left:22px;" ng-click="fresh();" >
+              <i class="fa fa-refresh"></i>刷&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="ant-tabs-nav-wrap">
+      <div class="ant-tabs-nav-scroll">
+        <div class="ant-tabs-nav">
+          <ul>
+            <li>
+              <a id="editModalDevOps" ui-sref="PaaS5.serialDetail.editModalDevOps">流水</a>
+            </li>
+            <li>
+              <a id="deployLog" ui-sref="PaaS5.serialDetail.deployLog">流水执行记录</a>
+            </li>
+            <li>
+              <a id="report" ui-sref="PaaS5.serialDetail.report">报表</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div ui-view></div>
+    </div>
+  </div>
+
+  <!-- 1.执行技术模态框 -->
+  <record-modal></record-modal>
+</div>

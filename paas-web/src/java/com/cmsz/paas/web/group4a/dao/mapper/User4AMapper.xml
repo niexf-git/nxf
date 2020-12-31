@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper   
+
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"   
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="User4A">
+
+	<resultMap type="com.cmsz.paas.web.group4a.entity.User4AEntity"
+		id="userResultMap">
+		<id column="id" property="id" />
+		<result column="user_name" property="userName" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+
+	<insert id="insert"
+		parameterType="com.cmsz.paas.web.group4a.entity.User4AEntity">
+		insert into USER_4A (user_name,update_time
+		)
+		values
+		(#{userName,jdbcType=VARCHAR},#{updateTime,jdbcType=DATE}
+		)
+	</insert>
+
+	<insert id="update"
+		parameterType="com.cmsz.paas.web.group4a.entity.User4AEntity">
+		update USER_4A set update_time=#{updateTime} where user_name =
+		#{userName}
+	</insert>
+	<select id="findByMap" resultMap="userResultMap" parameterType="java.util.Map">
+		select *
+		from USER_4A where 1=1
+		<if test="id != null">
+			AND id=#{id}
+		</if>
+		<if test="userName != null">
+			AND user_name=#{userName}
+		</if>
+		<if test="updateTime != null">
+	   <![CDATA[ AND update_time >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)  ]]>
+		</if>
+	</select>
+
+
+
+
+</mapper> 

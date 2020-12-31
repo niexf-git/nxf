@@ -1,0 +1,251 @@
+<button type="button" class="buildBtn" style="margin-right:0px;"
+ ng-disabled=" flowInfo.FLOWINFO.buildStatus === '3'" ng-class="{'buildBtnDisable':flowInfo.FLOWINFO.buildStatus === '3'}"  data-toggle="modal" data-target="#downloadModal"
+        ng-click="queryData()" >
+  <i class="fa fa-edit"></i>编辑
+</button>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="downloadModal" style="position: fixed;" data-backdrop="static">
+  <div class="creatDevOps">
+    <div class="creatDevOps-title">
+      <div class="name">编辑项目</div>
+      <div class="close" data-dismiss="modal" ng-click="cancelForm()"><a><i class="fa fa-close"></i></a></div>
+    </div>
+    <!--非表格-->
+    <div class="creatDevOps-content">
+      <!--代码库类型-->
+      <div class="EditModal">
+        <div class="title" style="width: 100px;"><span class="RED">*</span>代码库类型：</div>
+        <div class="codeTapy">
+          <a id="svns" ng-click="chooseRep('svn')"><img ng-src="{{svnUrlPrefix}}images/svn.png" width="60" height="48"> </a>
+          <a id ="gits" ng-click="chooseRep('git')"><img ng-src="{{svnUrlPrefix}}images/git.png" width="60" height="48"> </a>
+          <span ng-class="{'svn': pageData.isSvn, 'git': !pageData.isSvn}"><i class="fa fa-check-circle"></i></span>
+        </div>
+      </div>
+      <!--svn触发类型-->
+      <div class="EditModal" ng-show="pageData.isSvn">
+        <div class="title" style="width: 100px;"><span class="RED">*</span>触发类型：</div>
+        <div class="input" style="float: left;">
+          <select ng-model="pageData.svn.triggerType" style="width: 150px">
+            <option value="1">手动</option>
+            <option value="2">轮询</option>
+            <option value="3">定时</option>
+            <!--轮询等同自动-->
+          </select>
+        </div>
+        <div class="E-time" ng-show="pageData.svn.triggerType === '3'">
+          <div class="title" style="width: 90px;">执行时间：</div>
+          <div class="input-group date " data-date-format="yyyy-mm-dd" data-link-field="dtp_input1"
+               data-link-format="yyyy-mm-dd" style=" float: left;">
+            <input size="16" type="text" id="exeuteData" readonly ng-model="pageData.svn.triggerTime"
+                   ng-change="changeDate(pageData.svn.triggerTime)" style=" height: 24px;">
+          </div>
+          <input type="hidden" ng-model="pageData.svn.triggerTime" value=""/>
+        </div>
+        <div ng-show="pageData.svn.triggerType === '4'" style="color: red; font-size: 12px; line-height:24px;">
+          请到对应的git仓库配置jenkins地址
+        </div>
+      </div>
+      <!--git触发类型-->
+      <div class="EditModal" ng-show="!pageData.isSvn">
+        <div class="title" style="width: 100px;"><span class="RED">*</span>触发类型：</div>
+        <div class="input" style="float: left;">
+          <select ng-model="pageData.git.triggerType" style="width: 150px;float: left; margin-right: 10px;">
+            <option value="1">手动</option>
+            <option value="3">定时</option>
+            <option value="4">代码提交</option>
+          </select>
+        </div>
+        <div class="E-time" ng-show="pageData.git.triggerType === '3'">
+          <div class="title" style="width: 90px;">执行时间：</div>
+          <div class="input-group date " data-date-format="yyyy-mm-dd" data-link-field="dtp_input1"
+               data-link-format="yyyy-mm-dd" style=" float: left;">
+            <input size="16" type="text" id="exeuteDataGit" readonly ng-model="pageData.git.triggerTime"
+                   ng-change="changeDate(pageData.git.triggerTime)" style=" height: 24px;">
+          </div>
+          <input type="hidden" ng-model="pageData.git.triggerTime" value=""/>
+        </div>
+        <div ng-show="pageData.git.triggerType === '4'" style="color: red; font-size: 12px; line-height:24px;">
+          请到对应的git仓库配置jenkins地址
+        </div>
+      </div>
+      <!--svn代码审查-->
+      <div class="EditModal" ng-show="pageData.isSvn">
+        <div class="title" style="width: 100px;"><span class="RED">*</span>代码审查：</div>
+        <div class="codeReview">
+          <label>
+            <input type="radio" name="RadioGroup1" ng-value="1" ng-model="pageData.svn.isCodeCheck" id="RadioGroup1_0">
+            <strong>是</strong>
+          </label>
+          <label>
+            <input type="radio" name="RadioGroup1" ng-value="0" ng-model="pageData.svn.isCodeCheck" id="RadioGroup1_1"
+                   style=" float:left; height:30px;">
+            <strong style="float:left; height:30px; line-height:30px; font-weight:normal;">否</strong>
+          </label>
+        </div>
+
+      <div class="EditModal" style="margin-bottom:0px;" ng-show="pageData.svn.isCodeCheck===1 || pageData.svn.isCodeCheck==='1'">
+        <div class="title" style="width:100px; padding-left: 8px;">扫描目录：</div>
+        <div class="input">
+          <textarea name="executeCommand" cols="" rows="" ng-model="pageData.svn.scanDir"></textarea>
+        </div>
+        <span style="color: red;font-size: 10px;margin: 5px 0 0 100px;" ng-show="!isNo">*不能输入特殊字符</span>
+        <span style="color: #999;font-size: 10px; margin: 5px 0 0 100px;" ng-hide="!isNo">注:非必填项,默认扫描所有目录,如需扫描部分目录请使用逗号隔开如: [a目录,b目录]</span>
+      </div>
+      </div>
+      <!--git代码审查-->
+      <div class="EditModal" ng-show="!pageData.isSvn">
+        <div class="title" style="width: 100px;"><span class="RED">*</span>代码审查：</div>
+        <div class="codeReview">
+          <label>
+            <input type="radio" name="RadioGroup2" ng-value="1" ng-model="pageData.git.isCodeCheck" id="RadioGroup1_0">
+            <strong>是</strong>
+          </label>
+          <label>
+            <input type="radio" name="RadioGroup2" ng-value="0" ng-model="pageData.git.isCodeCheck" id="RadioGroup1_1"
+                   style=" float:left; height:30px;">
+            <strong style="float:left; height:30px; line-height:30px; font-weight:normal;">否</strong>
+          </label>
+        </div>
+        <div class="EditModal" style="margin-bottom:0px;" ng-show="pageData.git.isCodeCheck===1 || pageData.git.isCodeCheck==='1'">
+        <div class="title" style="width:100px; padding-left: 8px;">扫描目录：</div>
+        <div class="input">
+          <textarea name="executeCommand" cols="" rows="" ng-model="pageData.git.scanDir"></textarea>
+        </div>
+        <span style="color: red;font-size: 10px;margin: 5px 0 0 100px;" ng-show="!isNo">*不能输入特殊字符</span>
+        <span style="color: #999;font-size: 10px; margin: 5px 0 0 100px;" ng-hide="!isNo">注:非必填项,默认扫描所有目录,如需扫描部分目录请使用逗号隔开如: [a目录,b目录]</span>
+      </div>
+      </div>
+
+      <!--svn表格-->
+      <form name="downloadModify" novalidate="novalidate">
+        <div class="EditModal" ng-show="pageData.isSvn">
+          <div class="structure-code">
+            <div class="code-main" style="border-radius:5px 5px 5px 0px;">
+                <div style=" float:left;  padding:20px 0 10px 10px; border-bottom: 1px solid #eceef3;" ng-repeat="svnone in pageData.svn.repositoryInfo track by $index">
+                  <div class="build">
+                    <div class="title"><span class="RED">*</span>svn地址：</div>
+                    <div class="input">
+                       <input name="{{'svnUrl'+$index}}" ng-blur="verification(svnone,'1',pageData.svn)"  ng-focus="setBaseUrl(svnone.url)"
+                             type="text" ng-model="svnone.url" required style=" width:359px; margin-right:0px;" ng-readonly="!checkCompletion">
+                      <span ng-show="downloadModify['svnUrl'+$index].$dirty && downloadModify['svnUrl'+$index].$invalid"
+                            style="color: red; display: block; width: 50%" >svn地址为必填项</span>
+                      <span ng-show="svnone.asTrue"
+                          style="color: red; display: block; width: 100%;">svn地址或者用户名、密码错误</span>
+                    </div>
+                  </div>
+                  <div class="build">
+                    <div class="title" >版本号：</div>
+                    <div class="input">
+                      <input name="{{'svnVersionNumber'+$index}}"
+                             type="text" ng-model="svnone.versionNumber">
+                    </div>
+                    <div class="title" ><span class="RED">*</span>代码目录：</div>
+                    <div class="input">
+                      <input name="{{'svnPath'+$index}}" type="text" ng-model="svnone.storePath" ng-change="turorfor(svnone)"
+                             required style="width:110px;">
+                      <span ng-show="downloadModify['svnPath'+$index].$dirty && downloadModify['svnPath'+$index].$invalid"
+                            style="color: red; display: block; width: 120px;">代码目录为必填项</span>
+                      <span ng-show="svnone.turor" style="color: red; display: block; width: 120px;">代码目录不能以/开头,且不能包含特殊字符</span>
+                    </div>
+                    <button type="button"
+                            ng-show="pageData.svn.repositoryInfo.length > 1" class="codeBotton"
+                            ng-click="deleteList(pageData.svn.repositoryInfo,$index)">
+                      <i class="fa fa-trash-o"></i>删除
+                    </button>
+                  </div>
+                </div>
+                <div class="build" style=" padding-top:10px;">
+                  <div class="title" style="width: 90px; text-align: center;"><span class="RED">*</span>用户名：</div>
+                    <div class="input">
+                     <input type="text" ng-model="pageData.svn.name" ng-blur="queryAllData(pageData.svn,'1')" required ng-readonly="!checkCompletion">
+                    </div>
+                  <div class="title" style="width: 76px; text-align: center;"><span class="RED">*</span>密码：</div>
+                    <div class="input">
+                      <input type="password" autocomplete="new-password"  ng-model="pageData.svn.password" ng-blur="queryAllData(pageData.svn,'1')" ng-readonly="!checkCompletion"
+                      style="width: 110px;">
+                    </div>
+
+                  </div>
+            </div>
+            <div class="add-build-title">
+                  <a ng-click="addList('svn')">
+                    <img ng-src="{{svnUrlPrefix}}images/structure-icon.png" width="22" height="22"/>
+                    <strong style="font-size:14px; color:#333;">添加代码库</strong>
+                  </a>
+                  <span><img src="/paas/imgs/build-tips.png" width="15" height="15" title="当有多个svn库时，代码目录之间不能存在目录包含  "></span>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--git表格-->
+      <form name="downloadModifyGit" novalidate="novalidate">
+        <div class="EditModal" ng-show="!pageData.isSvn">
+          <div class="structure-code">
+            <div class="code-main" style="border-radius:5px 5px 5px 0px;">
+                 <div style=" float:left;    padding:20px 0 10px 10px; border-bottom: 1px solid #eceef3;" ng-repeat="gitone in pageData.git.repositoryInfo track by $index">
+                    <div class="build">
+                      <div class="title"><span class="RED">*</span>git仓库：</div>
+                      <div class="input">
+                        <input name="{{'gitUrl'+$index}}" type="text" ng-blur="verification(gitone,'2',pageData.git)"
+                               ng-focus="setBaseUrl(gitone.url);" ng-model="gitone.url" style="width:359px; margin-right:0px;" required ng-readonly="!checkCompletion">
+                       <span ng-show="downloadModifyGit['gitUrl'+$index].$dirty && downloadModifyGit['gitUrl'+$index].$invalid"
+                              style="color: red; display: block; float: right; width:100%;">git仓库为必填项</span>
+                        <span ng-show="gitone.asTrue"
+                              style="color: red; display: block; width:100%;">git地址或者用户名、密码错误</span>
+                      </div>
+                    </div>
+                    <div class="build">
+                      <div class="title"><span class="RED">*</span>代码目录：</div>
+                      <div class="input" style="margin-right: 16px;">
+                        <input name="{{'gitPath'+$index}}" type="text" ng-model="gitone.storePath" ng-change="turorfor(gitone)" required>
+                        <span ng-show="downloadModifyGit['gitPath'+$index].$dirty && downloadModifyGit['gitPath'+$index].$invalid"
+                              style="color: red; display: block; width: 120px;">代码目录为必填项</span>
+                        <span ng-show="gitone.turor" style="color: red; display: block; width: 120px;">代码目录不能以/开头,且不能包含特殊字符</span>
+                      </div>
+                      <div class="title"><span class="RED">*</span>分支名称：</div>
+                      <div class="input" >
+                        <select style="width: 110px" ng-model="gitone.branchName" name="{{'gitBranch'+$index}}" required>
+                          <option ng-repeat="x in gitone.branchs track by $index" value="{{x.value}}">{{x.text}}</option>
+                        </select>
+                      </div>
+                      <button type="button"
+                          ng-show="pageData.git.repositoryInfo.length > 1" class="codeBotton"
+                          ng-click="deleteList(pageData.git.repositoryInfo,$index)">
+                        <i class="fa fa-trash-o"></i>删除
+                      </button>
+                    </div>
+                 </div>
+
+                <div class="build" style=" padding:15px 0px;">
+                  <div class="title" style="text-align: center; width: 88px; "><span class="RED">*</span>用户名：</div>
+                  <div class="input">
+                    <input type="text" ng-model="pageData.git.name" ng-blur="queryAllData(pageData.git,'2')" ng-readonly="!checkCompletion">
+                  </div>
+                  <div class="title" style="text-align: right; width: 81px;"><span class="RED">*</span>密码：</div>
+                  <div class="input">
+                    <input type="password" autocomplete="new-password" ng-model="pageData.git.password" ng-blur="queryAllData(pageData.git,'2')" style="width: 110px;" ng-readonly="!checkCompletion">
+                  </div>
+                </div>
+            </div>
+            <div class="add-build-title">
+              <a ng-click="addList('git')">
+                <img ng-src="{{svnUrlPrefix}}images/structure-icon.png" width="22" height="22"/>
+                <strong style="font-size:14px; color:#333;">添加代码库</strong>
+              </a>
+              <span><img src="/paas/imgs/build-tips.png" width="15" height="15" title="当有多个git库时，代码目录之间不能存在目录包含  "></span>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div clas s="clear"></div>
+
+    </div>
+
+    <div class="modalBtnBox">
+      <button type="button" class="buildBtn" style="margin-right:10px;" ng-click="saveData()">确定</button>
+      <button type="button" class="ant-btn-ghost" style=" background:#999; color:#fff;" data-dismiss="modal"
+              id="downloadCancelId" ng-click="cancelForm()">取消
+      </button>
+    </div>
+  </div>
+</div>

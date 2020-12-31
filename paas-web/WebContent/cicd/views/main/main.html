@@ -1,0 +1,27 @@
+<div class="percent">
+  <!-- <com-tips></com-tips> -->
+  <layout-header></layout-header>
+  <!--body-->
+  <div class="mainBody">
+    <div class="row">
+    <layout-nav></layout-nav>
+    <!-- 内容主体 -->
+    <!--右边大容器部分-->
+    <div ui-view ng-if="isCICD.value1"></div>
+    <div ng-show="isCICD.value2" class="col-sm-9 col-sm-offset-3 col-md-10 main contentComponent">
+    <div>
+      <iframe id="mainIframe" src="" frameborder="0" name="oldPage" scrolling="no" width="100%" height="100%"  class="oldPageClass"></iframe></div>
+      <div id="loadImg" style="display:none;margin-top: -35px;"><img alt="" src="/paas/imgs/load.gif"></div>
+    </div>
+  </div>
+  </div>
+</div>
+<div id="message" style="display:none;">
+	<h4>&nbsp;系统告警<a href="javascript:closeMessage()" style="float:right">关闭&nbsp;</a></h4>
+	<div id="messageContent"></div>
+</div>
+<div id="cicdLoadImg" style="display: none;position: absolute;top: 50%;width: 100%;height: 100%;z-index: 99999;text-align: center;">
+  <img ng-src="{{svnUrlPrefix}}images/load.gif" alt="">
+</div>
+
+

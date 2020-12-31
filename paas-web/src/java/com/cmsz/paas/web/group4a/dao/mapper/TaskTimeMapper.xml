@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TaskTimeEntity" >
+  <resultMap id="BaseResultMap" type="com.cmsz.paas.web.group4a.entity.TaskTimeEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="DATE" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="status" property="status" jdbcType="CHAR" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.cmsz.paas.web.group4a.entity.TaskTimeEntity" >
+    insert into OPER_LOG_TASK_TIME (start_time, end_time,status
+      )
+    values (#{startTime}, #{endTime},
+    #{status,jdbcType=CHAR}
+      )
+  </insert>
+  
+   <update id="update" parameterType="com.cmsz.paas.web.group4a.entity.TaskTimeEntity" >
+    	update OPER_LOG_TASK_TIME set status=#{status} where <![CDATA[ start_time = #{startTime}  ]]>
+  </update>
+  
+  <delete id="delete" parameterType="com.cmsz.paas.web.group4a.entity.TaskTimeEntity" >
+   		delete OPER_LOG_TASK_TIME where <![CDATA[ start_time < #{startTime}  ]]>
+  </delete>
+  
+  <select id="findByMap" resultMap="BaseResultMap" parameterType="java.util.Map"  >
+    select * 
+    from OPER_LOG_TASK_TIME where 1=1
+    <if test="id != null">
+			AND	id=#{id}
+	</if> 
+	<if test="status != null">
+			AND	status=#{status}
+	</if> 
+	<if test="startTime != null">
+		    <![CDATA[ AND start_time = #{startTime}  ]]>
+	 </if>
+   <if test="endTime != null">
+	   <![CDATA[ AND end_time = #{endTime}  ]]>
+   </if>
+   <if test="time != null">
+	  AND start_time &lt; #{time}
+   </if>
+   order by start_time
+  </select>
+  
+   <select id="findTimeDiff" resultMap="BaseResultMap" parameterType="java.util.Map"  >
+    select * 
+    from OPER_LOG_TASK_TIME where 1=1
+    <if test="id != null">
+			AND	id=#{id}
+	</if> 
+	<if test="status != null">
+			AND	status=#{status}
+	</if> 
+	<if test="startTime != null">
+		    <![CDATA[ AND start_time = #{startTime}  ]]>
+	 </if>
+   <if test="endTime != null">
+	   <![CDATA[ AND end_time = #{endTime}  ]]>
+   </if>
+   <if test="time != null">
+	   <![CDATA[ AND start_time < #{time}  ]]>
+   </if>
+   order by start_time
+  </select>
+  
+  <delete id="deleteTimeDiff"  parameterType="java.lang.String"  >
+    DELETE FROM task_time WHERE id in(select id from OPER_LOG_TASK_TIME where ROUND(TO_NUMBER(END_TIME - START_TIME) * 24 * 60)!=#{time})
+  </delete>
+</mapper>

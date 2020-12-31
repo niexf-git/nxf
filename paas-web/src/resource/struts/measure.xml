@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 度量 -->
+	<package name="measure" extends="global-struts" namespace="/measure">
+		<action name="queryDownloadCheckList" class="com.cmsz.paas.web.cicd.action.MeasureAction"
+			method="queryDownloadCheckList">
+		</action>
+		<action name="queryCompileBuildList" class="com.cmsz.paas.web.cicd.action.MeasureAction"
+			method="queryCompileBuildList">
+		</action>
+		<action name="queryAutomateTestList" class="com.cmsz.paas.web.cicd.action.MeasureAction"
+			method="queryAutomateTestList">
+		</action>
+		<action name="queryIntegrationTestList" class="com.cmsz.paas.web.cicd.action.MeasureAction"
+			method="queryIntegrationTestList">
+		</action>
+		
+		<action name="queryFlowNameList" class="com.cmsz.paas.web.cicd.action.MeasureAction"
+			method="queryFlowNameList">
+		</action>
+		
+		<action name="queryBuildList" class="com.cmsz.paas.web.cicd.action.MeasureAction"
+			method="queryBuildList">
+		</action>
+		
+		<action name="queryQualityAnalysis" class="com.cmsz.paas.web.cicd.action.MeasureAction"
+			method="queryQualityAnalysis">
+		</action>
+		
+		<action name="queryCodeRepoList" class="com.cmsz.paas.web.cicd.action.MeasureAction"
+			method="queryCodeRepoList">
+		</action>
+		
+		<action name="queryCodeRepo" class="com.cmsz.paas.web.cicd.action.MeasureAction"
+			method="queryCodeRepo">
+		</action>
+		
+		<action name="queryDeployList" class="com.cmsz.paas.web.cicd.action.MeasureAction"
+			method="queryDeployList">
+		</action>
+	</package>
+</struts>

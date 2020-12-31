@@ -1,0 +1,160 @@
+.nav-page{
+  height: 28px;
+  margin: 17px 20px;
+}
+.page{
+  float: left;
+  position:relative;
+  left: 50%;
+  height: 28px;
+}
+.pro-page{
+  position: relative;
+  left: -50%;
+  top:-20px;
+  height: 28px;
+}
+.pro-page li.sel-btn{
+  margin-right: 20px;
+}
+.pro-page a.num-total{
+  width: auto;
+  line-height: 28px;
+  color: #616161;
+}
+.pro-page li.center>a{
+  cursor: pointer;
+}
+.pro-page span.jump-to{
+  line-height: 28px;
+}
+.pro-page input.jump-to-num{
+  width: 50px;
+  outline: none;
+}
+.pro-page span.record-total{
+  font-size: 14px;
+}
+.pro-page>li{
+  float: left;
+  margin: 0 3px;
+  line-height: 28px;
+}
+.pro-page li span{
+  font-size: 16px;
+  color: #616161;
+}
+.pro-page li b{
+  font-size: 16px;
+  color: #000000;
+  font-weight: bold;
+}
+.pro-page li a{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.pro-page .drow-up{
+  background: url(../images/page_number_01.png) center center no-repeat;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+.pro-page .drow-up:hover{
+  background: url(../images/page_number_06.png) center center no-repeat;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+.pro-page .fast-back{
+  background: url(../images/page_number_02.png) center center no-repeat;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+.pro-page .fast-back:hover{
+  background: url(../images/page_number_07.png) center center no-repeat;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+
+.pro-page .back{
+  background: url(../images/page_number_04.png) center center no-repeat;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+.pro-page .back:hover{
+  background: url(../images/page_number_09.png) center center no-repeat;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+
+.pro-page .forward{
+  background: url(../images/page_number_05.png) center center no-repeat;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+.pro-page .forward:hover{
+  background: url(../images/page_number_10.png) center center no-repeat;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+.pro-page .fast-forward{
+  background: url(../images/page_number_03.png) center center no-repeat;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+.pro-page .fast-forward:hover{
+  background: url(../images/page_number_08.png) center center no-repeat;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+.sel{
+  top: -128px;
+  left: 140px;
+  border: 1px solid #ccc;
+  min-width: 60px;
+}
+.sel2{
+  top: -115px;
+  left: 220px;
+  border: 1px solid #ccc;
+  min-width: 71px;
+  height: 90px;
+  overflow-y: scroll;
+}
+.sel li,
+.sel2 li{
+  text-align: center;
+}
+.sel li+li{
+  border-top: 1px solid #ccc;
+}
+.sel li:hover{
+  background: #6C9FF2;
+}
+.show{
+  display: block !important;
+}
+.center {
+  line-height: 28px;
+}
+.error {
+  border: 1px solid red;
+}
+.pro-page button{
+  padding: 1px 8px 1px 8px;
+  margin: -2px 0 0 0;
+  opacity: 1;
+}
+.pro-page button:hover{
+  opacity: 0.65;
+  cursor: pointer;
+}

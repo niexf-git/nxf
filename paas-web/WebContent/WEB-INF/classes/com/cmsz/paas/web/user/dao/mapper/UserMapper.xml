@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper   
+
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"   
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="User">
+<!--
+	=================================================================================
+	公用定义区域
+	=================================================================================
+	-->
+	<resultMap type="com.cmsz.paas.web.user.entity.User" id="userResultMap">
+	   <id property="id" column="id"/>
+	   <result property="userName" column="user_name"/>
+	   <result property="loginName" column="login_name"/>
+	   <result property="password" column="password"/>
+	   <result property="phone" column="phone"/>
+	   <result property="email" column="email"/>
+	  <!--  <result property="dept" column="dept"/> -->
+	   <result property="sessionId" column="sessionId"/>
+	   <result property="roleName" column="role_Name"/>
+	   <result property="createTime" column="create_time"/>
+	    <result property="createBy" column="create_by"/>
+	  <!--  <result property="state" column="state"/>
+	   <result property="description" column="description"/> -->
+	</resultMap>
+	<!--
+	=================================================================================
+	新增修改SQL区域
+	=================================================================================
+	-->
+	<!-- 
+		功能：新增员工信息
+		insert into USER(id,login_name,user_name,password,phone,email,create_time,create_by) value(#{id},#{loginName},#{userName},#{password},#{phone},#{email},now(),#{createBy})
+	-->
+	 <insert id="insert" parameterType="com.cmsz.paas.web.user.entity.User" useGeneratedKeys="true" keyProperty="id">
+       insert into USER(login_name,user_name,password,phone,email,create_time,create_by) value(#{loginName},#{userName},#{password},#{phone},#{email},now(),#{createBy})
+     </insert>
+	<!--
+		功能：删除员工信息
+	-->
+	<delete id="deleteById" parameterType="String">
+       delete from USER where id=#{id};
+     </delete>
+     
+     <!--
+     	功能：删除一个或多个实体
+      -->
+     <delete id="delete" parameterType="String">
+       delete from USER where id=#{id};
+     </delete>
+     
+    <!--
+		功能：修改员工信息
+	-->
+	<update id="update" parameterType="com.cmsz.paas.web.user.entity.User">
+		  update USER set login_name=#{loginName},user_name=#{userName},phone=#{phone},email=#{email} 
+		  <if test="password != null and password != ''" >
+	        ,password=#{password} 
+	      </if>
+	      where id=#{id}
+	</update>
+	
+	<update id="updateSessionId" parameterType="com.cmsz.paas.web.user.entity.User">
+	    	update USER set sessionId=#{sessionId}
+	    	where id=#{id}
+	</update>
+	<!--
+	=================================================================================
+	查询SQL区域
+	=================================================================================
+	-->
+	<select id="findPage" resultMap="userResultMap" parameterType="com.cmsz.paas.common.page.PageContext">
+       select USER.*,GROUP_CONCAT(ROLE.role_name) role_Name FROM 
+        USER LEFT JOIN USER_ROLE_RELATION ON 
+       USER.id=USER_ROLE_RELATION.user_id LEFT JOIN 
+       ROLE ON ROLE.id = USER_ROLE_RELATION.role_id where 1=1 
+       <if test="p.userName != null" >
+        and USER.user_name like CONCAT('%',#{p.userName},'%')
+       </if>
+       <if test="p.loginName != null" >
+        and USER.login_name like CONCAT('%',#{p.loginName},'%')
+       </if>
+       <if test="p.createBy != null and p.createBy != ''" >
+        and USER.create_by=#{p.createBy}
+       </if>
+      GROUP BY USER.id
+    </select>
+    
+     <select id="findByMap" resultMap="userResultMap" parameterType="java.util.HashMap">
+       select * from USER where  1=1 
+        <if test="loginName != null and loginName != ''" >
+        and login_name =#{loginName} 
+       </if>
+       <if test="createBy != null and createBy != ''" >
+        and create_by =#{createBy} 
+       </if>
+    </select>
+    
+   <select id="findById" resultMap="userResultMap" parameterType="String">
+       select * from USER where  id =#{id} 
+    </select> 
+    
+    <select id="findAll" resultMap="userResultMap">
+       select * from USER where  1 =1
+    </select>
+    
+    
+    
+
+</mapper> 

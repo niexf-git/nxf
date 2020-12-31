@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">   
+<struts>  
+  <!-- 监控运维 其中的 集群 -->
+  <package name="cluster" extends="global-struts" namespace="/cluster">
+  	
+  	<!-- begin 集群 -->
+	<action name="queryClusterList" class="com.cmsz.paas.web.monitoroperation.action.ClusterAction" method="queryClusterList">
+	</action>
+	
+	<action name="createCluster" class="com.cmsz.paas.web.monitoroperation.action.ClusterAction" method="createCluster">
+	</action>
+	
+	<action name="deleteCluster" class="com.cmsz.paas.web.monitoroperation.action.ClusterAction" method="deleteCluster">
+	</action>
+	
+	<action name="updateDescription" class="com.cmsz.paas.web.monitoroperation.action.ClusterAction" method="updateDescription">
+	</action>
+	<!-- end 集群 -->
+	
+  </package>
+</struts>

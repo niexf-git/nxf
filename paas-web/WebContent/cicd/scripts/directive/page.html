@@ -1,0 +1,35 @@
+
+
+<nav class="nav-page">
+    <div class="page">
+        <ul class="pro-page">
+            <li ><span class="record-total">共{{total}}条记录，&nbsp;</span>
+            </li>
+            <li role="presentation" class="sel-btn">
+            <a id="menu1" data-toggle="dropdown" role="button" class="dropdown-toggle num-total" aria-expanded="true" aria-haspopup="true">每页{{rowsNow}}条<a class="drow-up" id="menu1" data-toggle="dropdown" role="button" class="dropdown-toggle" aria-expanded="true" aria-haspopup="true"></a></a>
+
+                <ul class="sel dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <li role="presentation" ng-click="changeLimit(5)">5</li>
+                    <li role="presentation" ng-click="changeLimit(10)">10</li>
+                    <li role="presentation" ng-click="changeLimit(15)">15</li>
+                    <li role="presentation" ng-click="changeLimit(20)">20</li>
+                </ul>
+            </li>
+            <li class="sel-btn dropdown-toggle center">
+                <span>{{page}}</span>
+                <span>/</span>
+                <span>{{totalCount}}</span>
+            </li>
+            <li class="center"><a class="fast-back" ng-click="play('first')"></a></li>
+            <li class="center"><a class="back" ng-click="play('above')"></a></li>
+            <li class="center"><a class="forward" ng-click="play('next')"></a></li>
+            <li class="center"><a class="fast-forward" ng-click="play('end')"></a></li>
+            <span class="jump-to" >跳转至</span>
+            <input class="jump-to-num" type="text" oncontextmenu="event.returnValue=false;" ng-model="pageNow"
+            ng-class="{'disabled':totalPages==1}"
+            ng-disabled="totalPages===1" ng-keydown="keyDownFn($event);" >
+          <button ng-click="go(pageNow)" ng-disabled="page == 0" type="button" class="btn btn-default btn-xs">确定</button>
+        </ul>
+
+    </div>
+</nav>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 部署 -->
+	<package name="deploy" extends="global-struts" namespace="/deploy">
+	  <action name="queryDepEntity" class="com.cmsz.paas.web.cicd.action.DeployAction" method="queryDepEntity"></action>
+	  
+	  <action name="modifyDep" class="com.cmsz.paas.web.cicd.action.DeployAction" method="modifyDep"></action>
+	 
+	</package>
+</struts>

@@ -1,0 +1,14 @@
+<div class="Operation-image-menu" ng-show="isShowHtml">
+	<div class="Operation-menu-content">
+		<ul>
+			<li ><a ng-style="isCheckedStyle" ng-click="showUnitReport();">单元测试</a></li>
+			<li style=" border-right:0px;" ><a ng-style="noCheckedStyle" data-toggle="tab" ng-click="showjacocoReport();">覆盖率文件</a></li>
+		</ul>
+	</div>
+</div>
+<iframe ng-show="isCheckReport.unitChecked" id="stepReport" sandbox="allow-same-origin allow-scripts" src="" style="border:3px solid #CCCCCC;min-width: 100%;min-height: 600px">
+</iframe>
+<iframe ng-show="isShowHtml&&isCheckReport.jacocoChecked" sandbox="allow-same-origin allow-scripts" id="stepReport2" src="" style="border:3px solid #CCCCCC;min-width: 100%;min-height: 600px">
+</iframe>
+
+

@@ -1,0 +1,290 @@
+<div id="CICDCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-left:220px;" ng-init="srl.init('first');">
+	<div id="CICD">
+		<div class="ant-tabs-nav-scroll" style="margin-bottom:20px;">
+			<div class="ant-tabs-nav">
+				<ul>
+					<li>
+						<a ui-sref="PaaS5.serial" style="border-bottom:2px solid #02a0da; color:#02a0da; height:29px; display:block;">流水</a>
+					</li>
+					<li>
+						<a ui-sref="PaaS5.outReport">报表</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div ui-view>
+			<div class="CICDContent" style="overflow: -webkit-paged-y">
+				<div class="ant-alert">流水：开发者可以在这里完成流水的配置，一个功能独立的微服务可以定义为一个流水。流水分为开发流水和测试流水，只有开发人员才能创建流水，开发人员和测试人员可以修改各自的步骤。
+				</div>
+				<div class="operaBox">
+					<div class="ant-input-wrapper">
+						<input class="searchBox" name="" type="text" placeholder="搜索" ng-model="srl.querySerial.model.searchKey" ng-keyup="srl.querySerial.serchKeyup($event);"
+						onkeyup="value=value.replace(/[^A-Za-z0-9\-\_\/\.]/g,'')"
+						/>
+						<i class="search" ng-click="srl.querySerial.fn(null, true);">
+							<img ng-src="{{svnUrlPrefix}}images/searchBox.png" width="14" height="13"/>
+						</i>
+					</div>
+
+					<create-serial-modal ng-if="srl.queryUser.model.operType.indexOf('1') != -1 " init="srl.init()"></create-serial-modal>
+
+				</div>
+
+				<div class="ant-card-bordered">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr class="trTitle">
+							<td width="10%" height="48" align="center" valign="middle" style="cursor: pointer;" ng-click="srl.querySerial.sortByName('flowName')">流水名称
+                <span class="sort" ng-show="srl.querySerial.model.sidx === 'flowName'">
+                  <span class="icoTop"><i class="fa fa-caret-up" ng-class="{true:'fa fa-caret-onup',false:'fa fa-caret-up'}[srl.querySerial.model.sord === 'asc']"></i></span>
+                  <span class="icoBottom"><i class="fa fa-caret-down" ng-class="{true:'fa fa-caret-ondown',false:'fa fa-caret-down'}[srl.querySerial.model.sord === 'desc']"></i></span>
+                </span>
+							</td>
+							<td width="10%" height="48" align="center" valign="middle" ng-click="srl.querySerial.sortByName('appName')">应用
+                <span class="sort" ng-show="srl.querySerial.model.sidx === 'appName'">
+                  <span class="icoTop"><i class="fa fa-caret-up" ng-class="{true:'fa fa-caret-onup',false:'fa fa-caret-up'}[srl.querySerial.model.sord === 'asc']"></i></span>
+                  <span class="icoBottom"><i class="fa fa-caret-down" ng-class="{true:'fa fa-caret-ondown',false:'fa fa-caret-down'}[srl.querySerial.model.sord === 'desc']"></i></span>
+                </span>
+              </td>
+							<td width="15%" height="48" align="center" valign="middle">上次构建时间
+              </td>
+							<td width="10%" height="48" align="center" valign="middle" ng-click="srl.querySerial.sortByName('buildStatus')">状态
+                <span class="sort" ng-show="srl.querySerial.model.sidx === 'buildStatus'">
+                  <span class="icoTop"><i class="fa fa-caret-up" ng-class="{true:'fa fa-caret-onup',false:'fa fa-caret-up'}[srl.querySerial.model.sord === 'asc']"></i></span>
+                  <span class="icoBottom"><i class="fa fa-caret-down" ng-class="{true:'fa fa-caret-ondown',false:'fa fa-caret-down'}[srl.querySerial.model.sord === 'desc']"></i></span>
+                </span>
+              </td>
+              				<td width="15%" height="48" align="center" valign="middle" ng-click="srl.querySerial.sortByName('updateTime')">
+              					创建时间
+              					<span class="sort" ng-show="srl.querySerial.model.sidx === 'updateTime'">
+              					  <span class="icoTop"><i class="fa fa-caret-up" ng-class="{true:'fa fa-caret-onup',false:'fa fa-caret-up'}[srl.querySerial.model.sord === 'asc']"></i></span>
+              					  <span class="icoBottom"><i class="fa fa-caret-down" ng-class="{true:'fa fa-caret-ondown',false:'fa fa-caret-down'}[srl.querySerial.model.sord === 'desc']"></i></span>
+              					</span>
+              				</td>
+							<td width="10%" height="48" align="center" valign="middle" ng-show="srl.queryUser.model.role === '0' && srl.appInfo.id === '0'">操作类型</td>
+							<td width="35%" height="48" align="center" valign="middle">操作</td>
+						</tr>
+						<tr ng-repeat="serial in srl.showModel.serialList">
+							<td height="45" align="center" valign="middle">
+								<a ui-sref="PaaS5.serialDetail.editModalDevOps" ng-click="srl.saveSerial(serial)">{{serial.flowName}}</a>
+							</td>
+							<td height="45" align="center" valign="middle">{{serial.appName}}</td>
+							<td height="45" align="center" valign="middle">{{serial.updateTime}}</td>
+							<td height="45" align="center" valign="middle">
+								<img ng-if="serial.buildStatus === '3'" ng-src="{{svnUrlPrefix}}images/building.gif" width="12" style="margin-right:5px;" />
+								<img ng-if="serial.buildStatus === '1'" ng-src="{{svnUrlPrefix}}images/build_success.png" width="12" style="margin-right:5px;" />
+								<img ng-if="serial.buildStatus === '0'" ng-src="{{svnUrlPrefix}}images/build_call_fail.png" width="12" style="margin-right:5px;" />
+								<img ng-if="serial.buildStatus === '2'" ng-src="{{svnUrlPrefix}}images/failStatus.png" width="12" style="margin-right:5px;" />
+								<i class="fa fa-clock-o" ng-if="serial.buildStatus === '4'"></i>
+								<!-- 0：未执行；1：执行成功；2：执行失败；3.执行中；4：等待中 -->
+								{{serial.buildStatus | executeStatus}}
+							</td>
+							<td align="center" valign="middle">{{serial.createTime}}</td>
+							<td height="45" align="center" valign="middle" ng-show="srl.queryUser.model.role === '0' && srl.appInfo.id === '0'">{{serial.operType | operTypeFilter}}</td>
+							<td height="45" align="center" valign="middle">
+								<div style="float:right">
+									<div class="ant-dropdown-button" style="float:right; margin-right:20px;">
+
+										<div class="oprea">
+											<button ng-show="!(serial.buildStatus === '3' || (serial.operType.indexOf('2') !== -1 && (serial.deployType == 1 || serial.deployType == 2)))"
+											    type="button" class="ant-btn-ghost" style="padding-right:0px;" ng-click="srl.building.fn(serial.flowId)">
+												<span class="active">
+													<i class="fa fa-building-o"></i>立即构建
+												</span>
+											</button>
+											<button ng-show="(serial.operType.indexOf('2') !== -1 && (serial.deployType == 1 || serial.deployType == 2))" type="button"
+											    class="ant-btn-ghost" style="padding-right:0px;background: #ccc;" ng-click="srl.building.fn(serial.flowId)" disabled>
+												<span class="active">
+													<i class="fa fa-building-o"></i>立即构建
+												</span>
+											</button>
+											<button ng-show="serial.buildStatus === '3' && !(serial.operType === '2' && (serial.deployType == 1 || serial.deployType == 2))"
+											    type="button" class="ant-btn-ghost" style="padding-right:0px;" ng-click="srl.stopBuild.fn(serial.flowId)">
+												<span class="active">
+													<i class="fa fa-building-o"></i>停止构建
+												</span>
+											</button>
+										</div>
+										<div name="hoverName">
+											<i ng-if="serial.buildStatus !== '3'" class="anticon-down" onmouseover="$(this).next().css('display', 'block')" onmouseout="$(this).next().css('display', 'none')">
+												<img ng-src="{{svnUrlPrefix}}images/anticon-down.png" width="10" height="5">
+											</i>
+											<i ng-if="serial.buildStatus === '3'" class="anticon-down" style="background: #ccc;">
+												<i class="glyphicon glyphicon-chevron-down"></i>
+											</i>
+
+											<div id="build" name="expandMenu" style="display:none;" onmouseover="$(this).css('display', 'block')" onmouseout="$(this).css('display', 'none')">
+												<button type="button" class="delete-build" data-toggle="modal" data-target="#delSerialModal" ng-click="srl.delSerial.model = serial;srl.expandMenu.closeAllMenu()">
+													<span class="active">
+														<i class="fa fa-trash-o"></i>删除流水</span>
+												</button>
+												<button type="button" class="delete-build" data-toggle="modal" data-target="#modifySerialModal" ng-click="
+	                      srl.modifySerial.model = serial;
+	                      srl.expandMenu.closeAllMenu(); srl.modifySerial.querySerialDetail(serial.operType);">
+													<span class="active">
+														<i class="fa fa-pencil"></i>修改流水</span>
+												</button>
+												<button type="button" class="delete-build" data-toggle="modal" data-target="#copySerialModal" ng-if="srl.queryUser.model.operType.indexOf('1') != -1 && serial.operType != 2" ng-click="
+	                      srl.copySerial.model = serial;
+	                      srl.expandMenu.closeAllMenu(); srl.copySerial.querySerialDetail(serial.operType);">
+													<span class="active">
+														<i class="fa fa-pencil"></i>复制流水</span>
+												</button>
+											</div>
+										</div>
+
+									</div>
+									<button type="button" class="ant-btn-ghost" ng-click="srl.showExecutionRecordPanel(serial)">
+										<span>
+											<i class="fa fa-book"></i>执行记录</span>
+									</button>
+									<!-- <record-modal attribute="true" info="{{serial}}"></record-modal> -->
+								</div>
+							</td>
+						</tr>
+
+					</table>
+				</div>
+
+				<page limit="10" page="1" params="srl.querySerial.model" total="srl.showModel.totalCount" data="srl.showModel.serialList"
+				    query="srl.querySerial.fn();"></page>
+			</div>
+		</div>
+	</div>
+
+	<!-- 1.修改流水模态框 -->
+	<div class="modal fade" style="position: fixed;margin: 0 auto; overflow: hidden;" tabindex="-1" role="dialog" id="modifySerialModal">
+		<div class="creatDevOps" style="width:670px;">
+			<div class="creatDevOps-title">
+				<div class="name">修改流水</div>
+				<div class="close" data-dismiss="modal">
+					<a>
+						<i class="fa fa-close"></i>
+					</a>
+				</div>
+			</div>
+			<form name="modifySerialForm">
+				<div class="creatDevOps-content">
+					<div class="commonBox">
+						<div class="creatDevOps-content-title" style="padding-left: 8px;">名称：</div>
+						<div class="creatDevOps-content-title"> {{srl.modifySerial.model.flowName}}
+						</div>
+					</div>
+					<div class="commonBox" style="margin-top: 20px;">
+						<div class="creatDevOps-content-title" style="padding-left: 6px;">
+							<span class="RED"></span>描述：</div>
+						<div class="ant-switch">
+							<textarea name="modifyDescription" cols="" rows="" style="width:536px; resize:none;" ng-model="srl.modifySerial.model.flowDescription"
+							    ng-maxlength="120" maxlength="120"></textarea>
+						</div>
+						<!--  <strong ng-show="modifySerialForm.modifyDescription.$invalid"  style="margin-left: 50px; color:#999;">流水描述不得超过50个字符
+	                   </strong> -->
+					</div>
+					<div class="creatDevOps-step">
+						<p>流水步骤</p>
+						<div class="creatDevOps-step-main">
+							<div class="creatDevOps-stepBOX" ng-repeat="step in srl.modifySerial.showSteps track by $index">
+								<input type="checkbox" name="flowSteps" value="{{step.isChoise}}" info="{{step}}" ng-true-value="1" ng-false-value="0" ng-model="step.isChoise"
+								    ng-disabled="step.stepName === 'downloadcheck' || step.stepName === 'build'">
+								<span class="stepName">{{step.stepName | checkStepName}}</span>
+								<i class="fa fa-question" title="{{step.description}}"></i>
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="modalBtnBox">
+					<button type="button" style="margin-right:10px; background:#02a0da; color:#fff;" ng-disabled="modifySerialForm.$invalid"
+					    ng-class="{true:'ant-btn-ghost', false: 'buildBtn'}[modifySerialForm.$invalid]" ng-click="srl.modifySerial.fn();">确定</button>
+					<button id="modifySerialModalCancel" type="button" class="ant-btn-ghost" data-dismiss="modal">取消</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- 2.复制流水模态框 -->
+	<div class="modal fade" style="position: fixed;margin: 0 auto; overflow: hidden;" tabindex="-1" role="dialog" id="copySerialModal">
+		<div class="creatDevOps" style="width:670px;">
+			<div class="creatDevOps-title">
+				<div class="name">复制流水</div>
+				<div class="close" data-dismiss="modal">
+					<a>
+						<i class="fa fa-close"></i>
+					</a>
+				</div>
+			</div>
+			<form name="copySerialForm" id="copySerialForm">
+				<div class="creatDevOps-content">
+						<div class="commonBox">
+								<div class="creatDevOps-content-title" style="line-height: 50px;"><span class="RED">*</span>名称：</div>
+								<div class="input">
+								  <input name="copyName" type="text" ng-model="srl.copySerial.model.flowName" required ng-pattern="/^[a-zA-Z][a-zA-Z0-9]{0,15}$/" ng-maxlength="16" >
+
+								</div>
+								<strong ng-show="copySerialForm.copyName.$invalid && copySerialForm.copyName.$dirty " style="color: red; line-height: 50px;">字母开头，数字、英文组合，并且最长16个字符</strong>
+							</div>
+					<div class="commonBox" style="margin-top: 20px;">
+						<div class="creatDevOps-content-title" style="padding-left: 6px;">
+							<span class="RED"></span>描述：</div>
+						<div class="ant-switch">
+							<textarea name="copyDescription" cols="" rows="" style="width:536px; resize:none;" ng-model="srl.copySerial.model.flowDescription"
+							    ng-maxlength="120" maxlength="120"></textarea>
+						</div>
+					</div>
+					<div class="creatDevOps-step">
+						<p>流水步骤</p>
+						<div class="creatDevOps-step-main">
+							<div class="creatDevOps-stepBOX" ng-repeat="step in srl.copySerial.showSteps track by $index">
+								<input type="checkbox" name="flowSteps" value="{{step.isChoise}}" info="{{step}}" ng-true-value="1" ng-false-value="0" ng-model="step.isChoise"
+								    disabled>
+								<span class="stepName">{{step.stepName | checkStepName}}</span>
+								<i class="fa fa-exclamation-circle"></i>
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="modalBtnBox">
+					<button type="button" style="margin-right:10px; background:#02a0da; color:#fff;" ng-disabled="copySerialForm.$invalid"
+					    ng-class="{true:'ant-btn-ghost', false: 'buildBtn'}[copySerialForm.$invalid]" ng-click="srl.copySerial.fn();">确定</button>
+					<button id="copySerialModalCancel" type="button" class="ant-btn-ghost" data-dismiss="modal">取消</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- 3.删除流水提示框 -->
+	<div id="delSerialModal" style="position: fixed;margin: 0 auto" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="creatDevOps-title">
+					<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+					<div class="name">删除流水</div>
+					<div class="close" data-dismiss="modal">
+						<a>
+							<i class="fa fa-close"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="modal-body">
+					<p style="color: red">你确定要删除该流水吗？</p>
+				</div>
+
+				<div class="modalBtnBox">
+					<button type="button" data-dismiss="modal" ng-click="srl.delSerial.fn()" class="ant-btn-ghost" style="margin-right:10px; background:#02a0da; color:#fff;">确定</button>
+					<button type="button" class="ant-btn-ghost" data-dismiss="modal">取消</button>
+
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+	<!-- 3.执行技术模态框 -->
+	<record-modal></record-modal>
+
+	<!-- 4.加载动画 -->
+	<!-- <loading-animation></loading-animation> -->
+</div>

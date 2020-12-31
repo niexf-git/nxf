@@ -1,0 +1,66 @@
+<button type="button" class="buildBtn"  ng-disabled="flowInfo.FLOWINFO.buildStatus === '3'" ng-class="{'buildBtnDisable':flowInfo.FLOWINFO.buildStatus === '3'}" style="margin-right:0px;" data-toggle="modal" data-target="#performanceTest" ng-click="queryData()">
+  <i class="fa fa-edit"></i>编辑
+</button>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="performanceTest" style="position: fixed;" data-backdrop="static">
+  <div class="creatDevOps">
+    <div class="creatDevOps-title">
+      <div class="name">编辑项目</div>
+      <div class="close" data-dismiss="modal"><a><i class="fa fa-close"></i></a></div>
+    </div>
+
+    <div class="creatDevOps-content">
+      <div class="EditModal">
+        <div class="title" style="width: 100px"><span class="RED">*</span>代码库类型：</div>
+        <div class="svn codeTapy">
+          <a id="Svns" ng-click="chooseRep('svn')" style="height:52px;"><img ng-src="{{svnUrlPrefix}}images/svn.png" width="50" height="48"></a>
+          <a id="Gits" ng-click="chooseRep('git')" style="height:52px;"><img ng-src="{{svnUrlPrefix}}images/git.png" width="50" height="48"></a>
+          <span ng-class="{'svn': isSvn, 'git': !isSvn}"><i class="fa fa-check-circle"></i></span>
+        </div>
+      </div>
+      <!--svn表格-->
+
+      <div class="EditModal">
+        <div class="title" ng-show="isSvn" style="width: 85px"><span class="RED">*</span>svn路径：</div>
+        <div class="title" ng-show="!isSvn" style="width: 85px"><span class="RED">*</span>git路径：</div>
+        <div class="svn" ng-show="isSvn"><input type="text" ng-model="pageData.svn.url"
+                                                ng-focus="setBaseUrl(pageData.svn.url)" style="width:355px;"></div>
+        <div class="svn" ng-show="!isSvn"><input type="text" ng-model="pageData.git.url"
+                                                 ng-focus="setBaseUrl(pageData.git.url)" style="width:355px;"></div>
+      </div>
+      <div class="EditModal">
+        <div class="title" style="width: 85px"><span class="RED">*</span>用户名：</div>
+        <div class="ures" ng-show="isSvn"><input type="text"  ng-model="pageData.svn.name"></div>
+        <div class="ures" ng-show="!isSvn"><input type="text"  ng-model="pageData.git.name"></div>
+        <div class="title" style="margin-left: 60px"><span class="RED">*</span>密码：</div>
+        <div class="ures" ng-show="isSvn"><input type="password" ng-model="pageData.svn.password" ng-blur="verification(pageData.svn)"></div>
+        <div class="ures" ng-show="!isSvn"><input type="password" ng-model="pageData.git.password" ng-blur="verification(pageData.git)"></div>
+      </div>
+      <div class="EditModal" ng-show="!isSvn">
+        <div class="title" style="width: 75px">分支名称：</div>
+        <div class="svn">
+          <select name="" style="width:355px;margin-left: 10px;" ng-model="pageData.git.branchName">
+            <option ng-repeat="x in branchData track by $index" value="{{x.value}}">{{x.text}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="EditModal">
+        <div class="title" style="width: 85px">测试命令：</div>
+        <div class="svn" ng-show="isSvn"><input type="text" ng-model="pageData.svn.testCmd"  style="width:355px;">
+          <p style="font-size:10px;margin:5px 0 0 86px;color:#999;">注：非必填项,默认执行所有脚本,如需执行子脚本请填写子脚本名称如[a.jmx]</p>
+        </div>
+        <div class="svn" ng-show="!isSvn"><input type="text" ng-model="pageData.git.testCmd"  style="width:355px;">
+          <p style="font-size:10px;margin:5px 0 0 86px;color:#999;">注：非必填项,默认执行所有脚本,如需执行子脚本请填写子脚本名称如[a.jmx]</p>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div class="modalBtnBox">
+      <button ng-show="isSvn" type="button" class="buildBtn" style="margin-right:10px;" ng-click="saveData(pageData.svn)">确定</button>
+      <button ng-show="!isSvn" type="button" class="buildBtn" style="margin-right:10px;" ng-click="saveData(pageData.git)">确定</button>
+      <button type="button" class="ant-btn-ghost" style=" background:#999; color:#fff;" data-dismiss="modal" id="cancelPerfor">取消</button>
+    </div>
+  </div>
+</div>

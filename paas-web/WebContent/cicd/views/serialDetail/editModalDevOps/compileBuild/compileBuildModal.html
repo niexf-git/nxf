@@ -1,0 +1,105 @@
+<button type="button" class="buildBtn" ng-disabled="flowInfo.FLOWINFO.buildStatus === '3'" ng-class="{'buildBtnDisable':flowInfo.FLOWINFO.buildStatus === '3'}" style="margin-right:0px;" ng-click="getFormData()" data-toggle="modal" data-target="#deployCompileModal">
+  <i class="fa fa-edit"></i>编辑
+</button>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deployCompileModal" data-backdrop="static" style="position: fixed;">
+  <div class="creatDevOps">
+    <div class="creatDevOps-title">
+      <div class="name">编辑项目</div>
+      <div class="close" data-dismiss="modal"><a><i class="fa fa-close"></i></a></div>
+    </div>
+    <form class="creatDevOps-content" name="compileForm" novalidate="novalidate">
+      <div class="EditModal">
+        <table width="562px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="143" height="30" align="center" valign="middle">工作目录</td>
+            <td width="437" height="30" align="center" valign="middle">地址</td>
+          </tr>
+          <tr ng-repeat="oneInfo in formData.repositoryInfo">
+            <td height="30" align="center" valign="middle">{{oneInfo.storePath}}</td>
+            <td height="30" align="center" valign="middle" style="width:400px;">{{oneInfo.url}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="EditModal" >
+        <div class="title" style="width:132px;">执行命令：</div>
+        <div class="input" style="width:560px;">
+          <textarea name="executeCommand" cols="" rows="" ng-model="formData.executeCommand" style="width:408px; height:52px; resize:none; border:1px solid #d6dae3;"></textarea>
+          <span style=" display:block; height:52px; float:right; padding-top:15px;"><img src="/paas/imgs/build-tips.png" width="15" height="15" title="执行命令写法：命令名称   参数   脚本文件相对路径
+1）、ant编译打包java工程： 
+    如果代码目录填的是test_code，build.xml在工程根目录下，则执行命令为：ant  -f  test_code/build.xml 
+2）、make编译C++工程：
+    如果代码目录填的是test_code，Makefile在工程根目录下，则执行命令为：make  -f  test_code/Makefile"></span>
+        </div>
+      </div>
+      <div class="EditModal">
+        <div class="title" style="width:132px;"><span class="RED">*</span>Dockerfile路径：</div>
+        <div class="input">
+          <input type="text" ng-model="formData.dockerFilePath" name="dockerFile" ng-change="testDockerFile(formData.dockerFilePath)" required style="width:408px;">
+      <span style=" margin-left:2px;"><img src="/paas/imgs/build-tips.png" width="15" height="15" title="1）、如果Dockerfile文件在工程目录下，则Dockerfile文件填：代码目录/Dockerfile
+2）、如果Dockerfile文件在工程目录下的子目录中，则Dockerfile文件填：代码目录/子目录/Dockerfile"></span>
+        </div>
+        <!-- <span style="color: #d9534f; width:100%;" ng-if="compileForm.$dirty&&compileForm.dockerFile.$invalid">必填</span> -->
+          <span style="color: #d9534f; width:100%;" ng-if="compileForm.$dirty&&!dockerFileValid&&compileForm.dockerFile.$valid">Dockerfile路径必须包含任意工作目录</span>
+      </div>
+      <div class="dailogline"></div>
+      <!--需求新增开始-->
+      <!-- <div class="EditModal" style="margin-bottom:0px;">
+        <i class="fa fa-check-square-o"></i>
+              <strong style=" height:30px; line-height:36px; font-weight:normal; margin-left:8px; font-size:16px; color:#333;">单元测试</strong>
+      </div> -->
+      <div class="EditModal" style=" margin-bottom:0px;" >
+        <div class="title" style="width:20px;zoom: 140%;margin-top: -5px;"><input name="showCheck" type="checkbox" ng-value="formData.isUnitTest == 1 " ng-model="formData.isUnitTest" ng-disabled="">
+        </div>
+        <div class="svn" style=" line-height:30px; margin-top: 3px;">单元测试
+        </div>
+      </div>
+      <div class="title" style=" font-size:14px; color:#333; margin-left:25px;" ng-show="formData.isUnitTest ===true">测试报告</div>
+
+      <div class="build" style=" padding-left:30px;" ng-show="formData.isUnitTest === true">
+
+        <div class="title">所在目录：</div>
+        <div class="input" style="margin-right:78px;">
+          <input type="text" ng-model="formData.unitTestReportDir" name="unitTestReportDir" ng-change="changeUnitTestReport()">
+          <span style="color: #d9534f" ng-show="compileForm.$dirty&&!unitTestReportDirValid">必填</span>
+          <!-- <span style="color: #d9534f" ng-if="compileForm.$dirty&&!testReportUrlValid&&compileForm.testReportUrl.$valid">测试报告文件</span> -->
+
+        </div>
+
+        <div class="title">入口文件：</div>
+        <div class="input" style=" width:115px; margin-right:0px;">
+          <input type="text" ng-model="formData.unitTestReport" name="unitTestReport" ng-change="changeUnitTestReport()">
+          <span style="color: #d9534f" ng-show="compileForm.$dirty&&!unitTestReportValid">必填</span>
+          <!-- <span style="color: #d9534f" ng-if="compileForm.$dirty&&!testReportValid&&compileForm.testReport.$valid">测试报告目录</span> -->
+
+        </div>
+      </div>
+
+      <div class="title" style=" font-size:14px; color:#333; margin-left:25px;" ng-show="formData.isUnitTest ===true">覆盖率报告</div>
+
+      <div class="build" style=" padding-left:30px;" ng-show="formData.isUnitTest ===true">
+
+        <div class="title">所在目录：</div>
+        <div class="input" style="margin-right:78px;">
+          <input type="text" ng-model="formData.jacocoReportDir" name="jacocoReportDir" ng-change="changeJacocoReport()">
+          <span style="color: #d9534f" ng-show="compileForm.$dirty&&!jacocoReportDirValid&&compileForm.jacocoReportDir.$valid">必填</span>
+          <!-- <span style="color: #d9534f" ng-if="compileForm.$dirty&&!jacocoReportUrlValid&&compileForm.jacocoReportUrl.$valid">覆盖率文件</span> -->
+        </div>
+         <div class="title">入口文件：</div>
+         <div class="input" style=" width:115px; margin-right:0px;">
+          <input type="text" ng-model="formData.jacocoReport" name="jacocoReport" ng-change="changeJacocoReport()">
+          <span style="color: #d9534f" ng-show="compileForm.$dirty&&!jacocoReportValid&&compileForm.jacocoReport.$valid">必填</span>
+          <!-- <span style="color: #d9534f" ng-if="compileForm.$dirty&&!jacocoReportValid&&compileForm.jacocoReport.$valid">覆盖率目录</span> -->
+        </div>
+
+      </div>
+      <!--需求新增结束-->
+      <div class="clear"></div>
+    </form>
+    <div class="modalBtnBox">
+      <span style="color: #d9534f;" ng-if="noSubmit">请把必填项填写完整</span>
+      <button type="button" class="buildBtn" style="margin-right:10px;" ng-click="saveFormData()">确定</button>
+      <button id="compileCancel" type="button" class="ant-btn-ghost" style=" background:#999; color:#fff;" data-dismiss="modal">取消</button>
+    </div>
+  </div>
+</div>

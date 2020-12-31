@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings>
+	<mapping>
+		<method name="queryDepartment">
+			<return-type componentType="com.cmsz.vo.DepartmentVO" />
+		</method>
+		
+	</mapping>
+</mappings>

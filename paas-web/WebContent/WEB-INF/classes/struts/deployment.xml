@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 部署 -->
+	<package name="deployment" extends="global-struts" namespace="/deploymentscan">
+	  <action name="modifyIsCheckSecurity" class="com.cmsz.paas.web.cicd.action.DeploymentScanAction" method="modifyIsCheckSecurity"></action>
+	  
+	  <action name="queryDepScanEntity" class="com.cmsz.paas.web.cicd.action.DeploymentScanAction" method="queryDepScanEntity"></action>
+	  
+	  <action name="modifyDepScan" class="com.cmsz.paas.web.cicd.action.DeploymentScanAction" method="modifyDepScan"></action>
+	  
+	</package>
+</struts>

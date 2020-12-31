@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">   
+<struts>  
+  <!-- 实例管理  appServiceInstance-->
+  <package name="appServiceGray" extends="global-struts" namespace="/appServiceGray">
+  	
+  	<action name="queryGrayById" class="com.cmsz.paas.web.appservicegray.action.GrayReleaseAction" method="queryGrayById">
+  		<result name="update">/jsp/appservice/grayrelease/updateGray.jsp</result>
+  		<result name="grayList">/jsp/appservice/grayrelease/grayreleaseList.jsp</result>
+  	</action>  
+  	<action name="queryGray" class="com.cmsz.paas.web.appservicegray.action.GrayReleaseAction" method="queryGray">
+  	</action>  
+  	<action name="uploadConfigFile" class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="uploadConfigFile">
+  		<param name="fileUpload.maximumSize">102400</param>
+	</action>
+  	<action name="queryCheckResult" class="com.cmsz.paas.web.appservicegray.action.GrayReleaseAction" method="queryCheckResult">
+	</action>
+	<action name="modifyDeploymentType" class="com.cmsz.paas.web.appservicegray.action.GrayReleaseAction" method="modifyDeploymentType">
+	</action>
+	<action name="importEnvsFile"
+			class="com.cmsz.paas.web.appservicegray.action.GrayReleaseAction" method="importEnvsFile">
+	</action>
+
+	<action name="exportEnvsFile"
+		class="com.cmsz.paas.web.appservicegray.action.GrayReleaseAction" method="exportEnvsFile">
+		<result name="success" type="stream">
+			<param name="inputName">file</param>
+			<param name="contentDisposition">attachment;filename="${fileName}"</param>
+			<param name="bufferSize">40960</param>
+			<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+		</result>
+	</action>
+  </package>
+
+</struts>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 查看报告 -->
+	<package name="queryreport" extends="global-struts" namespace="/queryreport">
+		<action name="querySecurityScanReport" class="com.cmsz.paas.web.cicd.action.QueryReportAction"
+		 method="querySecurityScanReport">
+		</action>
+		<action name="queryAutoTestReport" class="com.cmsz.paas.web.cicd.action.QueryReportAction"
+		 method="queryAutoTestReport">
+		</action>
+		<action name="queryIntegrateTestReport" class="com.cmsz.paas.web.cicd.action.QueryReportAction"
+		 method="queryIntegrateTestReport">
+		</action>
+		<action name="queryPerformanceTestReport" class="com.cmsz.paas.web.cicd.action.QueryReportAction"
+		 method="queryPerformanceTestReport">
+		</action>
+		<action name="queryUnitTestReport" class="com.cmsz.paas.web.cicd.action.QueryReportAction"
+		 method="queryUnitTestReport">
+		</action>
+		
+	</package>
+</struts>

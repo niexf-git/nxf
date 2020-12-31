@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 基础服务管理 -->
+	<package name="ipaasservice" extends="global-struts" namespace="/ipaasservice">
+
+		<action name="queryIpaasServiceList"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="queryIpaasServiceList">
+		</action>
+
+		<action name="queryIpaasServiceById"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="queryIpaasServiceById">
+			<result name="operationArea">/jsp/ipaasservice/operateArea.jsp</result>
+			<result name="configure">/jsp/ipaasservice/ipaasServiceConfig.jsp</result>
+		</action>
+
+
+		<action name="deleteIpaasService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="deleteIpaasService">
+		</action>
+
+		<action name="startIpaasService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="startIpaasService">
+		</action>
+		<action name="stopIpaasService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="stopIpaasService">
+		</action>
+		<action name="forceStopIpaasService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="forceStopIpaasService">
+		</action>
+		<action name="forceRestartIpaasService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="forceRestartIpaasService">
+		</action>
+		<action name="restartIpaasService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="restartIpaasService">
+		</action>
+
+		<action name="checkIpaasRelaAppService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="checkIpaasRelaAppService">
+		</action>
+
+		<action name="queryImagesByIpaasServiceTpye"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="queryImagesByIpaasServiceTpye">
+		</action>
+		<action name="queryDefaultConfigByIpaasServiceTpye"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="queryDefaultConfigByIpaasServiceTpye">
+		</action>
+		<action name="uploadConfigFile"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="uploadConfigFile">
+		</action>
+		<action name="createIpaasService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="createIpaasService">
+		</action>
+		<action name="modifyIpaasService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="modifyIpaasService">
+		</action>
+
+		<action name="queryEnvsByIpaasServiceId"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="queryEnvsByIpaasServiceId">
+		</action>
+		<action name="queryGrafana"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="queryGrafana">
+		</action>
+		<action name="queryIpaasService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="queryIpaasService"></action>	
+			
+		<action name="queryNewIpaasService"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="queryNewIpaasService"></action>	
+					
+		<action name="queryClusterByIdAndType"
+			class="com.cmsz.paas.web.ipaasservice.action.IpaasServiceAction"
+			method="queryClusterByIdAndType"></action>
+			
+	</package>
+</struts>

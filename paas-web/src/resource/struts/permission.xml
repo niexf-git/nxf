@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  	<!-- 权限管理 -->
+	<package name="permission" extends="global-struts" namespace="/permission">
+		<action name="queryPerTree" class="com.cmsz.paas.web.permission.action.PermissionAction" method="queryPerTree">
+		</action>
+		<!-- 查询菜单栏权限 -->
+		<action name="queryMenuPermission" class="com.cmsz.paas.web.permission.action.PermissionAction" method="queryMenuPermission">
+		</action>
+		<action name="queryUserRoleAndOperType" class="com.cmsz.paas.web.permission.action.PermissionAction" method="queryUserRoleAndOperType">
+		</action>
+	</package>
+</struts>

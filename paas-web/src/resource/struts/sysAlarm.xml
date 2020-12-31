@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 监控运维 其中的 告警 -->
+	<package name="sysAlarm" extends="global-struts" namespace="/sysAlarm">
+		<action name="queryDataCenterList"
+			class="com.cmsz.paas.web.monitoroperation.action.SysAlarmAction"
+			method="queryDataCenterList"></action>
+			<action name="queryClusterList"
+			class="com.cmsz.paas.web.monitoroperation.action.SysAlarmAction"
+			method="queryClusterList"></action>
+			<action name="queryNodeList"
+			class="com.cmsz.paas.web.monitoroperation.action.SysAlarmAction"
+			method="queryNodeList"></action>
+		<action name="queryAlarmList"
+			class="com.cmsz.paas.web.monitoroperation.action.SysAlarmAction"
+			method="queryAlarmList">
+		</action>
+		<action name="queryAlarmCondition"
+			class="com.cmsz.paas.web.monitoroperation.action.SysAlarmAction"
+			method="queryAlarmCondition">
+			<result name="success">/jsp/monitoroperation/sysAlarm.jsp</result>
+		</action>
+		<action name="modifyAlarmCondition"
+			class="com.cmsz.paas.web.monitoroperation.action.SysAlarmAction"
+			method="modifyAlarmCondition"></action>
+		<action name="initQueryDateTime" class="com.cmsz.paas.web.alarm.action.AlarmManageAction"
+			method="initQueryDateTime">
+		</action>
+	</package>
+</struts>

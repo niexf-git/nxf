@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">   
+<struts>  
+  <!-- 构建管理 -->
+  <package name="build" extends="global-struts" namespace="/build">
+  	
+  	<action name="buildAction" class="com.cmsz.paas.web.build.action.BuildAction">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>  
+  	
+  	<action name="queryBuildList" class="com.cmsz.paas.web.build.action.BuildAction" method="queryBuildList">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  	<action name="queryBuild" class="com.cmsz.paas.web.build.action.BuildAction" method="queryBuild">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  	<action name="deleteBuild" class="com.cmsz.paas.web.build.action.BuildAction" method="deleteBuild">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  	<action name="executeBuild" class="com.cmsz.paas.web.build.action.BuildAction" method="executeBuild">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  	<action name="queryBuildRecordList" class="com.cmsz.paas.web.build.action.BuildAction" method="queryBuildRecordList">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  	<action name="queryBuildRecordLog" class="com.cmsz.paas.web.build.action.BuildAction" method="queryBuildRecordLog">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  	<action name="modifyBuild" class="com.cmsz.paas.web.build.action.BuildAction" method="modifyBuild">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  	<action name="createBuild" class="com.cmsz.paas.web.build.action.BuildAction" method="createBuild">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  	<action name="fillRepository" class="com.cmsz.paas.web.build.action.BuildAction" method="fillRepository">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  	<action name="verifyRepositoryCertificate" class="com.cmsz.paas.web.build.action.BuildAction" method="verifyRepositoryCertificate">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  	<action name="queryBranches" class="com.cmsz.paas.web.build.action.BuildAction" method="queryBranches">
+  		<result name="svnPage">/jsp/buildmanager/createSvnBuild.jsp</result>
+  		<result name="gitPage">/jsp/buildmanager/createGitBuild.jsp</result>
+  	</action>
+  	
+  </package>
+</struts>

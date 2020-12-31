@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:task="http://www.springframework.org/schema/task"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+						http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+  default-autowire="byName">
+  	
+  	<!-- 缺省的异步任务线程池 -->   
+	<task:annotation-driven executor="asyncExecutor" />  
+	<task:executor id="asyncExecutor" pool-size="100"  /> 
+        
+	<context:component-scan base-package="com.cmsz" />
+	<aop:aspectj-autoproxy  proxy-target-class="true"/>
+	<!-- <aop:config proxy-target-class="true"/>  -->
+	<!-- Hibernate配置 
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	  <property name="configurationClass">
+	    <value>org.hibernate.cfg.AnnotationConfiguration</value>
+	  </property>
+	  <property name="configLocation">
+	    <value>classpath:spring/hibernate.cfg.xml</value>
+	  </property>
+	</bean>
+	-->
+	
+	<!-- 事务管理器配置 
+	<bean id="transactionManagerAdmin" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	  <property name="sessionFactory">
+	    <ref bean="sessionFactory" />
+	  </property>
+	</bean>
+	-->
+	<!-- 使用annotation定义事务
+	<tx:annotation-driven transaction-manager="transactionManagerAdmin" />
+	 -->
+	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer" class="com.cmsz.paas.web.base.util.SubPropertyPlaceholderConfigurer">
+	  <property name="locations">
+	    <list>
+	      <value>classpath:application.properties</value>
+	    </list>
+	  </property>
+	</bean>
+	
+	
+	
+  	<bean id="springContextHolder" class="com.cmsz.paas.web.base.spring.SpringContextHolder" />
+  	<bean class="com.cmsz.paas.common.spring.Springs" lazy-init="false"/>
+  	
+  	<!-- iBatis -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+		<property name="maxActive" value="100" />
+		<property name="maxWait" value="1000" />
+		<property name="minIdle" value="2" />
+		<property name="initialSize" value="2"/>
+		<property name="removeAbandoned" value="true"/> 
+		<property name="removeAbandonedTimeout" value="180"/>
+		<property name="validationQuery" value="select 1" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testWhileIdle" value="true"/>
+		<property name="timeBetweenEvictionRunsMillis" value="300000"/>
+		<property name="poolPreparedStatements" value="false" />
+		<property name="defaultAutoCommit" value="true" />
+	</bean>
+	<bean id="sqlSessionFactory"
+		class="com.cmsz.paas.common.ibatis3.SqlSessionFactoryFactoryBean">
+		<property name="configLocation" value="classpath:/configuration.xml" />
+		<property name="mapperLocations" value="classpath*:/**/mapper/*Mapper.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>	
+  	
+  	<!--
+		=============================================================== 
+		操作日志	配置 
+		===============================================================
+	-->
+	<bean id="loggingProvider" class="com.cmsz.paas.common.log.defaults.Ibastis3LoggingProvider">
+		<property name="hasDetail" value="false"/>
+		<property name="logSqlId"  value="OperationLog.insert"/>
+		<property name="detailSqlId" value="OperationLog.insertDetail"/>
+	</bean>
+	<bean id="logCreator" class="com.cmsz.paas.web.base.log.LogCreatorImpl"/>
+	<bean id="logProcessor" class="com.cmsz.paas.common.log.defaults.DefaultLogProcessor">
+		<property name="loggingProvider" ref="loggingProvider"/>
+		<property name="logCreator" ref="logCreator"/>
+	</bean>
+	
+	<bean   id="UpdateAppAcctSoapService"   class="com.cmsz.paas.web.group4a.ws.impl.UpdateAppAcctSoapImpl" />
+	<bean   id="UserManagerService"   class="com.cmsz.paas.web.user.service.impl.UserManagerServiceImpl" />
+	<bean   id="UserRoleRelationService"   class="com.cmsz.paas.web.user.service.impl.UserRoleRelationServiceImpl" />
+</beans>

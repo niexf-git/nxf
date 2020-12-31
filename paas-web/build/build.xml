@@ -1,0 +1,82 @@
+﻿<?xml version="1.0"?>
+<project name="paas" default="default" basedir=".">
+	<!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+    <!--                   macros                          -->
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+	<!--<property environment="env"/>
+	<property name="war.name" value="paas-1.5.0-a2.war"/>
+    <property name="release.dir" value="${env.RELEASE_HOME}"/> 编译主目录 -->
+	<property name="war.name" value="paas-1.5.0-a2.war"/>
+    <property name="release.dir" value="opt/paaswar"/><!-- 编译主目录 -->
+    <property name="release.war.dir" value="${release.dir}/war"/>
+	<property name="release.webapp.dir" value="${release.dir}/paas"/><!-- 编译后工程目录 -->
+	<property name="src.dir" value="../src/java"/>
+	<property name="build.classes.dir" value="${release.webapp.dir}/WEB-INF/classes"/><!-- 编译后class目录 -->
+	<property name="lib.dir" value="../WebContent/WEB-INF/lib"/><!-- 编译依赖的lib包 -->
+	
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+    <!--                    lib.dir                        -->
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+    <path id="compile.classpath">
+        <pathelement location="${build.classes.dir}"/>
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+	
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+    <!--                  targets                          -->
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+    <target name="clean" description="remove all built files">
+        <delete dir="${release.dir}"/>
+    </target>
+    <!--build initial, such as clean,etc.-->
+    <target name="init" depends="clean" description="build initial">
+        <!--add other initial things.-->
+    	<echo message="start build paas.war"></echo>
+    </target>
+
+
+    <!--complie-->
+    <target name="compile" depends="init" description="compile java">
+        <mkdir dir="${build.classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
+            classpathref="compile.classpath"
+            debug="on"
+            deprecation="on"
+        	encoding="utf-8"
+        	includeantruntime="true"
+        	fork="true"
+        	memoryinitialsize="256m"
+        	memorymaximumsize="512m"
+        	includes="**/*.java">
+    	</javac>
+    </target>
+        
+	
+	<!-- 打包 -->
+	<target name="release_one" depends="compile" description="打包">
+		<copy todir="${release.webapp.dir}"><!-- 拷贝WebRoot -->
+			<fileset dir="../WebContent">
+				<exclude name="*/classes/*"/>
+			</fileset>
+		</copy>
+		
+		
+		<copy todir="${release.webapp.dir}/WEB-INF/classes/"><!-- 拷贝源文件中的非java文件 -->
+			<fileset dir="../src/resource"/>
+			<fileset dir="../config"/>
+			<fileset dir="../src/java">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+			</fileset>
+		</copy>
+		<war warfile="${release.war.dir}/${war.name}" webxml="${release.webapp.dir}/WEB-INF/web.xml">			
+			<fileset dir="${release.webapp.dir}"></fileset>
+		</war>
+
+	</target>
+
+    <target name="default" depends="release_one" description="build paas web war start."/>
+
+</project>

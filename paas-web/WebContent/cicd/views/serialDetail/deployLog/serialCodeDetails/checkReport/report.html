@@ -1,0 +1,37 @@
+<div id="TenxFLowDetailLog" class="ant-card ant-card-bordered">         
+     <div class="ant-card-bordered">
+        <div class="backing-out" style="float: right!important" ui-sref="PaaS5.serialDetail.codeCheck">
+            <a><i class="fa fa-angle-double-left"></i>返回</a>
+        </div>  
+        <div class="code-check">
+            <div class="code-check-title">
+                <ul>
+                    <li><a ng-click="issueList('0');">致命问题
+                    ({{codeCheckList.blockerNum}})</a></li>
+                    <li><a ng-click="issueList('1');">严重问题
+                    ({{codeCheckList.criticalNum}})</a></li>
+                    <li><a ng-click="issueList('2');">一般问题
+                    ({{codeCheckList.majorNum}})</a></li>
+                    <li><a ng-click="issueList('3');">轻微问题
+                    ({{codeCheckList.minorNum}})</a></li>
+                    <li><a ng-click="issueList('4');">提示问题
+                    ({{codeCheckList.infoNum}})</a></li>      
+                   <!--  <li><a ng-click="issueList('5');">圈复杂度
+                    ({{codeCheckList.complexity}})</a></li>
+                    <li><a ng-click="issueList('6');">重复代码
+                    ({{codeCheckList.multiplicity}})</a></li>
+                    <li><a ng-click="issueList('7');">安全漏洞
+                    ({{codeCheckList.leakNum}})</a></li> -->
+                </ul>
+            </div>
+            <div class="code-check-main">
+                <ul>
+                    <li ng-repeat="data in checkList track by $index" ui-sref = "PaaS5.serialDetail.checkReportDetail" ng-click="goDetail(data)">{{data.codepath}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

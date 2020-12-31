@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper   
+
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"   
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="OperPermission">
+<!--
+	=================================================================================
+	公用定义区域
+	=================================================================================
+	-->
+	<resultMap type="com.cmsz.paas.web.permission.entity.OperPermission" id="operPerResultMap">
+	   <id property="id" column="id"/>
+	   <result property="name" column="name"/>
+	   <result property="pId" column="p_id"/>
+	   <result property="level" column="level"/>
+	   <result property="url" column="url"/>
+	   <result property="img" column="img"/>
+	</resultMap>
+	<!--
+	=================================================================================
+	新增修改SQL区域
+	=================================================================================
+	-->
+	<!-- 
+		功能：新增信息
+	-->
+	
+	<!--
+		功能：删除信息
+	-->
+	<!--
+	=================================================================================
+	查询SQL区域 
+	=================================================================================
+	-->
+    <select id="findAll" resultMap="operPerResultMap">
+       select * from MENU_PERMISSION where  1 =1 order by id
+    </select>
+</mapper> 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  	<!-- 角色管理 -->
+	<package name="role" extends="global-struts" namespace="/role">
+		<action name="queryRoleList" class="com.cmsz.paas.web.role.action.RoleAction" method="queryRoleList">
+		</action>
+		<action name="queryRole" class="com.cmsz.paas.web.role.action.RoleAction" method="queryRole">
+		<result name="success">/jsp/systemmanager/rolemanager/updateRole.jsp</result>
+		</action>
+		<action name="queryRoleTreeNode" class="com.cmsz.paas.web.role.action.RoleAction" method="queryRoleTreeNode">
+		</action>
+		<action name="queryRolePerTree" class="com.cmsz.paas.web.role.action.RoleAction" method="queryRolePerTree">
+		</action>
+		<action name="queryRoleUser" class="com.cmsz.paas.web.role.action.RoleAction" method="queryRoleUser">
+		 <result name="success">/jsp/systemmanager/rolemanager/grantUser.jsp</result>
+		</action>
+		<action name="createRole" class="com.cmsz.paas.web.role.action.RoleAction" method="createRole">
+		</action>
+		<action name="updateRole" class="com.cmsz.paas.web.role.action.RoleAction" method="updateRole">
+		</action>
+		<action name="deleteRole" class="com.cmsz.paas.web.role.action.RoleAction" method="deleteRole">
+		</action>
+		<action name="roleGrantUser" class="com.cmsz.paas.web.role.action.RoleAction" method="roleGrantUser">
+		</action>
+		<action name="queryRoleOperTypeByRoleId" class="com.cmsz.paas.web.role.action.RoleAction" method="queryRoleOperTypeByRoleId">
+		</action>
+	</package>
+</struts>

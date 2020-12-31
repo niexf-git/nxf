@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper   
+
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"   
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="IdentifySwitch">
+<!--
+	=================================================================================
+	公用定义区域
+	=================================================================================
+	-->
+	<resultMap type="com.cmsz.vo.IdentifySwitch" id="identifySwitchResultMap">
+	   <id property="id" column="id"/>
+	   <result property="switchValue" column="switch_value"/>
+	   <result property="state" column="state"/>
+	   <result property="createDate" column="create_date"/>
+	</resultMap>
+	
+	<select id="findByMap" parameterType="java.util.HashMap" resultMap="identifySwitchResultMap">
+       select id,switch_value,state,create_date from identify_switch where  1=1 
+       <if test="state != null and state != ''" >
+        and state = #{state}
+       </if>
+    </select>
+	
+    <!--
+		功能：修改信息
+	-->
+	<update id="update" parameterType="com.cmsz.vo.IdentifySwitch">
+	  update identify_switch set switch_value=#{switchValue},state=#{state},create_date=#{createDate}
+      where id=#{id}
+	</update>
+
+    <!-- 
+		功能：新增信息
+	-->
+	 <insert id="insert" parameterType="com.cmsz.vo.IdentifySwitch" useGeneratedKeys="true" keyProperty="id">
+       insert into identify_switch(switch_value,state,create_date) value(#{switchValue},#{state},now())
+     </insert>
+
+</mapper> 

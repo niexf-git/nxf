@@ -1,0 +1,11 @@
+/*具有通用价值的样式*/
+/** {*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+/*}*/
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

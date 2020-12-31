@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="autotest" extends="global-struts" namespace="/autotest">
+		<!-- 查询自动化测试配置信息 -->
+		<action name="queryAutoTest"
+			class="com.cmsz.paas.web.cicd.action.AutoTestAction"
+			method="queryAutoTest">
+		</action>
+		
+		<!-- 修改自动化测试配置信息 -->
+		<action name="updateAutoTest"
+			class="com.cmsz.paas.web.cicd.action.AutoTestAction"
+			method="updateAutoTest">
+		</action>
+	</package>
+</struts>

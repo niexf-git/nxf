@@ -1,0 +1,94 @@
+<!--头部-->
+<div class="head" ng-init="init()">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div style="float:left;">
+          <img ng-src="{{svnUrlPrefix}}images/logo.jpg" width="193" height="59">
+        </div>
+        <div class="Position" ng-show="isCICD.value2">{{navNameData.navName}}</div>
+        <div class="Position" ng-show="isCICD.value1">
+          <span ng-repeat="oneInfo in isCICD.navInfo" ui-sref="{{oneInfo.url}}">{{oneInfo.name|navNameFilter}}</span>
+        </div>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="total fa fa-angle-down" ng-click="showTotalPanel($event)" ng-blur="hideTotalPanel($event);" tabindex='-1' style="border-right:none;">
+            <span style="float:left; padding-right: 10px;">
+              <i class="fa fa-qrcode"></i>{{app.appName}}</span>
+            <strong style="float:right; font-weight:normal; color:#d9e2e8; margin-left: 10px;">|</strong>
+          </li>
+          <li class="admin" ng-mousedown="showAdminPanel($event)" ng-blur="hideAdminPanel($event);" tabindex='-1' style="border-right:none;">
+            <span style="float:left; padding-right: 10px;">
+              <i class="fa fa-user fa-fw" style=" float:left;margin:20px 10px"></i>
+              <span>{{loginUserInfo.data.loginName}}</span>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+  <div id="totalPanel" class="panel hidden" style="position: fixed;margin: 0 -105px">
+    <span class="title" ng-mousedown="changeHeaderApp(null,$event)" style="width: 146px;" ng-show="queryAppInfoResData.formatResult.data.length!==1||environment">全部</span>
+    <ul class="appList">
+      <li ng-mousedown="changeHeaderApp(appData,$event)" ng-repeat="appData in queryAppInfoResData.formatResult.data">
+        <a class="app">{{appData.appName}}</a>
+      </li>
+    </ul>
+  </div>
+  <div id="adminPanel" class="panelBox hidden" style="right: 0; position: fixed">
+    <ul>
+      <li id="cgpw" class="nonTitle fa fa-unlock-alt" data-toggle="modal" data-target="#changePassword" ng-mousedown="changePassword()">修改密码</li>
+      <li class="nonTitle fa fa-sign-out" ng-mousedown="backToLoginPage()">退出账号</li>
+    </ul>
+  </div>
+  <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel" aria-hidden="true">
+    <div class="creatDevOps">
+      <div class="creatDevOps-title">
+        <div class="name">修改密码</div>
+        <div class="close" data-dismiss="modal">
+          <a>
+            <i class="fa fa-close"></i>
+          </a>
+        </div>
+      </div>
+      <div class="creatDevOps-content">
+        <form name="passwordModify" novalidate="novalidate">
+          <div class="EditModal">
+            <div class="title" style="width: 90px;">
+              <span class="RED">*</span>旧密码：</div>
+            <div class="input" style="float: left;">
+              <input name="oldPassWord" type="password" ng-model="userInfo.oldPassWord" style="width: 450px;" required>
+            </div>
+          </div>
+          <div class="EditModal">
+            <div class="title" style="width: 90px;">
+              <span class="RED">*</span>新密码：</div>
+            <div class="input" style="float: left;">
+              <input name="newPassWord" type="password" ng-model="userInfo.newPassWord" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^\&\*\(\)])[\da-zA-Z!@#\$%\^\&\*\(\)]{8,}$/"
+                style="width: 450px;">
+              <span ng-show="passwordModify.newPassWord.$dirty && passwordModify.newPassWord.$invalid" style="color: red; display: block; width: 450px;">密码由8位以上，且同时包含大小写字母、数字、及特殊字符组成
+              </span>
+            </div>
+          </div>
+          <div class="EditModal">
+            <div class="title" style="width: 90px;">
+              <span class="RED">*</span>确认密码：</div>
+            <div class="input" style="float: left;">
+              <input name="confirmPassWord" type="password" ng-model="userInfo.confirmPassWord" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^\&\*\(\)])[\da-zA-Z!@#\$%\^\&\*\(\)]{8,}$/"
+                style="width: 450px;">
+              <span ng-show="passwordModify.confirmPassWord.$dirty && userInfo.newPassWord !== userInfo.confirmPassWord"
+                style="color: red; display: block; width: 450px;">新密码和确认密码不相同
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modalBtnBox">
+        <button type="button" class="buildBtn" style="margin-right:10px;" ng-click="saveData()" ng-disabled="passwordModify.$invalid || userInfo.newPassWord != userInfo.confirmPassWord">确定</button>
+        <button type="button" class="ant-btn-ghost" style=" background:#999; color:#fff;" data-dismiss="modal" id="changePassWordCancelId">取消
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

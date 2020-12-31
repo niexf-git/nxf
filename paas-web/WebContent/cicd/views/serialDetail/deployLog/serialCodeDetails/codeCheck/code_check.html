@@ -1,0 +1,47 @@
+<div id="TenxFLowDetailLog" class="ant-card ant-card-bordered">
+   <div class="ant-card-bordered">
+       <div class="backing-out" style="float: right;" ui-sref="PaaS5.serialDetail.deployLog">
+            <a><i class="fa fa-angle-double-left"></i>返回</a>
+        </div> 
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+          <thead>
+              <td width="9%" height="48" align="center" valign="middle">执行代码行数</td>
+              <td width="9%" height="48" align="center" valign="middle">致命问题</td>
+              <td width="9%" height="48" align="center" valign="middle">严重问题</td>
+              <td width="9%" height="48" align="center" valign="middle">一般问题</td>
+              <td width="9%" height="48" align="center" valign="middle">轻微问题</td>
+              <td width="9%" height="48" align="center" valign="middle">提示问题</td>
+              <td width="9%" height="48" align="center" valign="middle">圈复杂度</td>
+              <td width="9%" height="48" align="center" valign="middle">重复代码</td>
+              <td width="9%" height="48" align="center" valign="middle">安全漏洞数</td>
+              <td width="10%" height="48" align="center" valign="middle">执行时间</td>
+              <td width="10%" height="48" align="center" valign="middle">代码详情</td>
+          </thead>
+          <tbody>
+            <tr ng-repeat="data in codeCheckList track by $index">
+              <td height="45" align="center" valign="middle" ng-bind="data.codenumber"></td>
+              <td height="45" align="center" valign="middle"  ng-bind="data.blockerNum"></td>
+              <td height="45" align="center" valign="middle" ng-bind="data.criticalNum"></td>
+              <td height="45" align="center" valign="middle" ng-bind="data.majorNum"> 
+              </td>
+              <td height="45" align="center" valign="middle" ng-bind="data.minorNum">  
+              </td>
+              <td height="45" align="center" valign="middle" ng-bind="data.infoNum"> 
+              </td>
+              <td height="45" align="center" valign="middle" ng-bind="data.complexity"></td>
+              <td height="45" align="center" valign="middle" ng-bind="data.multiplicity"> </td>
+              <td height="45" align="center" valign="middle" ng-bind="data.bugNum"> </td>
+              <td height="45" align="center" valign="middle"
+              ng-bind="data.createTime"></td>
+              <td height="45" align="center" valign="middle">
+                <a ng-if="$index === 0 && idIndex === 0" ui-sref="PaaS5.serialDetail.codeCheckReport" ng-click="queryCheckReport(data)" style="color:#666;"><i class="fa fa-newspaper-o"></i></a>
+                <a ng-if="$index !== 0 || idIndex!==0" style="color:#666;cursor:not-allowed;"><i class="fa fa-newspaper-o"></i></a>
+              </td>
+            </tr>
+          </tbody>
+     </table> 
+</div>
+</div>
+
+
+

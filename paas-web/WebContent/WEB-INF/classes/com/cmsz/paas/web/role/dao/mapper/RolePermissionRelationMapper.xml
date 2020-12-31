@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper   
+
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"   
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="RolePermissionRelation">
+<!--
+	=================================================================================
+	公用定义区域
+	=================================================================================
+	-->
+	<resultMap type="com.cmsz.paas.web.role.entity.RolePermissionRelation" id="rolePerResultMap">
+	   <id property="id" column="id"/>
+	   <result property="roleId" column="role_id"/>
+	   <result property="permissionId" column="permission_id"/>
+	   <result property="permissionName" column="permission_name"/>
+	   <result property="permissionType" column="permission_type"/>
+	   <result property="opertype" column="opertype"/>
+	</resultMap>
+	
+	<!-- 查找所有 -->
+	<select id="findAll" resultMap="rolePerResultMap">
+       select * from ROLE_PERMISSION_RELATION where 1=1 order by id
+    </select>
+	
+	<!--
+	=================================================================================
+	新增修改SQL区域
+	=================================================================================
+	-->
+	<!-- 
+		功能：新增信息
+		insert into ROLE_PERMISSION_RELATION(id,role_id,permission_id,permission_type) value(#{id},#{roleId},#{permissionId},#{permissionType})
+	-->
+	<insert id="insert" parameterType="com.cmsz.paas.web.role.entity.RolePermissionRelation" useGeneratedKeys="true" keyProperty="id">
+       insert into ROLE_PERMISSION_RELATION(role_id,permission_id,permission_type
+       <if test="permissionType == 2" >
+       	,opertype,permission_name
+       </if>
+       ) value(#{roleId},#{permissionId},#{permissionType}
+       <if test="permissionType == 2" >
+       	,#{opertype},#{permissionName}
+       </if>
+       )
+     </insert>
+	<!--
+		功能：删除信息
+	-->
+	<delete id="delete" parameterType="com.cmsz.paas.web.role.entity.RolePermissionRelation">
+        delete from ROLE_PERMISSION_RELATION where role_id = #{roleId} 
+        <if test="permissionId != null and permissionId != ''" >
+        and permission_id=#{permissionId} 
+       </if>
+       <if test="permissionType != 0">
+        and permission_type=#{permissionType} 
+       </if>
+     </delete>
+     
+       <!--
+		功能：删除应用id对应的权限信息
+		
+	<delete id="deleteById" parameterType="String">          
+         delete from ROLE_PERMISSION_RELATION where permission_id = #{permissionId} and permission_type=3
+    </delete>-->
+    
+     <!--
+		功能：删除应用id或者应用组Id对应的权限信息
+	-->
+	<delete id="deleteById" parameterType="String">          
+         delete from ROLE_PERMISSION_RELATION where permission_id = #{permissionId} and (permission_type=3 || permission_type=2)
+    </delete> 
+	<!--
+	=================================================================================
+	查询SQL区域
+	=================================================================================
+	-->
+	 <select id="findByMap" resultMap="rolePerResultMap" parameterType="java.util.HashMap">
+       select * from ROLE_PERMISSION_RELATION where  1=1 
+       <if test="roleId != null and roleId != ''" >
+          and role_id =#{roleId} 
+       </if>
+       <if test="permissionId != null and permissionId != ''" >
+          and permission_id =#{permissionId} 
+       </if>
+        <if test="permissionType != null and permissionType != 0" >
+          and permission_type =#{permissionType} 
+       </if>
+       <if test="userId != null and userId != ''">
+       	 and role_id in(
+		select role_id from user_role_relation where user_id = #{userId})
+       </if>
+    </select>
+    
+    <select id="findUserPermission" resultMap="rolePerResultMap" parameterType="java.util.HashMap">
+       select ROLE_PERMISSION_RELATION.id,
+       ROLE_PERMISSION_RELATION.role_id,
+       ROLE_PERMISSION_RELATION.permission_id,
+       ROLE_PERMISSION_RELATION.permission_name,
+       ROLE_PERMISSION_RELATION.permission_type,
+       ROLE_PERMISSION_RELATION.opertype
+       from ROLE LEFT JOIN USER_ROLE_RELATION ON 
+       ROLE.id=USER_ROLE_RELATION.role_id LEFT JOIN 
+       ROLE_PERMISSION_RELATION ON 
+       ROLE.id = ROLE_PERMISSION_RELATION.role_id 
+       where  1=1
+       <if test="userId != null and userId != ''" >
+          and USER_ROLE_RELATION.user_id= #{userId} 
+       </if>
+       order by ROLE_PERMISSION_RELATION.permission_id
+    </select>
+</mapper> 

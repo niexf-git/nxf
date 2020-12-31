@@ -1,0 +1,107 @@
+<div id="executionRecordPanel">
+  <!--执行记录框背景层-->
+  <div id="background" class="modal-mask modal-mask-hidden" onclick="closeExecutionRecordPanel();"></div>
+  <!--执行记录框前景层-->
+  <div role="document" class="modal modal-wrap flowBuildLogModal" style="width: 520px; transform-origin: 133px 83px 0px; display: none;">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div id="StageBuildLog" class="smallModal">
+          <div class="title">
+            <span>执行记录</span>
+            <i class="fa fa-expand" onclick="changeExecutionRecordPanel();"></i>
+            <div style="clear: both;">
+            </div>
+          </div>
+          <div class="paddingBox">
+            <div class="rightBox">
+              <div class="collapse">
+                <div class="collapse-item LogDetail LogDetail0">
+                  <div class="collapse-header" role="tab" aria-expanded="false" onclick="openOrFoldContent(this);">
+                    <i class="fa fa-sort-desc"></i>
+                    <div class="header">
+                      <div class="leftHeader">
+                        <div class="line"></div>
+                        <i class="fail fa fa-times-circle" aria-hidden="false"></i>
+                      </div>
+                      <div class="rightHeader">
+                        <div class="borderBox">
+                          <span class="name commonHeader">build</span>
+                          <span class="status commonHeader">
+																<span class="fail">执行失败</span>
+															</span>
+                          <span class="updateTime commonHeader">
+																<i class="fa fa-wpforms"></i><!-- react-text: 704 -->2017-07-26 16:49:22<!-- /react-text -->
+															</span>
+                          <div style="clear: both;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse-content collapse-content-inactive" role="tabpanel">
+                    <div class="collapse-content-box">
+                      <div class="leftInfo">
+                        <div class="line"></div>
+                      </div>
+                      <div class="rightInfo">
+                        <div id="flowStageBuildLog">
+                          <div class="contBox" id="flowLog">
+																<span>
+																	<span color="red">[flow API Error] Log of this build can never be fetched because the build container can not be found!
+																	</span>
+																</span>
+                            <div style="clear: both;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="collapse-item LogDetail LogDetail1">
+                  <div class="collapse-header" role="tab" aria-expanded="false" onclick="openOrFoldContent(this);">
+                    <i class="fa fa-sort-desc"></i>
+                    <div class="header">
+                      <div class="leftHeader">
+                        <div class="line"></div>
+                        <i class="fail fa fa-times-circle" aria-hidden="false"></i>
+                      </div>
+                      <div class="rightHeader">
+                        <div class="borderBox">
+                          <span class="name commonHeader">build</span>
+                          <span class="status commonHeader">
+																<span class="fail">执行失败</span>
+															</span>
+                          <span class="updateTime commonHeader">
+																<i class="fa fa-wpforms"></i><!-- react-text: 704 -->2017-07-26 16:49:22<!-- /react-text -->
+															</span>
+                          <div style="clear: both;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse-content collapse-content-inactive" role="tabpanel">
+                    <div class="collapse-content-box">
+                      <div class="leftInfo">
+                        <div class="line"></div>
+                      </div>
+                      <div class="rightInfo">
+                        <div id="flowStageBuildLog">
+                          <div class="contBox" id="flowLog">
+																<span>
+																	<span color="red">[flow API Error] Log of this build can never be fetched because the build container can not be found!
+																	</span>
+																</span>
+                            <div style="clear: both;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

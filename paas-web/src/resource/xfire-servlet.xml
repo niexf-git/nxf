@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- 引入XFire预配置信息 -->
+	<import resource="classpath:org/codehaus/xfire/spring/xfire.xml" />
+
+	<!-- 定义访问的url -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="urlMap">
+			<map>
+				<entry key="/UserService.ws">
+					<ref bean="userService" />
+				</entry>
+				<entry key="/GroupService.ws">
+					<ref bean="groupService" />
+				</entry>
+				<entry key="/DepartmentService.ws">
+					<ref bean="departmentService" />
+				</entry>
+				<!--  -->
+				<entry key="/LoginSwitchService.ws">
+					<ref bean="loginSwitchService" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 使用XFire导出器 -->
+	<bean id="baseWebService" class="org.codehaus.xfire.spring.remoting.XFireExporter"
+		lazy-init="false" abstract="true">
+		<!-- 引用xfire.xml中定义的工厂 -->
+		<property name="serviceFactory" ref="xfire.serviceFactory" />
+		<!-- 引用xfire.xml中的xfire实例 -->
+		<property name="xfire" ref="xfire" />
+	</bean>
+	
+	<!-- 4A接口服务 -->
+	<bean id="userServiceImpl" class="com.cmsz.ws.impl.UserServiceImpl" />
+	<bean id="groupServiceImpl" class="com.cmsz.ws.impl.GroupServiceImpl" />
+	<bean id="departmentServiceImpl" class="com.cmsz.ws.impl.DepartmentServiceImpl" />
+	<!-- 应用系统认证切换开关接口 -->
+	<bean id="loginSwitchServiceImpl" class="com.cmsz.ws.impl.LoginSwitchServiceImpl" />
+
+	<!-- 用户同步接口 -->
+	<bean id="userService" parent="baseWebService">
+		<property name="serviceBean" ref="userServiceImpl" />
+		<property name="serviceClass" value="com.cmsz.ws.UserService" />
+	</bean>
+	
+	<!-- 工作组同步接口 -->
+	<bean id="groupService" parent="baseWebService">
+		<property name="serviceBean" ref="groupServiceImpl" />
+		<property name="serviceClass" value="com.cmsz.ws.GroupService" />
+	</bean>
+	<!-- 部门同步接口 -->
+	<bean id="departmentService" parent="baseWebService">
+		<property name="serviceBean" ref="departmentServiceImpl" />
+		<property name="serviceClass" value="com.cmsz.ws.DepartmentService" />
+	</bean>
+	<!-- 认证系统开关接口 -->
+	<bean id="loginSwitchService" parent="baseWebService">
+		<property name="serviceBean" ref="loginSwitchServiceImpl" />
+		<property name="serviceClass" value="com.cmsz.ws.LoginSwitchService" />
+	</bean>
+
+</beans>

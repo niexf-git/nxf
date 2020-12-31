@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="SysLogEntity">
+	<!-- ================================================================================= 
+		公用定义区域 ================================================================================= -->
+	<resultMap type="com.cmsz.paas.web.log.entity.SysLogEntity"
+		id="SysLogResultMap">
+		<id property="id" column="id" />
+		<result property="operator" column="operator" />
+		<result property="clientIp" column="client_ip" />
+		<result property="operateTime" column="operate_time" />
+		<result property="operatePath" column="operate_path" />
+		<result property="operateType" column="operate_type" />
+		<result property="operateFunc" column="operate_func" />
+		<result property="operateResult" column="operate_result" />
+		<result property="detail" column="detail" />
+		<result property="description" column="description" />
+	</resultMap>
+	<!-- ================================================================================= 
+		新增SQL区域 ================================================================================= -->
+
+	<select id="findPage" resultMap="SysLogResultMap"
+		parameterType="com.cmsz.paas.common.page.PageContext">
+		select * from SYS_OPERATION_LOG where 1 =1
+		<if test="p.insertTimeStart != null and p.insertTimeStart != ''">
+			and operate_time between STR_TO_DATE(#{p.insertTimeStart},'%Y-%m-%d
+			%T') and STR_TO_DATE(#{p.insertTimeEnd},'%Y-%m-%d %T')
+		</if>
+		<!-- <if test="p.dataPer != null and p.dataPer != ''" > and trim(substring_index(detail,'|',1)) 
+			in ${p.dataPer} </if> -->
+		<if test="p.operateResult != null and p.operateResult != ''">
+			and
+			operate_result = #{p.operateResult}
+		</if>
+		<if test="p.operator != null and p.operator != ''">
+			and operator in
+			${p.operator}
+		</if>
+		<if
+			test="p.ipaasIds != null and p.ipaasIds != '' and p.appIds != null and p.appIds != ''">
+			and ((CONCAT(',',detail,',') REGEXP '[^0-9]+(${p.ipaasIds})[^0-9]+'
+			and operate_func='基础服务')
+			or (CONCAT(',',detail,',') REGEXP '[^0-9]+(${p.appIds})[^0-9]+' and
+			operate_func='服务管理'))
+		</if>
+		<if
+			test="p.appIds != null and p.appIds != '' and  (p.ipaasIds == '' or p.appIds == null)">
+			and (CONCAT(',',detail,',') REGEXP '[^0-9]+(${p.appIds})[^0-9]+' and
+			operate_func='服务管理')
+		</if>
+		<if
+			test="p.ipaasIds != null and p.ipaasIds != '' and  (p.appIds == '' or p.appIds == null)">
+			and (CONCAT(',',detail,',') REGEXP '[^0-9]+(${p.ipaasIds})[^0-9]+'
+			and operate_func='基础服务')
+		</if>
+
+	</select>
+
+	<select id="findByMap" resultMap="SysLogResultMap"
+		parameterType="java.util.HashMap">
+		select * from SYS_OPERATION_LOG where 1 =1
+		<if test="startTime != null and startTime != ''">
+			and operate_time between STR_TO_DATE(#{startTime},'%Y-%m-%d
+			%T') and STR_TO_DATE(#{endTime},'%Y-%m-%d %T')
+		</if>
+
+	</select>
+
+</mapper> 

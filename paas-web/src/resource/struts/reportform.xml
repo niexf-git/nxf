@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 报表 -->
+	<package name="reportform" extends="global-struts" namespace="/reportform">
+	    <!-- 自动化测试报表 -->
+		<action name="queryAutoTestReportList" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryAutoTestReportList">
+		</action>
+		
+		<!-- 自动化测试报表(外) -->
+		<action name="queryAutoTestReport" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryAutoTestReport">
+		</action>
+		
+		<!-- 自动化测试折线图 -->
+		<action name="queryAutoTestLineChart" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryAutoTestLineChart">
+		</action>
+		
+		<!-- 集成测试报表 -->
+		<action name="queryIntegrateTestReports" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryIntegrateTestReports">
+		</action>
+		
+		<!-- 集成测试报表(外) -->
+		<action name="queryIntegrateTestReport" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryIntegrateTestReport">
+		</action>
+		
+		<!-- 集成测试折线图 -->
+		<action name="queryIntegrateTestLineChart" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryIntegrateTestLineChart">
+		</action>
+		
+		<!-- 单元测试报表(外) -->
+		<action name="queryUnitTestReport" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryUnitTestReport">
+		</action>
+		
+		<!-- 单元测试折线图 -->
+		<action name="queryUnitTestLineChart" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryUnitTestLineChart">
+		</action>
+		
+		<!-- 性能测试报表(外) -->
+		<action name="queryPerformanceTestReport" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryPerformanceTestReport">
+		</action>
+		
+		<!-- 性能测试折线图(外) -->
+		<action name="queryPerformanceTestLineChart" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryPerformanceTestLineChart">
+		</action>
+		
+		<!-- 构建记录报表 -->
+		<action name="queryBuildRecordList" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryBuildRecordList">
+		</action>
+		<!-- 代码质量报表 -->
+		<action name="queryCodeQualityList"
+			class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryCodeQualityList">
+		</action>
+		
+		<!-- 单元测试报表ls -->
+		<action name="queryUnitTestReportList" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryUnitTestReportList">
+		</action>
+		<!-- 性能测试报表ls -->
+		<action name="queryPerformanceTestReportList" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryPerformanceTestReportList">
+		</action>
+		
+		
+		<!-- 构建记录（外）报表 -->
+		<action name="queryBuildRecordReport" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryBuildRecordReport">
+		</action>
+		
+		<!-- 代码质量报表(外)ls -->
+		<action name="queryCodeQualityReport" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryCodeQualityReport">
+		</action>
+		<!-- 代码质量折线图(外)ls -->
+		<action name="queryCodeQualityLineChart" class="com.cmsz.paas.web.cicd.action.ReportAction"
+			method="queryCodeQualityLineChart">
+		</action>
+	</package>
+</struts>

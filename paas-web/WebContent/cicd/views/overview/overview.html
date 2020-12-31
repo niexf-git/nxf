@@ -1,0 +1,465 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-left:220px;">
+  <div id="OrdinaryStd">
+    <div class="title" style="margin: 15px 0;">我的总览</div>
+    <div class="ant-row">
+      <div class="ant-col-6">
+        <div class="ant-card">
+          <div class="ant-card-head">
+            <h3 class="ant-card-head-title" ng-click="ovC.queryServiceStateFn()">服务</h3>
+            <span style="width: 100%;">
+              <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Service</a>
+              <strong style="border-top:1px solid #eaeff3; display: block; height: 17px;margin-top: 10px;"></strong>
+            </span>
+          </div>
+          <div class="ant-card-body" style=" margin-left: 10px;">
+            <div class="ant-card-main-left">
+              <div id="servicepPie" style="width: 148px; height: 148px;">圆圈1</div>
+            </div>
+            <div class="ant-card-main-right">
+              <span>
+                <i class="fa fa-circle" style="color: #397eff; margin-right: 10px;"></i>运行中
+                <a style="margin: 0 5px 0 5px;">{{ovC.serviceStateData.working}}</a></span>
+              <span>
+                <i class="fa fa-circle" style="color: #f95b7b; margin-right: 10px;"></i>已停止
+                <a style="margin: 0 5px 0 5px;">{{ovC.serviceStateData.stopped}}</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ant-col-6">
+        <div class="ant-card">
+          <div class="ant-card-head">
+            <h3 class="ant-card-head-title" ng-click="ovC.queryInstanceStateFn()">实例</h3>
+            <span style="width: 100%;">
+              <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Instance  </a>
+              <strong style="border-top:1px solid #eaeff3; display: block; height: 17px; margin-top: 10px;"></strong>
+            </span>
+          </div>
+          <div class="ant-card-body" style=" margin-left: 10px;">
+            <div class="ant-card-main-left">
+              <div id="instancePie" style="width: 148px; height: 148px;"></div>
+            </div>
+            <div class="ant-card-main-right" style="padding-top: 0px;">
+              <span>
+                <i class="fa fa-circle" style="color: #397eff; margin-right: 10px;"></i>运行中
+                <a style="margin: 0 5px 0 5px;">{{ovC.InstanceStateData.running}}</a></span>
+              <span>
+                <i class="fa fa-circle" style="color: #f95b7b; margin-right: 10px;"></i>停止中
+                <a style="margin: 0 5px 0 5px;">{{ovC.InstanceStateData.stopped}}</a></span>
+              <span>
+                <i class="fa fa-circle" style="color: #ffa32a; margin-right: 10px;"></i>等待中
+                <a style="margin: 0 5px 0 5px;">{{ovC.InstanceStateData.waiting}}</a></span>
+              <span>
+                <i class="fa fa-circle" style="color: #a6ffe1; margin-right: 10px;"></i>未调度
+                <a style="margin: 0 5px 0 5px;">{{ovC.InstanceStateData.unassigned}}</a></span>
+              <span>
+                <i class="fa fa-circle" style="color: #999; margin-right: 10px;"></i>未知
+                <a style="margin: 0 5px 0 5px;">{{ovC.InstanceStateData.unknow}}</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ant-col-6">
+        <div class="ant-card">
+          <div class="ant-card-head">
+            <h3 class="ant-card-head-title" ng-click="ovC.queryAlarmDetailsFn()">告警</h3>
+            <span style="width: 100%;">
+              <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Alarm </a>
+              <strong style="border-top:1px solid #eaeff3; display: block; height: 17px; margin-top: 10px;"></strong>
+            </span>
+          </div>
+          <div class="ant-card-body" style="padding-bottom: 0px; margin-left: 10px;">
+            <div id="alarmLine" style="width: 320px; height: 147px;">折线</div>
+          </div>
+        </div>
+      </div>
+      <div class="ant-col-6">
+        <div class="ant-card">
+          <div class="ant-card-head">
+            <h3 class="ant-card-head-title" ng-click="ovC.queryTotalResourceFn()">资源总量</h3>
+            <span style="width: 100%;">
+              <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Total </a>
+              <strong style="border-top:1px solid #eaeff3; display: block; height: 17px; margin-top: 10px;"></strong>
+            </span>
+          </div>
+          <div class="ant-card-body" style="height: 188px; text-align: center;">
+            <div class="totalBox">
+              <span class="totalBox-cont">
+                <a>{{ovC.totalResource.host}}&nbsp;台</a>
+                <h1>主机</h1>
+              </span>
+              <span class="totalBox-cont" style="border-right: none; padding-right: 0px; text-align: right; margin-left: 20px;">
+                <a style="color: #6394ee;">{{(ovC.totalResource.memory/1024).toFixed()}}&nbsp;G</a>
+                <h1>内存</h1>
+              </span>
+            </div>
+            <div class="totalBox">
+              <span class="totalBox-cont">
+                <a>{{ovC.totalResource.cpu/1000}}&nbsp;核</a>
+                <h1>cpu</h1>
+              </span>
+              <span class="totalBox-cont" style="border-right: none; padding-right: 0px; text-align: right; margin-left: 20px;">
+                <a style="color: #6394ee;">{{(ovC.totalResource.disk/1024).toFixed()}}&nbsp;G</a>
+                <h1>磁盘</h1>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="ant-col-6">
+        <div class="ant-card">
+          <div class="ant-card-head">
+            <h3 class="ant-card-head-title" ng-click="ovC.queryAssignedResourceRateFn()">已分配资源占比</h3>
+            <span style="width: 100%;">
+              <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Assigned Resource Ratio </a>
+              <strong style="border-top:1px solid #eaeff3; display: block; height: 17px;  margin-top: 10px;"></strong>
+            </span>
+          </div>
+          <div class="ant-card-body">
+            <div id="cpu_allocated_utilization" style="width: 138px; height: 128px; float: left;">水球1</div>
+
+            <div id="memory_allocated_utilization" style="width: 138px; height: 128px; float: left;">水球2</div>
+            <span style="width:138px; text-align: center; font-size: 14px; float: left; color: #666;">cpu占有率</span>
+            <span style="width:138px; text-align: center; font-size: 14px; float: left; color: #666;">内存占有率</span>
+          </div>
+        </div>
+      </div>
+      <div class="ant-col-6">
+        <div class="ant-card">
+          <div class="ant-card-head">
+            <h3 class="ant-card-head-title" ng-click="ovC.queryActualResourceRateFn()">实际资源使用率</h3>
+            <span style="width: 100%;">
+              <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Actual Resource Ratio </a>
+              <strong style="border-top:1px solid #eaeff3; display: block; height: 17px;  margin-top: 10px;"></strong>
+            </span>
+          </div>
+          <div class="ant-card-body" style="height: 168px;">
+            <div id="cpu_actual_utilization" style="width: 100px; height: 100px; float: left;">水球1</div>
+            <div id="memory_actual_utilization" style="width: 100px; height: 100px; float: left;">水球2</div>
+            <div id="disk_actual_utilization" style="width: 100px; height: 100px; float: left;">水球3</div>
+            <span style="width:100px; text-align: center; font-size: 14px; float: left; color: #666; margin-top: 25px;">cpu占有率</span>
+            <span style="width:100px; text-align: center; font-size: 14px; float: left; color: #666; margin-top: 25px;">内存占有率</span>
+            <span style="width:100px; text-align: center; font-size: 14px; float: left; color: #666; margin-top: 25px;">磁盘占有率</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ant-col-6" ng-show="!environment">
+        <div class="ant-card">
+          <div class="ant-card-head">
+            <h3 class="ant-card-head-title" ng-click="ovC.queryFlowBuildStateFn()">流水</h3>
+            <span style="width: 100%;">
+              <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Serial </a>
+              <strong style="border-top:1px solid #eaeff3; display: block; height: 17px; margin-top: 10px;"></strong>
+            </span>
+          </div>
+          <div class="ant-card-body" style="padding-top: 8px;">
+            <div class="ant-card-main-left">
+              <div id="flowBuildPie" style="width: 148px; height: 148px;">圆圈1</div>
+            </div>
+            <div class="ant-card-main-right" style="padding-top: 0px;">
+              <span>
+                <i class="fa fa-circle" style="color: #397eff; margin-right: 10px;"></i>构建成功
+                <a style="margin: 0 5px 0 5px;">{{ovC.flowBuildState.success}}</a></span>
+              <span>
+                <i class="fa fa-circle" style="color: #f95b7b; margin-right: 10px;"></i>构建失败
+                <a style="margin: 0 5px 0 5px;">{{ovC.flowBuildState.fail}}</a></span>
+              <span>
+                <i class="fa fa-circle" style="color: #ffa32a; margin-right: 10px;"></i>正在构建
+                <a style="margin: 0 5px 0 5px;">{{ovC.flowBuildState.working}}</a></span>
+              <span>
+                <i class="fa fa-circle" style="color: #a6ffe1; margin-right: 10px;"></i>未执行
+                <a style="margin: 0 5px 0 5px;">{{ovC.flowBuildState.unexecuted}}</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="MySpaceStd" ng-show="hasFlow && !environment">
+    <div class="title" style="margin-bottom: 20px; margin-top: 15px;">
+      <div style=" float: left;">CICD概览</div>
+      <div class="btn-group" style="float:right; right:50px;">
+        <span style="float: left; display: block; padding-top: 4px;">流水名称：</span>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          style="background-color:#f2f2f2;color:#000;border-color:#d7d7d7;border-radius:2px;bottom:3px;border-width:0px;">
+          <span>{{flowName}}</span>&nbsp;
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right" style="height:200px;overflow:auto;">
+          <li ng-repeat="resData in queryFlowNameListResData" ng-click="changeFlowName($event, resData);">
+            <a href="javascript:void(0)">{{resData.flowName}} ( {{resData.type | operTypeFilter}} )</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ant-row" >
+      <div class="ant-col-one" ng-if="flowType != 2">
+        <div class="ant-card-head">
+          <h3 class="ant-card-head-title">质量分析</h3>
+          <span style="width: 100%;">
+            <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Quality Analysis </a>
+            <strong style="border-top:1px solid #eaeff3; display: block; height: 17px;  margin-top: 10px;"></strong>
+          </span>
+        </div>
+        <div class="ant-card-body" style="padding: 0 20px 0 20px;">
+          <div class="costInfo" style="width: 30.33333%;margin-right: 20px;">
+            <div id="staticsCode" class="pandect-chart-item"></div>
+          </div>
+          <div class="costInfo" style="width: 30.33333%;margin-right: 20px;">
+            <div id="unitTest" class="pandect-chart-item" ></div>
+          </div>
+          <div class="costInfo" style="width: 30.33333%;margin-right: 20px;">
+            <div id="CovRate" class="pandect-chart-item"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ant-col-one" style="height: unset;">
+        <div class="ant-card-head">
+          <h3 class="ant-card-head-title">构建</h3>
+          <span style="width: 100%;">
+            <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Structure </a>
+            <strong style="border-top:1px solid #eaeff3; display: block; height: 17px;  margin-top: 10px;"></strong>
+          </span>
+        </div>
+        <div class="ant-card-body" style="padding: 0px 20px 0 20px; ">
+          <div class="costInfo" style="width: 30.33333%;margin-right: 20px;">
+            <div id="buildNum" class="pandect-chart-item"></div>
+          </div>
+          <div class="costInfo" style="width: 30.33333%;margin-right: 20px;">
+            <div id="buildTime" class="pandect-chart-item"></div>
+          </div>
+          <div class="costInfo" style="width: 30.33333%;margin-right: 20px;">
+            <div class="buildDetail" class="buildDetailClass" style="min-height: 120px;margin-top: 8px;">
+            <div style="min-height: 100px;">
+              <p style="font-size:12px;margin:2px;color: gray;">最近一天构建情况</p>
+              <div class="content" style="margin-top:30px;margin-left: 10px;font-size: 12px;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <thead>
+                    <tr style="border-bottom: 1px solid #999;">
+                      <td height="20" style="width:20%;">次序</td>
+                      <td style="width:25%;">状态</td>
+                      <td style="width:55%;">时间</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="row in buildTimes|limitTo:3">
+                      <i class="cz-wait"></i>
+                      <i></i>
+                      <i></i>
+                      <td height="20"  style="width:20%;">{{$index+1}}</td>
+                      <td style="width:25%;">
+                        <image ng-src="{{svnUrlPrefix}}images/cz-success.png" ng-show="row.status == 1" style="width: 20px;height: 20px;"></image>
+                        <image ng-src="{{svnUrlPrefix}}images/cz-wrong.png" ng-show="row.status == 2" style="width: 20px;height: 20px;"></image>
+                        <image ng-src="{{svnUrlPrefix}}images/cz-doing.png" ng-show="row.status == 3" style="width: 20px;height: 20px;"></image>
+                        {{row.status|statusFilter}}
+                      </td>
+                      <td style="width:55%;">{{row.buildTime}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div style="min-height: 100px;margin-top:15px;">
+              <p style="font-size:12px;margin:2px;color: gray">总构建情况</p>
+              <div class="content" style="margin-top: 15px;margin-left: 10px;font-size: 12px;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="overflow: auto;">
+                  <thead>
+                    <tr style="border-bottom: 1px solid #999;">
+                      <td height="20" >今天</td>
+                      <td height="20" >最近7天</td>
+                      <td height="20" >最近14天</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{buildResData.totalBuilds.todayCount}}</td>
+                      <td>{{buildResData.totalBuilds.weekCount}}</td>
+                      <td>{{buildResData.totalBuilds.fourteenDaysCount}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+      </div>
+      </div>
+      </div>
+      <div class="ant-col-two">
+        <div class="ant-col-test">
+          <div class="ant-card" ng-if="flowType != 2" style="margin-bottom: 25px; box-shadow: 0 0 10px #dadada;">
+            <div class="ant-card-head">
+              <h3 class="ant-card-head-title">代码仓库
+                <!--<i class="fa fa-cog" style="float: right;"></i>-->
+                <span class="fa fa-gear" data-toggle="modal" data-target="#configureCodeRepo" style="float: right;margin-top:5px;cursor: pointer;"></span>
+              </h3>
+              <span style="width: 100%;">
+                <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Code Warehouse </a>
+                <strong style="border-top:1px solid #eaeff3; display: block; height: 17px;  margin-top: 10px;"></strong>
+              </span>
+            </div>
+            <div class="ant-card-Code">
+              <div class="ant-card-body" style="padding-bottom: 0px; padding-top: 0px; padding-left: 15px;">
+                <div id="codeRepo" data-toggle="modal" data-target="#codeRepoLog" class="pandect-chart-item"></div>
+              </div>
+
+            </div>
+            <div class="ant-card-Code" style="padding: 0 10px;margin-top: 37px;">
+              <div class="ant-card-body" style="padding-bottom: 0px;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <thead>
+                    <tr class="hang" style="border-bottom: 1px solid #999;">
+                      <td height="22" class="lie" style="color: gray;font-size: 12px">总提交次数</td>
+                      <td height="22" class="lie">{{lastDayCommitCount}}</td>
+                      <td height="22" class="lie">{{lastSevenDaysCommitCount}}</td>
+                      <td height="22">{{lastFourteenDaysCommitCount}}</td>
+                    </tr>
+                    <tr class="hang" style="border-bottom: 1px solid #999;">
+                      <td height="22" class="lie" style="color: gray;font-size: 12px">总构建次数</td>
+                      <td height="22" class="lie">{{buildResData===null?0:buildResData.totalBuilds.todayCount}}</td>
+                      <td height="22" class="lie">{{buildResData===null?0:buildResData.totalBuilds.weekCount}}</td>
+                      <td height="22">{{buildResData===null?0:buildResData.totalBuilds.fourteenDaysCount}}</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #999;">
+                      <td height="22" class="lie"></td>
+                      <td height="22" class="lie">今天</td>
+                      <td height="22" class="lie">最近
+                        <br>7天</td>
+                      <td>最近
+                        <br>14天</td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="ant-card" style="background: none;">
+            <div class="ant-col-6" style="width: 49%; border-radius: 3px; min-width: 0;">
+              <div class="ant-card">
+                <div class="ant-card-head">
+                  <h3 class="ant-card-head-title">自动化测试</h3>
+                  <span style="width: 100%;">
+                    <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Automated Testing </a>
+                    <strong style="border-top:1px solid #eaeff3; display: block; height: 17px; margin-top: 10px;"></strong>
+                  </span>
+                </div>
+                <div class="ant-card-body" style="padding-bottom: 0px; padding-top: 0px;">
+
+                  <div id="automateTest" class="pandect-chart-item" style="height: 218px;"></div>
+
+                  <div class="automate-test" style="font-size: 21px;color:#a0a0a0;text-align: center;margin: 100px auto;display: none">
+                    <p>
+                      暂无数据</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ant-col-6" style="width: 48%; margin-right: 0px; border-radius: 3px; min-width: 0;">
+              <div class="ant-card">
+                <div class="ant-card-head">
+                  <h3 class="ant-card-head-title">集成测试</h3>
+                  <span style="width: 100%;">
+                    <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Integration Testing </a>
+                    <strong style="border-top:1px solid #eaeff3; display: block; height: 17px;  margin-top: 10px;"></strong>
+                  </span>
+                </div>
+                <div class="ant-card-body" style="padding-bottom: 0px; padding-top: 0px;">
+
+                  <div id="integrationTest" class="pandect-chart-item" style="height: 218px;"></div>
+
+                  <div class="integration-test" style="font-size: 21px;color:#a0a0a0;text-align: center;margin: 100px auto;display: none">
+                    <p>
+                      暂无数据</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ant-col-deploy">
+          <div class="ant-col-6" style="width: 100%; margin-right: 0px; box-shadow: none; min-width: 0px;">
+            <div class="ant-card">
+              <div class="ant-card-head">
+                <h3 class="ant-card-head-title">部署</h3>
+                <span style="width: 100%;">
+                    <a style="display: block; float: left; height: 17px; color: #c0c6ce;background:#ffffff;padding-right:4px;">Deploy </a>
+                  <strong style="border-top:1px solid #eaeff3; display: block; height: 17px;  margin-top: 10px;"></strong>
+                </span>
+              </div>
+              <div class="ant-card-body" style="padding: 0px 10px;margin-top: 25px;">
+                <div style="font-size: 12px;margin: 0 10px 10px;">
+                  <span style="display: block;color: gray">镜像名称:&nbsp;{{deployResData.data.imageName}}</span>
+                  <span style="display: block;margin-top: 5px;color: gray">总部署次数:&nbsp;{{deployResData.data.totalCount}}</span>
+                </div>
+                <div class="content" style="font-size:10px;height:115px;overflow: scroll;">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                      <tr style="border-bottom: 1px solid #999;">
+                        <td height="22" style="width:25%;">状态</td>
+                        <td height="22" style="width:45%;">镜像版本</td>
+                        <td height="22" style="width:30%;">时间(s)</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="row in deployResData.data.deployList|limitTo:15">
+                        <td height="22" style="width:25%;">{{row.statu|statusFilter}}</td>
+                        <td height="22" style="width:45%;">{{row.imageVersion }}</td>
+                        <td height="22" style="width:30%;">{{row.time}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+    <!--编辑弹框-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="configureCodeRepo" style="position: fixed;" data-backdrop="static">
+      <div class="creatDevOps">
+        <div class="creatDevOps-title">
+          <div class="name" style="margin-left: 150px">配置代码库</div>
+          <div class="close" data-dismiss="modal"><a><i class="fa fa-close"></i></a></div>
+        </div>
+        <div class="creatDevOps-content">
+          <div class="EditModal">
+            <div class="title" style="width: 110px">代码库类型：</div>
+            <div class="svn">
+              <select id="select" style="width:355px;" ng-model="pageCode.type">
+                <option value="">Select a type</option>
+                <option value="0" ng-selected="pageCode.gitSelect">GitHub</option>
+                <option value="1" ng-selected="pageCode.svnSelect">Subversion</option>
+                <!--<option value="2" label="Stash">Stash</option>-->
+              </select>
+            </div>
+          </div>
+          <div class="EditModal">
+            <div class="title" style="width: 110px">代码库地址：</div>
+            <div class="svn" >
+              <select name="" style="width:355px;" ng-model="pageCode.url">
+                <option ng-repeat="x in codeRepoListResData track by $index" >{{x.url}}</option>
+              </select>
+              <!--<input type="text" ng-model="pageCode.url" style="width:355px;">-->
+            </div>
+          </div>
+          <div class="EditModal" ng-show="optionVal=='0'">
+            <div class="title" style="width: 110px">GIT分支：</div>
+            <div class="svn" ><input type="text" ng-model="pageCode.branch" style="width:355px;">
+            </div>
+          </div>
+
+          <div class="clear"></div>
+        </div>
+
+        <div class="modalBtnBox">
+          <button type="button" class="buildBtn" style="margin-right:10px;" ng-click="saveCodeData(pageCode)">保存</button>
+          <button type="button" class="ant-btn-ghost" style=" background:#999; color:#fff;" data-dismiss="modal" id="cancelSave">取消</button>
+        </div>
+      </div>
+    </div>

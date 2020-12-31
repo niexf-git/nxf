@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper   
+
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"   
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="Role">
+<!--
+	=================================================================================
+	公用定义区域
+	=================================================================================
+	-->
+	<resultMap type="com.cmsz.paas.web.role.entity.Role" id="roleResultMap">
+	   <id property="id" column="id"/>
+	   <result property="roleName" column="role_name"/>
+	   <result property="type" column="type"/>
+	   <result property="description" column="description"/>
+	   <result property="createBy" column="create_by"/>
+	</resultMap>
+	<!--
+	=================================================================================
+	新增修改SQL区域
+	=================================================================================
+	-->
+	<!-- 
+		功能：新增信息
+		UUID实现方式：
+		insert into ROLE(id,role_name,description,create_time,create_by,type) value(#{id},#{roleName},#{description},now(),#{createBy},#{type})
+	-->
+	 <insert id="insert" parameterType="com.cmsz.paas.web.role.entity.Role" useGeneratedKeys="true" keyProperty="id">
+       insert into ROLE(role_name,description,create_time,create_by,type) value(#{roleName},#{description},now(),#{createBy},#{type})
+     </insert>
+      <!--
+		功能：修改信息
+	-->
+	<update id="update" parameterType="com.cmsz.paas.web.role.entity.Role">
+	  update ROLE set role_name=#{roleName},description=#{description} where id=#{id}
+	</update>
+	<!--
+		功能：删除信息
+	-->
+	<delete id="deleteById" parameterType="String">
+       delete from ROLE where id=#{id};
+     </delete>
+	<!--
+	=================================================================================
+	查询SQL区域
+	=================================================================================
+	-->
+	<select id="findPage" resultMap="roleResultMap" parameterType="com.cmsz.paas.common.page.PageContext">
+       select * from ROLE where  1 =1  
+       <if test="p.roleName != null" >
+        and role_name like CONCAT('%',#{p.roleName},'%')
+      </if>
+      <if test="p.createBy != null and p.createBy != ''" >
+        and create_by=#{p.createBy}
+       </if>
+    </select>
+    <select id="findAll" resultMap="roleResultMap">
+       select * from ROLE where  1 =1
+    </select>
+     <select id="findById" resultMap="roleResultMap" parameterType="String">
+       select * from ROLE where  id =#{id} 
+    </select> 
+      <select id="findByMap" resultMap="roleResultMap" parameterType="java.util.HashMap">
+       select * from ROLE where  1=1 
+       <if test="roleName != null and roleName != ''" >
+        and role_name =#{roleName}
+       </if>
+       <if test="createBy != null and createBy != ''" >
+        and create_by=#{createBy}
+       </if> 
+    </select>
+</mapper> 

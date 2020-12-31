@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">   
+<struts>  
+  <!-- 监控运维 -->
+  <package name="newmonitor" extends="global-struts" namespace="/newmonitor">
+  		<action name="loadTree" class="com.cmsz.paas.web.newmonitor.action.NewAsyncTreeAction" method="loadTree">
+  		</action> 
+  		<action name="queryHostList" class="com.cmsz.paas.web.newmonitor.action.NewHostAction" method="queryHostList">
+  		</action>
+  		<action name="queryGrafana" class="com.cmsz.paas.web.newmonitor.action.NewHostAction" method="queryGrafana">
+  		</action>
+  </package>
+</struts>

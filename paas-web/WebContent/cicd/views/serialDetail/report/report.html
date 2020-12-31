@@ -1,0 +1,296 @@
+<div id="TenxFLowDetailLog" name="reportCtrl" class="ant-card ant-card-bordered">
+  <div class="report">
+    <ul>
+      <li ng-click="showTable('quality')" ng-class="{reportHover: showName === 'quality'}" ng-show="!isTest">
+        <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i>
+          <span>
+            <strong>代码质量</strong>
+            <p>Code Quality</p>
+          </span>
+          
+        </a>
+      </li>
+      <li ng-click="showTable('record')" ng-class="{reportHover: showName === 'record'}">
+        <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i>
+          <span>
+            <strong>构建记录</strong>
+            <p>Build Record</p>
+          </span>
+          
+        </a>
+      </li>
+      <li ng-click="showTable('auto')" ng-class="{reportHover: showName === 'auto'}">
+        <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i>
+          <span>
+            <strong>自动化测试</strong>
+            <p>Automatic Test</p>
+          </span>
+         
+        </a>
+      </li>
+      <li ng-click="showTable('integration')" ng-class="{reportHover: showName === 'integration'}">
+        <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i>
+          <span>
+            <strong>集成测试</strong>
+          <p>Integration Test</p>
+          </span>
+          
+        </a>
+      </li>
+      <!--by tanzq-->
+      <li ng-click="showTable('performance')" ng-class="{reportHover: showName === 'performance'}">
+        <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i>
+          <span>
+            <strong>性能测试</strong>
+            <p>Performance Test</p>
+          </span>
+          
+        </a>
+      </li>
+      <li ng-click="showTable('unitTest')" ng-class="{reportHover: showName === 'unitTest'}" ng-show="!isTest">
+        <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i>
+          <span>
+            <strong>单元测试</strong>
+            <p>Unit Test</p>
+          </span>
+          
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!--代码质量表格table-->
+  <div ng-show="showName === 'quality'" class="ant-card-bordered">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+      <tr  class="trTitle">
+        <td height="48" align="center" valign="middle" style="border-right:1px solid #e8eef2;">执行记录</td>
+        <td colspan="4" align="center" valign="middle" style="border-right:1px solid #e8eef2;">问题
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr style="border:0px;"  class="trTitle">
+              <td width="26%" align="center" style="border-right:1px solid #e8eef2;">致命</td>
+              <td width="24%" align="center" style="border-right:1px solid #e8eef2; color:#f85a5a;">严重</td>
+              <td width="25%" align="center" style="border-right:1px solid #e8eef2;">一般</td>
+              <td width="25%" align="center" style="border-right:1px solid #e8eef2;">轻微</td>
+            </tr>
+            </tbody>
+          </table>
+        </td>
+        <td align="center" valign="middle" style="border-right:1px solid #e8eef2;">重复</td>
+        <td align="center" valign="middle" style="border-right:1px solid #e8eef2;">圈复杂度</td>
+        <td align="center" valign="middle" style="border-right:1px solid #e8eef2;">安全漏洞</td>
+        <td align="center" valign="middle" style="border-right:1px solid #e8eef2;">责任人</td>
+      </tr>
+      <tr ng-repeat="codeOne in tableData.codeQuality.list">
+        <td height="45" align="center" valign="middle">{{codeOne.executionRecord}}</td>
+        <td width="86" height="45" align="center" valign="middle">{{codeOne.cause}}</td>
+        <td width="86" height="45" align="center" valign="middle" style="color:#f85a5a;">{{codeOne.serious}}</td>
+        <td width="86" height="45" align="center" valign="middle">{{codeOne.commonly}}</td>
+        <td width="86" height="45" align="center" valign="middle">{{codeOne.slight}}</td>
+        <td height="45" align="center" valign="middle">{{codeOne.repeat}}</td>
+        <td height="45" align="center" valign="middle">{{codeOne.loopComplexity}}</td>
+        <td height="45" align="center" valign="middle">{{codeOne.securityVulnerabilities}}</td>
+        <td height="45" align="center" valign="middle">{{codeOne.person}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <page limit="10"
+          current-page="1"
+          params="queryParams.codeParams"
+          total="tableData.codeQuality.totalCount"
+          data="tableData.codeQuality.list"
+          query="showTable('quality')">
+    </page>
+  </div>
+  <!--构建记录表格table-->
+  <div ng-show="showName === 'record'" class="ant-card-bordered">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+      <tr  class="trTitle">
+        <td width="6%" height="48" rowspan="2" align="center" valign="middle" style="border-right:1px solid #fff;">
+          <p>执行记录</p></td>
+        <td colspan="2" align="center" valign="middle" style="border-right:1px solid #e8eef2;" ng-show="!isTest"><p>下载审查</p></td>
+        <td colspan="2" align="center" valign="middle" style="border-right:1px solid #e8eef2;" ng-show="!isTest"><p>编译构建</p></td>
+        <td colspan="2" align="center" valign="middle" style="border-right:1px solid #e8eef2;"><p>{{!isTest?'部署扫描':'部署'}}</p></td>
+        <td colspan="2" align="center" valign="middle" style="border-right:1px solid #e8eef2;"><p>自动测试</p></td>
+        <td colspan="2" align="center" valign="middle" style="border-right:1px solid #e8eef2;"><p>集成测试</p></td>
+        <td colspan="2" align="center" valign="middle" style="border-right:1px solid #e8eef2;"><p>性能测试</p></td>
+        <td colspan="2" align="center" valign="middle" style="border-right:1px solid #e8eef2;"><p>{{!isTest? '发布测试': '发布生产'}}</p></td>
+      </tr>
+      <tr class="trTitle">
+        <td width="5%" align="center" valign="middle" style="border-right:1px solid #e8eef2;" ng-show="!isTest">时间</td>
+        <td width="4%" align="center" valign="middle" style="border-right:1px solid #e8eef2;" ng-show="!isTest">结果</td>
+        <td width="5%" align="center" valign="middle" style="border-right:1px solid #e8eef2;" ng-show="!isTest">时间</td>
+        <td width="4%" align="center" valign="middle" style="border-right:1px solid #e8eef2;" ng-show="!isTest">结果</td>
+        <td width="5%" align="center" valign="middle" style="border-right:1px solid #e8eef2;">时间</td>
+        <td width="4%" align="center" valign="middle" style="border-right:1px solid #e8eef2;">结果</td>
+        <td width="5%" align="center" valign="middle" style="border-right:1px solid #e8eef2;">时间</td>
+        <td width="4%" align="center" valign="middle" style="border-right:1px solid #e8eef2;">结果</td>
+        <td width="5%" align="center" valign="middle" style="border-right:1px solid #e8eef2;">时间</td>
+        <td width="4%" align="center" valign="middle" style="border-right:1px solid #e8eef2;">结果</td>
+        <td width="5%" align="center" valign="middle" style="border-right:1px solid #e8eef2;">时间</td>
+        <td width="4%" align="center" valign="middle" style="border-right:1px solid #e8eef2;">结果</td>
+        <td width="5%" align="center" valign="middle" style="border-right:1px solid #e8eef2;">时间</td>
+        <td width="4%" align="center" valign="middle" style="border-right:1px solid #e8eef2;">结果</td>
+      </tr>
+      <tr ng-repeat="buildOne in tableData.buildRecode.list">
+        <td height="45" align="center" valign="middle">{{buildOne.executionRecord}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.downloadMessage === '未勾选'}" ng-show="!isTest">{{buildOne.downloadTime}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.downloadMessage === '未勾选'}" ng-show="!isTest">{{buildOne.downloadMessage}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.buildMessage === '未勾选'}" ng-show="!isTest">{{buildOne.buildTime}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.buildMessage === '未勾选'}" ng-show="!isTest">{{buildOne.buildMessage}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.deployMessage === '未勾选'}">{{buildOne.deployTime}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.deployMessage === '未勾选'}">{{buildOne.deployMessage}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.autoMessage === '未勾选'}">{{buildOne.autoTime}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.autoMessage === '未勾选'}">{{buildOne.autoMessage}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.integrateMessage === '未勾选'}">{{buildOne.integrateTime}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.integrateMessage === '未勾选'}">{{buildOne.integrateMessage}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.performanceMessage === '未勾选'}">{{buildOne.performanceTime}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.performanceMessage === '未勾选'}">{{buildOne.performanceMessage}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.releaseMessage === '未勾选'}">{{buildOne.releaseTime}}</td>
+        <td height="45" align="center" valign="middle" ng-class="{'reportGray': buildOne.releaseMessage === '未勾选'}">{{buildOne.releaseMessage}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <page limit="10"
+          current-page="1"
+          params="queryParams.buildParams"
+          total="tableData.buildRecode.totalCount"
+          data="tableData.buildRecode.list"
+          query="showTable('record')">
+    </page>
+  </div>
+  <!--自动化测试表格table-->
+  <div ng-show="showName === 'auto'" class="ant-card-bordered">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+      <tr>
+        <td width="14%" height="48" align="center" valign="middle"><p>执行记录</p></td>
+        <td width="14%" height="48" align="center" valign="middle"><p>用例总数</p></td>
+        <td width="14%" height="48" align="center" valign="middle"><p>成功数</p></td>
+        <td width="14%" height="48" align="center" valign="middle"><p>成功率</p></td>
+        <td width="14%" height="48" align="center" valign="middle"><p>失败数</p></td>
+        <td width="14%" height="48" align="center" valign="middle"><p>失败率</p></td>
+        <td width="14%" height="48" align="center" valign="middle" ng-show="!isTest"><p>责任人</p></td>
+      </tr>
+      <tr ng-repeat="autoOne in tableData.autoTest.list">
+        <td height="45" align="center" valign="middle">{{autoOne.executionRecord}}</td>
+        <td height="45" align="center" valign="middle">{{autoOne.totals}}</td>
+        <td height="45" align="center" valign="middle">{{autoOne.successNumber}}</td>
+        <td height="45" align="center" valign="middle">{{autoOne.successRate}}</td>
+        <td height="45" align="center" valign="middle">{{autoOne.failNumber}}</td>
+        <td height="45" align="center" valign="middle">{{autoOne.failRate}}</td>
+        <td height="45" align="center" valign="middle" ng-show="!isTest">{{autoOne.person}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <page limit="10"
+          current-page="1"
+          params="queryParams.autoParams"
+          total="tableData.autoTest.totalCount"
+          data="tableData.autoTest.list"
+          query="showTable('auto')">
+    </page>
+  </div>
+  <!--集成测试表格table-->
+  <div ng-show="showName === 'integration'" class="ant-card-bordered">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+      <tr>
+        <td width="20%" height="48" align="center" valign="middle"><p>执行记录</p></td>
+        <td width="20%" height="48" align="center" valign="middle"><p>用例总数</p></td>
+        <td width="15%" height="48" align="center" valign="middle"><p>成功数</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>成功率</p></td>
+        <td width="15%" height="48" align="center" valign="middle"><p>失败数</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>失败率</p></td>
+        <td width="10%" height="48" align="center" valign="middle" ng-show="!isTest"><p>责任人</p></td>
+      </tr>
+      <tr ng-repeat="inteOne in tableData.integrate.list">
+        <td height="45" align="center" valign="middle">{{inteOne.executionRecord}}</td>
+        <td height="45" align="center" valign="middle">{{inteOne.totals}}</td>
+        <td height="45" align="center" valign="middle">{{inteOne.successNumber}}</td>
+        <td height="45" align="center" valign="middle">{{inteOne.successRate}}</td>
+        <td height="45" align="center" valign="middle">{{inteOne.failNumber}}</td>
+        <td height="45" align="center" valign="middle">{{inteOne.failRate}}</td>
+        <td height="45" align="center" valign="middle" ng-show="!isTest">{{inteOne.person}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <page limit="10"
+          current-page="1"
+          params="queryParams.inteParams"
+          total="tableData.integrate.totalCount"
+          data="tableData.integrate.list"
+          query="showTable('integration')">
+    </page>
+  </div>
+  <!--性能测试表格table-->
+  <div ng-show="showName === 'performance'" class="ant-card-bordered">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+      <tr>
+        <td width="20%" height="48" align="center" valign="middle"><p>执行记录</p></td>
+        <td width="20%" height="48" align="center" valign="middle"><p>总次数</p></td>
+        <td width="15%" height="48" align="center" valign="middle"><p>失败次数</p></td>
+        <td width="15%" height="48" align="center" valign="middle"><p>最短响应时间</p></td>
+        <td width="15%" height="48" align="center" valign="middle"><p>平均响应时间</p></td>
+        <td width="15%" height="48" align="center" valign="middle"><p>最长响应时间</p></td>
+      </tr>
+      <tr ng-repeat="perforOne in tableData.performance.list">
+        <td height="45" align="center" valign="middle">{{perforOne.executeRecord}}</td>
+        <td height="45" align="center" valign="middle">{{perforOne.totalNums}}</td>
+        <td height="45" align="center" valign="middle">{{perforOne.failNums}}</td>
+        <td height="45" align="center" valign="middle">{{perforOne.shortestResponseTime}}</td>
+        <td height="45" align="center" valign="middle">{{perforOne.averageResponseTime}}</td>
+        <td height="45" align="center" valign="middle">{{perforOne.longestResponseTime}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <page limit="10"
+          current-page="1"
+          params="queryParams.performance"
+          total="tableData.performance.totalCount"
+          data="tableData.performance.list"
+          query="showTable('performance')">
+    </page>
+  </div>
+  <!--单元测试表格table-->
+  <div ng-show="showName === 'unitTest'" class="ant-card-bordered">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+      <tr>
+        <td width="10%" height="48" align="center" valign="middle"><p>执行记录</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>用例总数</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>成功数</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>失败</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>错误</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>指令</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>分支</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>行</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>方法</p></td>
+        <td width="10%" height="48" align="center" valign="middle"><p>类</p></td>
+      </tr>
+      <tr ng-repeat="unitOne in tableData.unitTest.list">
+        <td height="45" align="center" valign="middle">{{unitOne.executeRecord}}</td>
+        <td height="45" align="center" valign="middle">{{unitOne.useCaseNums}}</td>
+        <td height="45" align="center" valign="middle">{{unitOne.successNums}}</td>
+        <td height="45" align="center" valign="middle">{{unitOne.failNums}}</td>
+        <td height="45" align="center" valign="middle">{{unitOne.errorNums}}</td>
+        <td height="45" align="center" valign="middle">{{unitOne.instructCoverage}}</td>
+        <td height="45" align="center" valign="middle">{{unitOne.branchCoverage}}</td>
+        <td height="45" align="center" valign="middle">{{unitOne.lineCoverage}}</td>
+        <td height="45" align="center" valign="middle">{{unitOne.methodCoverage}}</td>
+        <td height="45" align="center" valign="middle">{{unitOne.classCoverage}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <page limit="10"
+          current-page="1"
+          params="queryParams.unitTest"
+          total="tableData.unitTest.totalCount"
+          data="tableData.unitTest.list"
+          query="showTable('unitTest')">
+    </page>
+  </div>
+
+</div>

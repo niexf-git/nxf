@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 流水管理 -->
+	<package name="flow" extends="global-struts" namespace="/flow">
+		<action name="queryStepDetail" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="queryStepDetail">
+		</action>
+		
+		<action name="createFlow" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="createFlow">
+		</action>
+		
+		<action name="queryExcuteRecord" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="queryExcuteRecord">
+		</action>
+		
+		<!-- 模糊查询(流水列表) -->
+		<action name="queryFlowList" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="queryFlowList">
+		</action>
+		
+		<action name="queryFlowListByIds" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="queryFlowListByIds">
+		</action>
+		
+		<action name="updateFlow" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="updateFlow">
+		</action>
+		
+		<action name="deleteFlow" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="deleteFlow">
+		</action>
+		
+		<action name="queryFlowDetail" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="queryFlowDetail">
+		</action>
+		
+		<!-- 立即构建 -->
+		<action name="executeBuild" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="executeBuild">
+		</action>
+		
+		<!-- 停止流水 -->
+		<action name="stopFlow" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="stopFlow">
+		</action>
+		
+		<!-- 复制流水 -->
+		<action name="copyFlow" class="com.cmsz.paas.web.cicd.action.FlowManagerAction"
+			method="copyFlow">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+DE\vobs\cvob_msp_platform\c_msp_platform_portal\cmsz-framework\src\com\cmsz\framework\service
+2
+6
+11:EntityFinder.java|1|146d0ecbcbc|2cd|1fa81319|017b43c7617111e391ef000f202bb497|0
+16:SimpleServiceBase.java|1|146d0ecbd78|9a5|388f29ba|02ab4437617111e391ef000f202bb497|0
+c:package.html|1|146d0ecbd49|51|a6e1226d|020b441b617111e391ef000f202bb497|0
+16:EntityServiceBase.java|1|146d0ecbd2a|71b|98aa35d6|020b43ff617111e391ef000f202bb497|0
+18:DefaultEntityFinder.java|1|146d0ecbcad|5a8|148dd61b|017b43ab617111e391ef000f202bb497|0
+12:EntityService.java|1|146d0ecbceb|3b7|81f83211|017b43e3617111e391ef000f202bb497|0

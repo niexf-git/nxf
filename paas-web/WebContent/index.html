@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/paas/cicd/bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/paas/cicd/bower_components/smalot-bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="/paas/cicd/bower_components/angular-toastr/dist/angular-toastr.css" />
+    <link rel="stylesheet" href="/paas/cicd/bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link href="/paas/cicd/styles/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/paas/cicd/styles/common.css">
+    <link href="/paas/cicd/styles/dashboard.css" rel="stylesheet">
+    <link href="/paas/cicd/styles/buttons.css" rel="stylesheet">
+    <link href="/paas/cicd/styles/CICD.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/paas/cicd/styles/executionRecord.css">
+    <link rel="stylesheet" type="text/css" href="/paas/cicd/styles/font-awesome.css">
+    <link rel="stylesheet" href="/paas/cicd/styles/page.css">
+    <link rel="stylesheet" href="/paas/cicd/scripts/plugins/syntaxhighlighter/shCoreEclipse.css">
+    <link rel="stylesheet" href="/paas/cicd/styles/oldPage/jquery-ui-1.8.23.custom.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="PaaS5" class="paasindex">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http:browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div ui-view></div>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/paas/cicd/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/paas/cicd/bower_components/angular/angular.js"></script>
+    <script src="/paas/cicd/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/paas/cicd/bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="/paas/cicd/bower_components/angular-messages/angular-messages.js"></script>
+    <script src="/paas/cicd/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="/paas/cicd/bower_components/angular-route/angular-route.js"></script>
+    <script src="/paas/cicd/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/paas/cicd/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/paas/cicd/bower_components/lodash/lodash.js"></script>
+    <script src="/paas/cicd/bower_components/restangular/dist/restangular.js"></script>
+    <script src="/paas/cicd/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/paas/cicd/bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="/paas/cicd/bower_components/echarts/dist/echarts.js"></script>
+    <script src="/paas/cicd/bower_components/js-md5/src/md5.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="/paas/cicd/scripts/plugins/echarts-liquidfill.js"></script>
+    <script src="/paas/cicd/scripts/plugins/syntaxhighlighter/shCore.js"></script>
+    <script src="/paas/cicd/scripts/plugins/syntaxhighlighter/shBrushJScript.js"></script>
+    <script src="/paas/cicd/scripts/plugins/syntaxhighlighter/shBrushJava.js"></script>
+    <script src="/paas/cicd/scripts/plugins/syntaxhighlighter/shBrushCss.js"></script>
+    <script src="/paas/cicd/scripts/oldPage/jquery-1.8.2.min.js"></script>
+    <script src="/paas/cicd/scripts/oldPage/jquery-ui-1.8.23.custom.min.js"></script>
+    <script src="/paas/cicd/scripts/oldPage/index.js"></script>
+    <script src="/paas/cicd/bower_components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/paas/cicd/bower_components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/paas/cicd/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
+    <script src="/paas/cicd/scripts/app.js"></script>
+    <script src="/paas/cicd/scripts/configs/config.js"></script>
+    <script src="/paas/cicd/scripts/configs/router.js"></script>
+    <script src="/paas/cicd/scripts/configs/run.js"></script>
+    <script src="/paas/cicd/scripts/filter/filter.js"></script>
+    <script src="/paas/cicd/scripts/directive/tips.directive.js"></script>
+    <script src="/paas/cicd/scripts/directive/page.js"></script>
+    <script src="/paas/cicd/scripts/directive/repeatFinish.directive.js"></script>
+    <script src="/paas/cicd/views/layout/_header.js"></script>
+    <script src="/paas/cicd/views/layout/_nav.js"></script>
+    <script src="/paas/cicd/views/main/main.service.js"></script>
+    <script src="/paas/cicd/views/main/main.controller.js"></script>
+    <script src="/paas/cicd/views/serialDetail/serialDetail.controller.js"></script>
+    <script src="/paas/cicd/views/serial/serial_server.js"></script>
+    <script src="/paas/cicd/views/serial/serial_controller.js"></script>
+    <script src="/paas/cicd/views/serialDetail/deployLog/deployLogCtrl.js"></script>
+    <script src="/paas/cicd/views/serialDetail/deployLog/deployLogService.js"></script>
+    <script src="/paas/cicd/scripts/directive/ui.bootstrap.modal.js"></script>
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/cardState/cardState.directive.js"></script>
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/editModalDevOpsService.js"></script>
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/editModalDevOpsCtrl.js"></script>
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/download/downloadModal.directive.js"></script>
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/compileBuild/compileBuild.directive.js"></script>
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/integrationTest/integration.directive.js"></script>
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/performanceTest/performanceTestModal.directive.js"></script>
+
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/deployTest/deployTest.js"></script>
+    <script src="/paas/cicd/views/serialDetail/report/reportService.js"></script>
+    <script src="/paas/cicd/views/serialDetail/report/report.js"></script>
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/autoTestModal/autoTestModal.directive.js"></script>
+    <script src="/paas/cicd/views/overview/overview.service.js"></script>
+    <script src="/paas/cicd/views/overview/overview.controller.js"></script>
+    <script src="/paas/cicd/views/outReport/outReport.service.js"></script>
+    <script src="/paas/cicd/views/outReport/ourReport.controller.js"></script>
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/deployScan/deployScanModal.directive.js"></script>
+    <script src="/paas/cicd/views/serialDetail/deployLog/serialCodeDetails/codeCheck/code_check_ctrl.js"></script>
+    <script src="/paas/cicd/views/serialDetail/deployLog/serialCodeDetails/codeCheck/code_check_service.js"></script>
+    <script src="/paas/cicd/views/serialDetail/deployLog/serialCodeDetails/checkReport/check_report_ctrl.js"></script>
+    <script src="/paas/cicd/views/serialDetail/deployLog/serialCodeDetails/checkReport/check_report_detail.js"></script>
+    <script src="/paas/cicd/views/serialDetail/deployLog/serialCodeDetails/checkReport/check_report_service.js"></script>
+    <script src="/paas/cicd/views/serialDetail/editModalDevOps/publishTest/publishTestModal.directive.js"></script>
+    <script src="/paas/cicd/views/serialDetail/deployLog/stepReport/stepReportCtrl.js"></script>
+    <!-- endbuild -->
+	
+	<script type="text/javascript">
+	var webSocket = new WebSocket("ws://"+window.location.host+"/paas/websocket/userManager");
+	var sendMsgCxt = "startUp";
+	function sendMsg(){
+		webSocket.send(sendMsgCxt);	
+	}
+
+	webSocket.onerror = function(event) {
+		onError(event);
+	};
+
+	webSocket.onopen = function(event) {	
+		onOpen(event);
+	};
+
+	webSocket.onmessage = function(event) {
+		onMessage(event);
+	};
+
+	webSocket.onclose = function(event) {
+		onClose(event);
+	};
+
+	function onMessage(event) {
+		var retMsg = event.data;	
+		if(0!=retMsg){
+			alertWarn(retMsg,function(){
+				  window.localStorage.clear(); //清空缓存
+		          window.sessionStorage.clear();
+		          window.location.replace(window.location.origin + "/paas/jsp/index.jsp");
+			},true);
+		}
+	}
+
+	function onOpen(event) {
+		window.setTimeout(sendMsg,2000);
+	}
+
+	function onError(event) {
+		//alert('长连接错误!');
+	}
+
+	function onClose(event){
+		//alert(event.data);
+	}
+	</script>
+</body>
+</html>

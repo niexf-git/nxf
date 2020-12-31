@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings>
+	<mapping>
+		<method name="queryWorkGroup">
+			<return-type componentType="com.cmsz.vo.WorkGroupVO" />
+		</method>
+		<method name="addWorkGroup">
+			<parameter index="0" componentType="com.cmsz.vo.WorkGroupVO" />
+			<return-type componentType="com.cmsz.vo.ResultVO" />
+		</method>
+		<method name="modifyWorkGroup">
+			<parameter index="0" componentType="com.cmsz.vo.WorkGroupVO" />
+			<return-type componentType="com.cmsz.vo.ResultVO" />
+		</method>
+		<method name="delWorkGroup">
+			<return-type componentType="com.cmsz.vo.ResultVO" />
+		</method>
+	</mapping>
+</mappings>

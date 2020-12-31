@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 代码下载&审查 -->
+	<package name="downloadCheck" extends="global-struts" namespace="/downloadCheck">
+
+		<action name="queryCodeDownloadAndCheck"
+			class="com.cmsz.paas.web.cicd.action.CodeDownloadAndCheckAction"
+			method="queryCodeDownloadAndCheck">
+		</action>
+		
+		<action name="queryBranches"
+			class="com.cmsz.paas.web.cicd.action.CodeDownloadAndCheckAction"
+			method="queryBranches">
+		</action>
+		
+		<action name="queryRepository"
+			class="com.cmsz.paas.web.cicd.action.CodeDownloadAndCheckAction"
+			method="queryRepository">
+		</action>
+		
+		<action name="verifyRepositoryCertificate"
+			class="com.cmsz.paas.web.cicd.action.CodeDownloadAndCheckAction"
+			method="verifyRepositoryCertificate">
+		</action>
+		
+		<action name="verifyMultRepositoryCertificate"
+			class="com.cmsz.paas.web.cicd.action.CodeDownloadAndCheckAction"
+			method="verifyMultRepositoryCertificate">
+		</action>
+		
+		<action name="modifyCodeDownloadAndCheck"
+			class="com.cmsz.paas.web.cicd.action.CodeDownloadAndCheckAction"
+			method="modifyCodeDownloadAndCheck">
+		</action>
+		
+		<action name="modifyCodeCheckState"
+			class="com.cmsz.paas.web.cicd.action.CodeDownloadAndCheckAction"
+			method="modifyCodeCheckState">
+		</action>
+	</package>
+</struts>

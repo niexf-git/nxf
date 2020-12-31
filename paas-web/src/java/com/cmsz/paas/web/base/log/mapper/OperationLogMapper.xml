@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper   
+
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"   
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="OperationLog">
+	<resultMap id="OperationLogResult" type="com.cmsz.paas.web.base.log.MyOperationLog">
+	</resultMap>
+	
+<!-- 	<resultMap id="OperationSqlResult" type="com.cmsz.framework.log.defaults.DefaultOperationSql">
+	</resultMap>
+	
+	<sql id="commonColumns"> 
+		LOG_ID id,
+		OPERATOR operator,
+		CLIENT_IP clientIp,
+		SERVER_IP serverIp,
+		OPERATE_TYPE operateType,
+		OPERATE_TIME operateTime,
+		SYS_CD  systemCode,
+		SUB_SYS subSys,
+        COMPONENT component,
+     	FUNC func,
+		OPERATE_PATH operatePath,
+		STATUS status,
+		SENSITIVE_LEVEL sensitivity,
+		SYSTEM_NAME systemName,
+		SUBSYS_NAME subSysName,
+		COMPONENT_NAME componentName
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@O@isNotEmpty(p.operators)">
+				AND OPERATOR IN 
+				<foreach collection="p.operators" item="operator" open="(" separator="," close=")">
+		 		'${operator}'
+				</foreach>					
+			</if>
+			<if test="@O@isNotEmpty(p.status)">
+				AND STATUS = #{p.status}
+			</if>
+			<if test="@O@isNotEmpty(p.subSys)">
+				AND SUB_SYS = #{p.subSys}
+			</if>
+			<if test="@O@isNotEmpty(p.component)">
+				AND COMPONENT = #{p.component}
+			</if>
+			<if test="@O@isNotEmpty(p.func)">
+				AND FUNC = #{p.func}
+			</if>
+			<if test="@O@isNotEmpty(p.sensitivity)">
+				AND SENSITIVE_LEVEL = #{p.sensitivity}
+			</if>
+			<if test="@O@isNotEmpty(p.startDate)">
+				AND OPERATE_TIME >= to_date('${p.startDate} 00:00:00','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if test="@O@isNotEmpty(p.endDate)">
+			<![CDATA[
+				AND OPERATE_TIME <= to_date('${p.endDate} 23:59:59','yyyy-MM-dd hh24:mi:ss')
+			]]>
+			</if>
+			<if test="@O@isNotEmpty(p.operateType)">
+				AND OPERATE_TYPE=#{p.operateType}
+			</if>
+		</where> 
+	</sql> -->
+ 
+	<insert id="insert" parameterType="com.cmsz.paas.web.base.log.MyOperationLog">
+    <![CDATA[
+        INSERT INTO
+         SYS_OPERATION_LOG (
+		    operator,
+		    client_ip,
+		    operate_time,
+		    operate_path,
+		    operate_type,
+		    operate_func,
+		    operate_result,
+		    detail,
+		    description,
+		    session_id,
+		    input_args,
+		    output_args
+        ) VALUES (
+        	#{operator, jdbcType=VARCHAR},
+        	#{clientIp, jdbcType=VARCHAR},
+        	#{operateTime, jdbcType=VARCHAR},
+        	#{operatePath, jdbcType=VARCHAR},
+        	#{operateType, jdbcType=VARCHAR},
+        	#{func, jdbcType=VARCHAR},
+        	#{status, jdbcType=VARCHAR},
+        	#{detail, jdbcType=VARCHAR},
+        	#{operateDesc, jdbcType=VARCHAR},
+        	#{sessionId, jdbcType=VARCHAR},
+        	#{inputArgs, jdbcType=VARCHAR},
+        	#{outputArgs, jdbcType=VARCHAR}
+        )
+    ]]>
+	</insert>
+	
+<!-- 	<insert id="insertDetail" parameterType="com.cmsz.framework.log.defaults.DefaultOperationSql">
+	<![CDATA[
+        INSERT INTO
+         SYS_OPERATION_SQL (
+		    REC_ID,
+		    LOG_ID,
+		    SQL_NAME,
+		    SQL_,
+		    SQL_TYPE  
+        ) VALUES (
+        	#{id, jdbcType=VARCHAR},
+        	#{log.id, jdbcType=VARCHAR},
+        	#{sqlName, jdbcType=VARCHAR},
+        	#{sql, jdbcType=VARCHAR},
+        	#{sqlType, jdbcType=VARCHAR} 
+        )
+    ]]>
+	</insert>
+	
+	<select id="findPage" resultMap="OperationLogResult" parameterType="com.cmsz.framework.page.PageContext">
+		SELECT <include refid="commonColumns" />
+		  FROM SYS_OPERATION_LOG 
+		<include refid="dynamicWhere"/>
+	</select> -->
+</mapper>	

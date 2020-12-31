@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 监控运维 其中的 告警 -->
+	<package name="component" extends="global-struts" namespace="/component">
+		<action name="queryComponentInfoList"
+			class="com.cmsz.paas.web.monitoroperation.action.ComponentAction"
+			method="queryComponentInfoList"></action>
+		<action name="startComponent"
+			class="com.cmsz.paas.web.monitoroperation.action.ComponentAction"
+			method="startComponent"></action>
+		<action name="stopComponent"
+			class="com.cmsz.paas.web.monitoroperation.action.ComponentAction"
+			method="stopComponent"></action>
+		<action name="restartComponent"
+			class="com.cmsz.paas.web.monitoroperation.action.ComponentAction"
+			method="restartComponent"></action>
+		<action name="reinstall"
+			class="com.cmsz.paas.web.monitoroperation.action.ComponentAction"
+			method="reinstall"></action>
+		<action name="reinstallComponent"
+			class="com.cmsz.paas.web.monitoroperation.action.ComponentAction"
+			method="reinstallComponent"></action>
+	</package>
+</struts>

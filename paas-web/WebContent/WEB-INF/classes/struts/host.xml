@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 主机管理 -->
+	<package name="host" extends="global-struts" namespace="/host">
+
+		<action name="hostAction"
+			class="com.cmsz.paas.web.monitoroperation.action.HostAction"></action>
+			
+			
+	    <action name="queryDeployComponentList"
+			class="com.cmsz.paas.web.monitoroperation.action.HostAction" method="queryDeployComponentList"></action>
+		 
+		 <action name="queryHostAndCompDetails"
+			class="com.cmsz.paas.web.monitoroperation.action.HostAction" method="queryHostAndCompDetails"></action>
+		 
+		<action name="createHost"
+			class="com.cmsz.paas.web.monitoroperation.action.HostAction" method="createHost"></action>
+			
+		<action name="queryDeploySchemeList"
+			class="com.cmsz.paas.web.monitoroperation.action.HostAction" method="queryDeploySchemeList"></action>
+		
+		<action name="queryHostList"
+			class="com.cmsz.paas.web.monitoroperation.action.HostAction" method="queryHostList"></action>
+			
+		<action name="deleteHost"
+			class="com.cmsz.paas.web.monitoroperation.action.HostAction" method="deleteHost"></action>
+			
+		<action name="queryGrafana"
+			class="com.cmsz.paas.web.monitoroperation.action.HostAction"
+			method="queryGrafana"></action>
+	</package>
+</struts>

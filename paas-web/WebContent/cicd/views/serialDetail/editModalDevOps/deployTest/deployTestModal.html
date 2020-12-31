@@ -1,0 +1,70 @@
+<button id="deployTestId" data-target="#deployTest" data-toggle="modal" type="button" class="buildBtn" style="margin-right:0px;" ng-click="queryDeployInfo()" ng-disabled="flowInfo.FLOWINFO.buildStatus === '3'" ng-class="{'buildBtnDisable':flowInfo.FLOWINFO.buildStatus === '3'}">
+  <i class="fa fa-edit"></i>编辑
+</button>
+<!-- <button ng-if="isShow.status == 3" type="button" class="buildBtn" style="margin-right:0px; cursor:not-allowed; background-color: #999999 !important">
+  <i class="fa fa-edit"></i>编辑
+</button> -->
+<div class="modal fade" tabindex="-1" role="dialog" id="deployTest" data-backdrop="static" style="position: fixed;">
+  <div class="creatDevOps">
+    <div class="creatDevOps-title">
+      <div class="name">编辑项目</div>
+      <div class="close"><a data-dismiss="modal"><i class="fa fa-close"></i></a></div>
+    </div>
+    <div class="creatDevOps-content">
+      <div class="EditModal" style=" margin-bottom:15px;">
+        <div class="title" style="width:110px; text-align: right;"><span class="RED">*</span>服务名：</div>
+        <div class="svn" ng-if="resData.appSvcName !='' && resData.appSvcName !=null "
+             style="height:30px; line-height:30px; float:left;">{{resData.appSvcName}}
+        </div>
+        <button type="button" ng-if="resData.appSvcName ==='' || resData.appSvcName ===null " style="margin-left:20px;" ng-click="invoke()" ng-disabled="canClick.PROJECTINFO.APPINFO.id === '0'" ng-class="{true:'notClick', false:'canClick'}[canClick.PROJECTINFO.APPINFO.id === '0']"><i
+          class="fa fa-plus-square-o"></i>创建服务
+        </button>
+        <strong style="color:#999; font-weight:normal; margin-left:5px; font-size:12px;" ng-show="canClick.PROJECTINFO.APPINFO.id === '0' && resData.appSvcName ==='' "><i class="fa fa-exclamation-circle" style="margin-right:5px;"></i>创建服务需要先选择应用</strong>
+      </div>
+      <div class="EditModal">
+        <div class="title" style="width:110px; text-align: right;"><span class="RED">*</span>部署方式：</div>
+        <div class="input">
+          <form name="form1" method="post" action="">
+              <label>
+                  <input type="radio" name="scanType" ng-value="3" ng-model="saveParams.type" id="scanType_2" ng-disabled="resData.appSvcName ===null ||resData.appSvcName ===''" style=" float:left; height:30px;">
+                  <strong style="float:left; height:30px; line-height:30px; font-weight:normal;">人工部署</strong></label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>
+                <input type="radio" name="scanType" ng-value="1" ng-model="saveParams.type" id="scanType_1"
+                   ng-disabled="resData.grayNum >0 ||resData.appSvcName ===null ||resData.appSvcName ===''"    style=" float:left; height:30px;">
+                <strong style="float:left; height:30px; line-height:30px; font-weight:normal;">自动部署</strong></label>
+              <!-- 暂时保留 2017-11-23 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>
+              <input type="radio" name="scanType" ng-value="3" ng-model="saveParams.type" id="scanType_1"
+                   ng-disabled="resData.appSvcName ===null ||resData.appSvcName ===''"  style=" float:left; height:30px;">
+              <strong style="float:left; height:30px; line-height:30px; font-weight:normal;">手动</strong></label> -->
+          </form>
+        </div>
+        <!--去掉灰度滚动条 暂时保留 2017-11-23-->
+        <!-- <div class="codeReview" ng-show="saveParams.type =='2'" style="margin-left: 40px;">
+          <b>{{mySlider.greyParams.min}}</b>
+          <input id="deployTestSlider" type="text" data-slider-min="{{mySlider.greyParams.min}}" data-slider-max="{{mySlider.greyParams.max}}" data-slider-step="{{mySlider.greyParams.step}}" data-slider-value="{{mySlider.greyParams.value}}"/>
+          <b>{{mySlider.greyParams.max}}</b>
+        </div> -->
+        <div>
+          <span style="color:red;margin-left: 35px; font-size: 12px;" ng-if="resData.appSvcName ==='' || resData.appSvcName ===null ">未创建服务时不可选</span>
+        </div>
+        <div>
+          <span style="color:red;margin-left: 32px; font-size: 12px;" ng-if="resData.grayNum>0">{{resData.grayInfo}}</span>
+        </div>
+        <!-- <div>
+          <span style="color:red;margin-left: 35px; font-size: 12px;" ng-show="resData.grayNum >0">存在灰度版本不能选择普通发布</span>
+        </div> -->
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="modalBtnBox">
+      <button type="button" class="buildBtn" style="margin-right:10px;" ng-click="saveScanInfo()" ng-disabled="
+      resData.appSvcName ==='' || resData.appSvcName ===null ">确定</button>
+      <button type="button" data-dismiss="modal" id="cancelTest" class="ant-btn-ghost"
+              style=" background:#999; color:#fff;" ng-click="cancel()">取消
+      </button>
+    </div>
+  </div>
+</div>
+

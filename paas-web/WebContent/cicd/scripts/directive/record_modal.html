@@ -1,0 +1,78 @@
+<!-- 
+<button type="button" class="ant-btn-ghost" ng-click="clickRecord()" ng-if="attribute === 'true'">
+	<span>
+		<i class="fa fa-book"></i>
+		执行记录
+	</span>
+</button> -->
+
+<!--执行记录框-->
+		<div id="executionRecordPanel" name="chenzhe" ng-if="attribute !== 'true'" >
+			<!--执行记录框背景层-->
+			<div id="background" class="modal-mask modal-mask-hidden" ng-click="closeExecutionRecordPanel();"></div>
+			<!--执行记录框前景层-->
+			<div role="document" class="modal modal-wrap flowBuildLogModal" style="width: 520px; transform-origin: 133px 83px 0px; display: none;"> 
+				<div class="modal-content">
+					<div class="modal-body">
+						<div id="StageBuildLog" class="smallModal">
+							<div class="title">
+								<span>执行记录
+								 <!-- <button ng-click="test();">test</button> -->
+								 </span>
+								<i class="fa fa-expand" ng-click="changeExecutionRecordPanel();"></i>
+								<div style="clear: both;">
+								</div>
+							</div>
+							<div class="paddingBox">
+								<div class="rightBox">
+									<div class="collapse">
+										<div ng-if="recordList.length <= 0"><span style="color: red;">无执行记录</span></div>
+										<div class="collapse-item LogDetail LogDetail0" ng-repeat="step in recordList track by $index">
+											<div class="collapse-header" role="tab" aria-expanded="false" ng-click="openOrFoldContent(step, $event);">
+												<i class="fa fa-sort-desc"></i>
+												<div class="header">
+													<div class="leftHeader">
+														<div class="line"></div>
+														<i class="fail fa" aria-hidden="false" ng-class="{'1':'fa-check','2':'fa-times-circle'}[step.status]"></i>
+														<!-- <i class="fail fa fa-dot-circle-o succeed" style="color: #3fc000" aria-hidden="false"></i> -->
+													</div>
+													<div class="rightHeader">
+														<div class="borderBox">
+															<span class="name commonHeader">{{step.stepName | checkStepName}}</span>
+															<span class="status commonHeader">
+															
+																<span ng-style="statusColor(step.status)"  >{{step.status | executeStatus}}</span>
+															</span>
+															<span class="updateTime commonHeader">
+																耗时：<!-- react-text: 704 -->{{step.runTime}}S<!-- /react-text -->
+															</span>
+															<div style="clear: both;"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="collapse-content collapse-content-inactive" role="tabpanel" name="record-detail-cz" info="{{step}}">
+												<div class="collapse-content-box">
+													<div class="leftInfo">
+														<div class="line"></div>
+													</div>
+													<div class="rightInfo">
+														<div id="flowStageBuildLog" name="{{step.aliasName}}">
+															<div class="infoBox" id="flowLog" style="background-color: inherit;">
+																<span ng-bind-html="cardsList[$index].info">
+																</span>
+																<div style="clear: both;"></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

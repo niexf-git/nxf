@@ -1,0 +1,52 @@
+<div class="modal fade" style="position: fixed;margin: 0 auto; overflow: hidden;" tabindex="-1" role="dialog" id="modifySerialModal" >
+    <div class="creatDevOps" style="width:670px;">
+          <div class="creatDevOps-title">
+              <div class="name">修改流水</div>
+           </div>
+           <form name="modifySerialForm">
+             <div class="creatDevOps-content">
+                <div class="commonBox">
+                    <div class="creatDevOps-content-title">名称：</div>
+                    <div class="input">
+                      <input name="" type="text" required ng-pattern="/[a-zA-Z]+$/" ng-model="model.flowName">
+                      
+                    </div>
+                    <strong style="color:#999;">流水名必须英文</strong>
+                </div>
+               <div class="commonBox">
+                <div class="creatDevOps-content-title"><span class="RED">*</span>描述：</div>
+                   <div class="ant-switch"><textarea name="" cols="" rows="" style="width:536px; resize:none;" ng-model="model.flowDescription" ></textarea></div>
+                 </div>
+               <div class="creatDevOps-step">
+                <p>流水步骤</p>
+                   <div class="creatDevOps-step-main">
+                       <!-- <ul style="padding-left:0px;" ng-repeat="arr in flowSteps">
+                        <li ng-repeat="step in arr"> -->
+                          <!-- <a href="" >
+                           <div class="mycheck">  
+                                <i class="fa fa-check-square-o"></i>
+                            </div>
+                           <strong>{{step.value}}</strong>
+                           <i class="fa fa-exclamation-circle"></i></a> -->
+
+                          <!--  <input type="checkbox" name="flowSteps" value="{{step.key}}">
+                           <span>{{step.value}}</span>
+                        </li>
+                       </ul> -->
+
+                       <div class="creatDevOps-stepBOX" style="display: inline-block;" ng-repeat="step in steps">
+                        <input type="checkbox" name="flowSteps" value="{{step.isChoise}}" info="{{step}}" ng-true-value="1" ng-false-value="0" ng-model="step.isChoise">
+                        <span class="stepName">{{step.stepName}}</span>
+                        <i class="fa fa-question"></i>
+                       </div>
+                   </div>
+               </div>
+               <div class="clear"></div>
+            </div>
+             <div class="modalBtnBox">
+              <button type="button" class="ant-btn-ghost" style=" background:#ededed; color:#666;" data-dismiss="modal">取消</button>
+                 <button type="button" class="buildBtn" style="margin-right:10px; background:#02a0da; color:#fff;" ng-disabled="modifySerialForm.$invalid" ng-click="close();">确定</button>
+             </div>
+          </form>
+         </div>
+</div>

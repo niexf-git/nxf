@@ -1,0 +1,46 @@
+<a data-toggle="modal" data-target="#autoTestDetail" ng-click="queryData()" style="color:#666666; "><i class="fa fa-exclamation-circle"  style="margin-right:2px;"></i>详情</a>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="autoTestDetail" data-backdrop="static" style="position: fixed;">
+  <div class="creatDevOps">
+    <div class="creatDevOps-title">
+      <div class="name">编辑项目</div>
+      <div class="close" data-dismiss="modal"><a><i class="fa fa-close"></i></a></div>
+    </div>
+
+    <div class="creatDevOps-content">
+      <div class="EditModal">
+        <div class="title" style="width: 100px">代码库类型：</div>
+        <div class="svn">
+          <a><img ng-src="{{svnUrlPrefix}}images/svn.jpg" width="50" height="48"></a>
+          <a><img ng-src="{{svnUrlPrefix}}images/git.jpg" width="50" height="48"></a></div>
+      </div>
+      <!--svn表格-->
+
+      <div class="EditModal">
+        <div class="title" ng-show="isSvn" style="height:30px;width: 75px">svn路径：</div>
+        <div class="title" ng-show="!isSvn" style="height:30px;width: 75px">git路径：</div>
+        <div class="svn"><input type="text" ng-model="pageData.url" style="height:30px;width:355px;"></div>
+      </div>
+      <div class="EditModal">
+        <div class="title" style="width: 75px">用户名：</div>
+        <div class="ures"><input type="text"  ng-model="pageData.userName" style="height:30px;width: 120px"></div>
+        <div class="title">密码：</div>
+        <div class="ures"><input type="text" ng-model="pageData.password" style="height:30px;width: 120px" ></div>
+      </div>
+      <div class="EditModal" ng-show="!isSvn">
+        <div class="title" style="width: 75px">分支名称：</div>
+        <div class="svn"><select name="" ng-model="pageData.triggerType" style="width:355px;">
+          <option>请选择分支名称</option>
+          <option ng-repeat="x in svnSites track by $index" value="{{x.id}}">{{x.name}}</option>
+        </select></div>
+      </div>
+      <div class="EditModal">
+        <div class="title" style="width: 75px">测试命令：</div>
+        <div class="svn"><input type="text" ng-model="pageData.testCommand"  style="height:30px;width:355px;"></div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

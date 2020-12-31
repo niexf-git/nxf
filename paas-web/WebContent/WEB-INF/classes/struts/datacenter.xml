@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">   
+<struts>  
+  <!-- 监控运维 其中的 数据中心 -->
+  <package name="datacenter" extends="global-struts" namespace="/datacenter">
+  	
+  	<!-- begin 数据中心 -->
+	<action name="queryDataCenterList" class="com.cmsz.paas.web.monitoroperation.action.DataCenterAction" method="queryDataCenterList">
+	</action>
+	
+	<action name="createDataCenter" class="com.cmsz.paas.web.monitoroperation.action.DataCenterAction" method="createDataCenter">
+	</action>
+	
+	<action name="deleteDataCenter" class="com.cmsz.paas.web.monitoroperation.action.DataCenterAction" method="deleteDataCenter">
+	</action>
+	
+	<action name="syncDataCenter" class="com.cmsz.paas.web.monitoroperation.action.DataCenterAction" method="syncDataCenter">
+	</action>
+	
+	<action name="updateDescription" class="com.cmsz.paas.web.monitoroperation.action.DataCenterAction" method="updateDescription">
+	</action>
+	<!-- end 数据中心 -->
+	
+  </package>
+</struts>

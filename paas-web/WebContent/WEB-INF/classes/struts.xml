@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="global-struts" extends="struts-default">
+		<interceptors>
+			<interceptor name="sessionout" class="com.cmsz.paas.web.user.interceptor.SessionIterceptor"></interceptor>
+			<interceptor name="logInterceptor" class="com.cmsz.paas.common.log.StrutsLogInterceptor"></interceptor>
+			<interceptor name="paramsValidateInterceptor" class="com.cmsz.paas.web.base.interceptor.ParamsValidateInterceptor"></interceptor>				
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="paramsValidateInterceptor"/>
+				<interceptor-ref name="defaultStack" />							
+			    <interceptor-ref name="sessionout" />
+			    <interceptor-ref name="logInterceptor"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+		  <result name="login">/jsp/common/timeout.jsp</result>
+		  <result name="error">/jsp/common/error.jsp</result>   
+		</global-results>
+		<global-exception-mappings>  
+		    <exception-mapping result="error" exception="java.lang.RuntimeException"></exception-mapping>  
+		</global-exception-mappings>  
+	</package>
+	
+	<constant name="struts.objectFactory.spring.autoWire.alwaysRespect" value="true" /> <!-- struts都要去考虑spring的自动装配 -->
+	<bean type="org.apache.struts2.dispatcher.mapper.ActionMapper"
+		name="myDefaultActionMapper" class="com.cmsz.paas.web.defaultactionmapper.MyDefaultActionMapper" />
+	<constant name="struts.mapper.class" value="myDefaultActionMapper" />
+	
+	<constant name="struts.multipart.maxSize" value="52428800000"/>
+	<!--  <constant name="struts.multipart.saveDir" value="C:\fubl\tmpfile"/>-->
+	
+	<!-- 让struts的过滤器不过滤WebService的请求(/service/.*)
+		特别要注意的是：struts.action.excludePattern的值是用逗号（，）隔开的正则表达式。
+		 -->
+	<constant name="struts.action.excludePattern" value="/websocket.*?,/service/.*,/services/.*"></constant>
+	<constant name="struts.devMode" value="false" />
+	
+	<!-- <include file="struts/image.xml"/> -->
+	<include file="struts/alarm.xml"/>
+    <include file="struts/user.xml"/>
+    <include file="struts/role.xml"/>
+    <include file="struts/permission.xml"/>
+    <include file="struts/application.xml"/>
+    <include file="struts/appServiceInst.xml"/>
+    <include file="struts/log.xml"/>   
+	<include file="struts/buildManager.xml"/>
+	<include file="struts/appService.xml"/>
+	<include file="struts/group4a.xml"/>
+	<include file="struts/ipaasService.xml"/>
+	<include file="struts/privateImage.xml"/><!-- 私有镜像 -->
+	<include file="struts/publicImage.xml"/><!-- 公共镜像 -->
+	<include file="struts/ipaasInstance.xml"/>
+	<include file="struts/monitoroperation.xml"/>
+	<include file="struts/datacenter.xml"/><!-- 数据中心 -->
+	<include file="struts/cluster.xml"/><!-- 集群 -->
+	<include file="struts/host.xml"/><!-- 主机 -->
+	<include file="struts/component.xml"/><!-- 主机详情 -->
+	<include file="struts/sysAlarm.xml"/><!-- 告警 -->
+	<include file="struts/appServiceGray.xml"/>
+	<include file="struts/globalMonitor.xml"/>
+	<include file="struts/imageSync.xml"/><!-- 镜像同步任务 -->
+	<include file="struts/flowManager.xml"/><!-- 流水管理 -->
+	<include file="struts/downloadCheck.xml"/><!-- 代码下载&审查  -->
+	<include file="struts/compileBuild.xml"/><!-- 编译&构建 -->
+	<include file="struts/autotest.xml"/><!-- 查询自动化测试配置信息  -->
+	<include file="struts/integrationtest.xml"/><!-- 集成测试配置信息  -->
+	<include file="struts/performancetest.xml"/><!-- 性能测试配置信息  -->
+	<include file="struts/deployment.xml"/><!-- 部署&扫描  -->
+	<include file="struts/deploy.xml"/><!-- 部署  -->
+	<include file="struts/codedetails.xml"/><!-- 代码详情  -->
+	<include file="struts/reportform.xml"/><!-- 报表  -->
+	<include file="struts/measure.xml"/><!--  度量 -->
+	<include file="struts/queryReport.xml"/><!--  度量 -->
+	<include file="struts/excuteRecord.xml"/><!-- 执行记录  -->
+	<include file="struts/codedetails.xml"/><!-- 代码详情  -->
+	<include file="struts/release.xml"/><!-- 发布  -->
+	<include file="struts/overview.xml"/><!-- 总览  -->
+	<include file="struts/newMonitor.xml"/><!-- 普通用户监控运维  -->
+	<include file="struts/newdatacenter.xml"/><!-- 普通用户数据中心 -->
+	<include file="struts/newCluster.xml"/><!-- 普通用户集群 -->
+</struts>

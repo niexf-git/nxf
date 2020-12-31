@@ -1,0 +1,104 @@
+<!-- 部署扫描编辑模态框 -->
+<button id="deployScanId" type="button" class="buildBtn" style="margin-right:0px;" data-toggle="modal"
+        data-target="#deployScan" ng-click="queryStepInfo()" ng-disabled="flowInfo.FLOWINFO.buildStatus === '3'"
+        ng-class="{'buildBtnDisable':flowInfo.FLOWINFO.buildStatus === '3'}">
+  <i class="fa fa-edit"></i>编辑
+</button>
+<div class="modal fade" tabindex="-1" role="dialog" id="deployScan" data-backdrop="static" style="position: fixed;">
+  <div class="creatDevOps">
+    <form name="myForm">
+      <div class="creatDevOps-title">
+        <div class="name">编辑项目</div>
+        <div class="close"><a data-dismiss="modal"><i class="fa fa-close"></i></a></div>
+      </div>
+      <div class="creatDevOps-content">
+        <div class="EditModal" style=" margin-bottom:15px;">
+          <div class="title" style=" width: 120px; text-align: right; "><span class="RED">*</span>服务名：</div>
+          <div class="svn" ng-if="resData.appSvcName !='' && resData.appSvcName !=null "
+               style="height:30px; line-height:30px; float:left;">{{resData.appSvcName}}
+          </div>
+          <button type="button" ng-if="resData.appSvcName ==='' || resData.appSvcName ===null "
+                  style="margin-left:20px;" ng-click="invokeService()"
+                  ng-disabled="canClick.PROJECTINFO.APPINFO.id === '0'"
+                  ng-class="{true:'notClick', false:'canClick'}[canClick.PROJECTINFO.APPINFO.id === '0']"><i
+            class="fa fa-plus-square-o"></i>创建服务
+          </button>
+          <strong style="color:#999; font-weight:normal; margin-left:5px; font-size:12px;"
+                  ng-show="canClick.PROJECTINFO.APPINFO.id === '0' && resData.appSvcName ==='' "><i
+            class="fa fa-exclamation-circle" style="margin-right:5px;"></i>创建服务需要先选择应用</strong>
+        </div>
+        <div class="EditModal">
+          <div class="title" style="width: 120px; text-align: right;"><span class="RED">*</span>部署方式：</div>
+          <div class="codeReview">
+            <form name="form1" method="post" action="">
+              <label>
+                <input type="radio" name="scanType" ng-value="3" ng-model="saveParams.type"
+                       id="scanType_2"
+                       ng-disabled="resData.appSvcName ===null ||resData.appSvcName ==='' "
+                       style=" float:left; height:30px;">
+                <strong style="float:left; height:30px; line-height:30px; font-weight:normal;">人工部署</strong></label>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>
+                <input type="radio" name="scanType" ng-value="1" ng-model="saveParams.type"
+                       id="scanType_1"
+                       ng-disabled="resData.appSvcName ===null ||resData.appSvcName ===''||resData.grayNum>0 "
+                       style=" float:left; height:30px;">
+                <strong style="float:left; height:30px; line-height:30px; font-weight:normal;">自动部署</strong></label>
+            </form>
+          </div>
+          <!--去掉灰度滚动条 暂时保留 2017-11-23 -->
+          <!-- <div class="codeReview" ng-show="saveParams.type =='2'" style="margin-left: 40px;">
+            <b>{{mySlider.greyParams.min}}</b>
+            <input id="deployScanSlider" type="text" data-slider-min="{{mySlider.greyParams.min}}" data-slider-max="{{mySlider.greyParams.max}}" data-slider-step="{{mySlider.greyParams.step}}" data-slider-value="{{mySlider.greyParams.value}}"/>
+            <b>{{mySlider.greyParams.max}}</b>
+          </div> -->
+        </div>
+        <div>
+          <span style="color:red;margin-left: 40px; font-size: 12px;"
+                ng-if="resData.grayNum>0">{{resData.grayInfo}}</span>
+        </div>
+        <div class="Scanline"></div>
+        <div class="EditModal" style=" margin-bottom:0px;">
+          <div class="title" style="width:20px; float:left; height:30px; margin-left:15px;"><input
+            name="showCheck" type="checkbox" ng-value="resData.isCheck === '1' "
+            ng-model="saveParams.isCheck"
+            ng-disabled="resData.appSvcName ==='' || resData.appSvcName ===null ||resData.webUrl===null || resData.webUrl==='' ">
+          </div>
+          <div class="svn" style=" line-height:30px; margin-top: 3px;">安全扫描
+                        <span style="color:red;margin-left: 10px; font-size: 12px;"
+                              ng-if="(resData.appSvcName!=null && resData.appSvcName !='') && (resData.webUrl===null || resData.webUrl==='')">应用服务未选择web服务时不可选</span>
+                        <span style="color:red;margin-left: 10px; font-size: 12px;"
+                              ng-if="resData.appSvcName ==='' || resData.appSvcName ===null ">未创建服务时不可选</span>
+          </div>
+        </div>
+        <div class="EditModal"
+             ng-if="saveParams.isCheck === true && resData.webUrl !=null && resData.webUrl !='' ">
+          <div class="title" style=" width: 120px; text-align: right;; "><span class="RED">*</span>Web服务地址：
+          </div>
+          <div class="svn">
+            <input name="modifyUrl" type="url" id="modifyUrl" 　style="width:270px;"
+                   ng-model="saveParams.webUrl" maxlength="500" style="width: 245px;" required>
+                        <span class="pro-info" ng-show="myForm.modifyUrl.$invalid && myForm.modifyUrl.$dirty"
+                              style="color:red">请填写正确的URL地址</span>
+            <!-- <div class="pro-info" ng-show="myForm.modifyUrl.$error.maxlength" style="color:red;">
+                Web服务地址不能超过256个字符
+              </div> -->
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="modalBtnBox">
+          <button type="button" class="buildBtn" style="margin-right:10px;" ng-click="saveStepInfo()"
+                  ng-disabled="(myForm.$dirty && myForm.$invalid) || resData.appSvcName ==='' || resData.appSvcName ===null ">
+            确定
+          </button>
+          <button type="button" data-dismiss="modal" id="cancel" class="ant-btn-ghost"
+                  style=" background:#999; color:#fff;" ng-click="cancel()">取消
+          </button>
+        </div>
+    </form>
+
+  </div>
+
+</div>
+

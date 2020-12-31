@@ -1,0 +1,607 @@
+/*
+作者：林军
+邮箱：394716319@qq.com
+描述：执行记录样式
+*/
+*{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+*, :after, :before{
+    box-sizing: border-box;
+}
+div{
+    margin: 0;
+    padding: 0;
+}
+.statusBox{
+    position: relative;
+    float: left;
+    width: 90px;
+    height: 240px;
+    text-align: center;
+    background-color: #ece3e3;
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+}
+.statusBox .failStatus{
+    color: #f85a5a;
+}
+.statusBox .status{
+    width: 90px;
+    height: 240px;
+}
+.anticon{
+    display: inline-block;
+    font-size: normal;
+    vertical-align: baseline;
+    text-align: center;
+    text-transform: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+.statusBox .status i{
+    line-height: 220px;
+    font-size: 30px;
+}
+.statusBox .status p{
+    position: absolute;
+    font-size: 14px;
+    bottom: 80px;
+    width: 100%;
+    text-align: center;
+    font-weight:normal;
+}
+.infoBox{
+    float: left;
+    margin-bottom: 0;
+    padding: 13px;
+    width: 308px;
+    height: 240px;
+    background-color: silver;
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.infoBox .btnBox{
+    float: none!important;
+    padding-top: 160px;
+    width: 100%!important;
+    height: 50px;
+}
+button {
+    font: inherit;
+    margin: 0;
+    overflow: visible;
+    text-transform: none;
+    -webkit-appearance: button;
+}
+.btn {
+    color: #fff;
+    background-color: #428bca;
+    border-color: #357ebd;
+    background-image: none;
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 6px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.btn:focus, .btn:hover, .btn:active{
+    outline:0!important;
+    outline:dotted thin;
+    outline:-webkit-focus-ring-color auto 5px;
+    outline-offset:-2px;
+    border-radius: 6px;
+    color: #fff;
+    background-color: #30719a;
+    border-color:#285e8e;
+}
+.modal-mask{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(55,55,55,.6);
+    height: 100%;
+    z-index: 1100;
+}
+.modal-mask-hidden{
+    display: none;
+}
+
+.flowBuildLogModal {
+    width: 670px!important;
+}
+.modal-wrap {
+    position: fixed;
+    overflow: auto;
+    top: 80px;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    z-index: 1100;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    margin:0 auto; 
+}
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    border: 0;
+    border-radius: 6px;
+    background-clip: padding-box;
+}
+.modal-body {
+    padding: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+.modal .modal-body{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.flowBuildLogModal .modal-body {
+    padding: 0!important;
+    font-size: 14px!important;
+}
+.flowBuildLogModal .smallModal {
+    width: 670px;
+    height: 100%;
+    top: 100px;
+    left: calc(50% - 335px);
+}
+.flowBuildLogModal .bigModal {
+    transition: all .3s;
+    position: fixed;
+    width: 100%!important;
+    height: 100%!important;
+    top: 0!important;
+    left: 0!important;
+}
+#StageBuildLog {
+    transition: all .3s;
+    border: 1px solid #1f1f1f;
+    border-radius: 5px;
+    overflow: hidden;
+}
+#StageBuildLog .title {
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 100%;
+    height: 51px;
+    line-height: 51px;
+    font-size: 16px;
+    color: #f3f3f3;
+    background-color: #3f3f3f;
+    border-top: 1px solid #4d4d4d;
+    border-bottom: 1px solid #1f1f1f;
+}
+#StageBuildLog .title i{
+    float: right;
+    line-height: 50px;
+    cursor: pointer;
+}
+.flowBuildLogModal .smallModal .paddingBox {
+    width: 100%;
+    max-height: 500px;
+    overflow-y: auto;
+}
+.flowBuildLogModal .bigModal .paddingBox {
+    height: 100%;
+    overflow-y: auto;
+}
+#StageBuildLog .paddingBox {
+    padding: 24px;
+    border-top: 1px solid #454545;
+    background-color: #363636;
+}
+#StageBuildLog .rightBox {
+    float: right;
+    width: 100%;
+}
+#StageBuildLog .rightBox .collapse {
+    width: 100%;
+    border: 0!important;
+    border-radius: 0!important;
+    background-color: transparent!important;
+    display:inherit !important;
+}
+.collapse>.collapse-item {
+    border-top: 1px solid #d9d9d9;
+}
+.collapse>.collapse-item:first-child {
+    border-top: 0;
+}
+#StageBuildLog .LogDetail {
+    position: relative;
+    cursor: default;
+}
+#StageBuildLog .rightBox .collapse .collapse-item {
+    margin-bottom: 30px;
+    border: 0!important;
+}
+.collapse>.collapse-item>.collapse-header {
+    height: 38px;
+    line-height: 38px;
+    padding-left: 32px;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+}
+#StageBuildLog .rightBox .collapse .collapse-header {
+    padding: 0!important;
+    height: 54px!important;
+}
+#StageBuildLog .rightBox .collapse .collapse-header>i.fa.fa-sort-desc {
+    font-size: 25px;
+    z-index: 10;
+    position: absolute;
+    margin-left: 91%;
+    top: 5px!important;
+    color: #e9e9e9!important;
+    filter: none;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+}
+#StageBuildLog .rightBox .collapse .collapse-header>i.fa.fa-sort-asc {
+    font-size: 25px;
+    z-index: 10;
+    position: absolute;
+    margin-left: 91%;
+    top: 5px!important;
+    color: #e9e9e9!important;
+    filter: none;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+    margin-top: 8px;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header {
+    color: #e9e9e9;
+    line-height: 50px;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .leftHeader {
+    position: relative;
+    float: left;
+    width: 40px;
+    height: 54px;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .leftHeader .line {
+    position: absolute;
+    top: 0;
+    left: 19px;
+    width: 2px;
+    height: 84px;
+    border-left: 1px solid #626262;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .fail {
+    color: #f85a5a;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .leftHeader .fa {
+    position: absolute;
+    font-size: 18px;
+    top: 18px;
+    left: 12.5px;
+    background-color: #363636;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .rightHeader {
+    position: relative;
+    float: left;
+    width: calc(100% - 40px);
+    height: 54px;
+    line-height: 50px;
+    border: 1px solid #1f1f1f;
+    border-radius: 5px;
+    overflow: hidden;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .rightHeader .borderBox{
+    padding-left: 18px;
+    border-top: 1px solid #525252;
+    border-bottom: 1px solid #525252;
+    background-color: #444;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .commonHeader{
+    float: left;
+    display: block;
+    width: 20%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .name{
+    width: 25%;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .status{
+    width: 16%;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .fail{
+    color: #f85a5a;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .success{
+  color: #5cb85c;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .updateTime{
+    width: 160px;
+}
+#StageBuildLog .rightBox .collapse .collapse-header .header .commonHeader i{
+    margin-right: 5px;
+}
+.collapse-content {
+    overflow: hidden;
+    color: #666;
+    padding: 0 16px;
+    background-color: #fff;
+}
+.collapse-content-inactive {
+    display: none;
+}
+#StageBuildLog .rightBox .collapse .collapse-content {
+    padding: 0!important;
+    height: auto!important;
+    overflow: visible;
+    background-color: transparent!important;
+}
+#StageBuildLog .rightBox .collapse .collapse-content-box {
+    position: relative;
+    padding: 0!important;
+}
+#StageBuildLog .rightBox .collapse .leftInfo {
+    position: absolute;
+    padding-left: 19px;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: calc(100% + 30px);
+}
+#StageBuildLog .rightBox .collapse .leftInfo .line {
+    width: 2px;
+    height: 100%;
+    border-left: 1px solid #626262;
+}
+#StageBuildLog .rightBox .collapse .rightInfo {
+    padding: 3px;
+    margin-left: 40px;
+    width: calc(100% - 40px);
+    mim-height: 100px;
+    max-height: 250px;
+    overflow: auto;
+    border: 1px solid #1f1f1f;
+    border-top: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: #3e3e3e;
+}
+#flowStageBuildLog {
+    width: 100%;
+    min-height: 100px;
+    max-height: 242px;
+    overflow-y: auto;
+    border: 1px solid #1f1f1f;
+    background-color: #353535;
+}
+#StageBuildLog .LogDetail .infoBox {
+    margin-bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: #fff;
+}
+#flowStageBuildLog .stageBuildLogDetail {
+    margin-top: 5px;
+    padding: 0 10px;
+    line-height: 20px;
+    color: #e9e9e9;
+    background-color: #000 ;
+    word-break: keep-all;
+}
+/*总览样式*/
+.pandectTitle{
+  float: left;
+  width: 100%;
+  padding: 20px;
+}
+.pandectTitle-china{
+  float: left;
+}
+.pandectTitle-english{
+  float: left;
+}
+#OrdinaryStd{
+    width: 100%;
+}
+#OrdinaryStd .title{
+    border-left: 3px solid #f7b266;
+    color: #1e2639;
+    height: 16px;
+    line-height: 18px;
+    padding-left: 10px;
+    margin-bottom: 8px;
+    font-weight: 400;
+    font-size: 13px;
+}
+#MySpaceStd{
+    width: 100%;
+    float: left;
+}
+#MySpaceStd .title{
+    border-left: 3px solid #f7b266;
+    color: #1e2639;
+    height: 16px;
+    line-height: 18px;
+    padding-left: 10px;
+    margin-bottom: 8px;
+    font-weight: 400;
+    font-size: 13px;
+}
+.ant-row {
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+    height: auto;
+    zoom: 1;
+    display: block;
+}
+.ant-col-6 {
+    display: block;
+    width: 31.4%;
+    margin-right: 20px;
+    float: left;
+    margin-bottom: 25px;
+    box-shadow: 0 0 10px #dadada;
+    height: 260px;
+    background: #FFF;
+    min-width: 310px;
+}
+.ant-card {
+    background: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    position: relative;
+    overflow: hidden;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+.ant-card-head {
+    height: 70px;
+    padding: 0 24px;
+}
+#OrdinaryStd .ant-card-head-title {
+    font-weight: 400;
+    font-size: 14px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+#MySpaceStd .ant-card-head-title {
+    font-weight: 400;
+    font-size: 14px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.ant-card-body{
+    width: 100%; 
+    padding:20px 0 20px 0;
+    box-shadow: none;
+}
+.ant-card-main-left{
+    float: left;
+    width: 148px;
+}
+.ant-card-main-right{
+    float: right;
+    width: 140px;
+    padding-top: 30px;
+}
+.ant-card-main-right span{
+    float: left;
+    width: 120px;
+    height: 30px;
+}
+.ant-col-one{
+    width: 95%;
+    background: #fff;
+    margin-bottom: 25px;
+    box-shadow: 0 0 10px #dadada;
+    border-radius: 3px;
+    height: 340px;
+}
+.pandect-chart-item {
+    width: 100%; 
+    height: 250px;
+}
+.costInfo{
+    /*width: 31%;*/
+    float: left;
+    margin-right: 20px;
+}
+.ant-col-two{
+    width: 95%;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+.ant-col-test{
+    width: 68%;
+    margin-bottom: 25px;
+    float: left;
+    margin-bottom: -3000px;
+    padding-bottom: 3000px;
+
+}
+.ant-card-Code{
+    width: 50%;
+    float: left;
+}
+.ant-col-deploy{
+    margin-bottom: -3000px;
+    padding-bottom: 3000px;
+    background: #fff;
+    float: right;
+    width: 30%;
+    /*height: 630px;*/
+    box-shadow: 0 0 10px #dadada;
+    border-radius: 3px;
+    border-radius: 3px;
+}
+.totalBox{ 
+    height: 80px;
+    text-align: center;
+    padding: 0 0px 0 50px;
+}
+.totalBox-cont{
+    border-right: 1px solid #e8eef2;
+    width: 100px;
+    display: block;
+    float: left;
+}
+.totalBox-cont a{
+    float: left;
+    width: 70px;
+    display: block;
+    color: #ffa32a; 
+    font-size: 26px;
+}
+.totalBox-cont h1{
+    float: left;
+    width: 70px;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #abb4c0;
+    margin: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

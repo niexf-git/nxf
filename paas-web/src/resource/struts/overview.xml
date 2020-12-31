@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 总览 -->
+	<package name="overview" extends="global-struts" namespace="/overview">
+
+		<action name="queryServiceState" class="com.cmsz.paas.web.overview.action.OverviewAction"
+			method="queryServiceState">
+		</action>
+		
+		<action name="queryInstanceState" class="com.cmsz.paas.web.overview.action.OverviewAction"
+			method="queryInstanceState">
+		</action>
+		
+		<action name="queryAlarmDetails" class="com.cmsz.paas.web.overview.action.OverviewAction"
+			method="queryAlarmDetails">
+  		</action>
+  		
+		<action name="queryAssignedResourceRate" class="com.cmsz.paas.web.overview.action.OverviewAction"
+			method="queryAssignedResourceRate">
+		</action>
+		
+		<action name="queryActualResourceRate" class="com.cmsz.paas.web.overview.action.OverviewAction"
+			method="queryActualResourceRate">
+		</action>
+		
+		<action name="queryFlowBuildState" class="com.cmsz.paas.web.overview.action.OverviewAction"
+			method="queryFlowBuildState">
+		</action>
+		
+		<action name="queryTotalResource" class="com.cmsz.paas.web.overview.action.OverviewAction"
+   			method="queryTotalResource">
+  		</action>
+
+	</package>
+</struts>

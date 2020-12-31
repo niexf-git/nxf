@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 监控运维 其中的 镜像同步任务 -->
+	<package name="imageSync" extends="global-struts" namespace="/imageSync">
+		<!-- 初始化时间 -->
+		<action name="initQueryDateTime" class="com.cmsz.paas.web.monitoroperation.action.ImageSyncAction"
+			method="initQueryDateTime">
+		</action>
+		
+		<!-- 初始化应用 -->
+		<action name="queryAppsList" class="com.cmsz.paas.web.monitoroperation.action.ImageSyncAction"
+			method="queryAppsList">
+		</action>
+		
+		<!-- 初始化数据中心 -->
+		<action name="queryDataCenterList" class="com.cmsz.paas.web.monitoroperation.action.ImageSyncAction"
+			method="queryDataCenterList">
+		</action>
+		
+		<action name="queryImageSyncList" class="com.cmsz.paas.web.monitoroperation.action.ImageSyncAction"
+			method="queryImageSyncList">
+		</action>
+		
+		<action name="loadPublicImages" class="com.cmsz.paas.web.monitoroperation.action.ImageSyncAction"
+			method="loadPublicImages">
+		</action>
+	</package>
+</struts>

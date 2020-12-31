@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 应用管理 -->
+	<package name="application" extends="global-struts" namespace="/application">
+		<action name="queryAppList" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="queryAppList">
+		</action>
+		
+		<action name="queryAppInfo" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="queryAppInfo">
+		 	<result name="success">/jsp/application/createApp.jsp</result>
+		 </action>
+		 
+		 
+		<action name="createAppInfo" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="createAppInfo">
+		 <!-- 	<result name="success">/jsp/application/listApp_new.jsp</result> -->
+		 </action>
+		 
+		 
+		<action name="queryAppById" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="queryAppById">
+		 	<result name="success">/jsp/application/updateApp.jsp</result>
+		 </action>
+		 
+		<action name="updateAppInfo" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="updateAppInfo"></action>
+		 
+		 <action name="deleteAppInfo" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="deleteAppInfo"></action>
+		 
+		  <action name="dataCenterChange" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="dataCenterChange"></action>
+		 
+		 <action name="queryDetailsList" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="queryDetailsList">
+		</action>
+		
+		 <action name="isAdminCheck" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="isAdminCheck">
+		</action>
+		
+		 <action name="importApp" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="importApp">
+		</action>
+		 
+		  <action name="queryDNSList" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="queryDNSList">
+		 	<result name="success">/jsp/application/disasterRecovery.jsp</result>
+		</action>
+		
+		<action name="createDNS" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="createDNS">
+		</action>
+		 
+		 <action name="queryDnsAndClusterById" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="queryDnsAndClusterById">
+		</action>
+		
+		<action name="getDisasterStatus" class="com.cmsz.paas.web.application.action.ApplicationAction"
+		 method="getDisasterStatus">
+		</action>
+		
+		
+	</package>
+</struts>

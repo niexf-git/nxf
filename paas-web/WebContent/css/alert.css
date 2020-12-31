@@ -1,0 +1,125 @@
+@charset "utf-8";
+/* CSS Document */
+ul,li,span,p,a,h1{ margin:0; padding:0; list-style-type:none;}
+clear{ clear:both}
+:focus{
+    outline: 0;
+}
+body{
+	width:auto;
+	height:auto;
+	font-family:"微软雅黑";
+	font-size:12px;
+	margin:auto;
+	padding:0px;
+}
+.alert{
+	margin:0 auto;
+	margin-top:0px;
+	overflow:hidden;
+}
+.alert-main{
+	margin:0 auto;
+	border:4px solid #dadada;
+	border-radius:10px 10px 10px 10px ;
+	height:203px;
+	width:395px;
+}
+.alert-main-no{
+	margin:0 auto;
+}
+.alert-main-title{
+	width: 330px;
+	float: left;
+	padding-left: 18px;
+}
+.alert-main-title h1{
+	color:#c64142;
+	font-size:20px;
+	font-weight:normal;
+	float:left;
+	margin-top: 15px;
+}
+
+.alert-main-title span{
+	float:right;
+	margin-top:17px;
+}
+.alert-main-content{
+	float:left;
+	padding:15px 0px 0px 18px;
+	width:345px;
+	max-height:85px;
+	height:auto;
+	overflow-x: hidden;
+	overflow-y:auto;
+	word-break:break-all;
+	margin-bottom:15px;
+	height:85px;
+}
+.alert-main-input{
+	padding:18px 0 20px 18px;
+	text-align: center;
+}
+.alert-main-input input{
+	border:none;
+	border:1xp solid #dadada;
+	background:#333; 
+	border-radius:10px;
+	width:59px;
+	height:30px;
+	font-size:12px;
+	font-family:"微软雅黑";
+	color:#fff;
+	cursor: pointer;
+	outline:none;
+}
+
+.ui-dialog-titlebar {
+	background-color: white;
+	background-image: none;
+	border: none;
+	height: 1px;
+}
+input:focus {
+    outline:none;
+}
+button:focus {
+    outline:none;
+}
+/*启动服务弹出框*/
+.alertWarn-title{
+	width: 360px;
+	float: left;
+	padding-left: 18px;
+}
+.alertWarn-title h1{
+	color:#c64142;
+	font-size:20px;
+	font-weight:normal;
+	float:left;
+	margin-top: 15px;
+}
+
+.alertWarn-title span{
+	float:right;
+	margin-top:17px;
+}
+.alertWarn-content{
+	float:left;
+	padding:15px 0px 0px 18px; 
+	max-height:85px;
+	height:auto;
+	overflow-x: hidden;
+	overflow-y:auto;
+	word-break:break-all;
+	margin-bottom:15px;
+	width:376px;
+	height:85px;
+}
+/*页面加载图片*/
+#progressGif{
+   	position: absolute;
+	padding-top: 70px;
+	left: 45%;
+}

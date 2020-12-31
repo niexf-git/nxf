@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 应用服务管理 -->
+	<package name="appservice" extends="global-struts" namespace="/appservice">
+
+		<action name="queryAppServiceList"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="queryAppServiceList">
+		</action>
+
+		<action name="queryAppServiceById"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="queryAppServiceById">
+			<result name="operationArea">/jsp/appservice/operateArea.jsp</result>
+			<result name="config">/jsp/appservice/configmanager/config.jsp</result>
+		</action>
+
+		<action name="importEnvsFile"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="importEnvsFile">
+		</action>
+
+		<action name="exportEnvsFile"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="exportEnvsFile">
+			<result name="success" type="stream">
+				<param name="inputName">file</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">40960</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+			</result>
+		</action>
+
+		<action name="queryClusterList"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="queryClusterList">
+		</action>
+
+		<action name="startAppService"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="startAppService">
+		</action>
+
+		<action name="allStartAppService"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="allStartAppService">
+		</action>
+
+		<action name="selfStartAppService"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="selfStartAppService">
+		</action>
+
+		<action name="checkAppServiceRelaIpaas"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="checkAppServiceRelaIpaas">
+		</action>
+
+		<action name="startAppServices"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="startAppServices">
+		</action>
+
+		<action name="stopAppServices"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="stopAppServices">
+		</action>
+
+		<action name="forcedRestartAppServices"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="forcedRestartAppServices">
+		</action>
+
+		<!-- 批量删除服务 -->
+		<action name="deleteAppServices"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="deleteAppServices">
+		</action>
+
+		<action name="sendSignal2AppService"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="sendSignal2AppService">
+		</action>
+
+		<!-- 删除单个服务 -->
+		<action name="deleteAppService"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="deleteAppService">
+		</action>
+
+		<action name="createAppService"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="createAppService">
+		</action>
+
+		<action name="modifyAppService"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="modifyAppService">
+		</action>
+		<action name="queryGrafana"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="queryGrafana">
+		</action>
+
+		<action name="uploadConfigFile"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="uploadConfigFile">
+		</action>
+		<action name="queryAppService"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="queryAppService">
+		</action>
+			
+		<action name="queryCluserHostIp" 
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="queryCluserHostIp">
+		</action>
+		
+		<action name="queryNewAppService"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="queryNewAppService">
+		</action>
+		
+		<action name="batchUpgradeServiceVersions"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="batchUpgradeServiceVersions">
+		</action>
+		<action name="queryIsExcess"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="queryIsExcess">
+		</action>
+		<action name="queryIsCheckIP"
+			class="com.cmsz.paas.web.appservice.action.AppServiceAction" method="queryIsCheckIP">
+		</action>
+	</package>
+</struts>

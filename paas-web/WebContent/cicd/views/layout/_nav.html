@@ -1,0 +1,21 @@
+<!--左边导航栏部分-->
+<div class="container-fluid">
+
+  <div class="col-sm-3 col-md-2 sidebar" style="width:205px;">
+    <ul class="nav nav-sidebar">
+      <li ng-repeat="resData in adjustResData" repeat-finish ng-click="showChildNav($event, resData);">
+        <a href={{resData.url}} target="{{resData.targetObj}}" class={{resData.initStyle}} ng-class="{'active':resData.isInside, 'fa fa-angle-right': !resData.openState&&resData.hasChild, 'fa fa-angle-down navbar-fa-angle-down': resData.openState&&resData.hasChild}"
+          ng-click="addActiveClass(resData.name)">
+          <i class={{resData.img}}></i>{{resData.name}}</a>
+        <ul ng-class="{'hidden': !resData.openState}" ng-show="resData.hasChild">
+          <li class="navOther" ng-repeat="child in resData.childrens" ng-click="switchNav(resData.childrens, child.name, $event)">
+            <a href={{child.url}} ng-class="{'active':child.isInside}" ng-click="addActiveClass(child.name)" target="oldPage">
+              <i class={{child.img}} style="margin-right:20px;"></i>{{child.name}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <iframe id="noPage" style="display: none;" frameborder="0" name="noPage"></iframe>
+
+</div>

@@ -1,0 +1,85 @@
+<button type="button" class="buildBtn" style="margin-right:0px;" ng-click="queryData()" data-toggle="modal" data-target="#integrationTest" ng-disabled="flowInfo.FLOWINFO.buildStatus=== '3'" ng-class="{'buildBtnDisable':flowInfo.FLOWINFO.buildStatus === '3'}">
+  <i class="fa fa-edit" ></i>编辑
+</button>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="integrationTest" data-backdrop="static" style="position: fixed;">
+  <div class="creatDevOps">
+    <div class="creatDevOps-title">
+      <div class="name">编辑项目</div>
+      <div class="close" data-dismiss="modal"><a><i class="fa fa-close"></i></a></div>
+    </div>
+    <div class="creatDevOps-content">
+      <div class="EditModal" style=" padding-left:56px; margin-bottom:15px; font-size:16px; color:#000;">
+        <form name="form1" method="post" action="">
+          <label ng-click="chooseCreate(0)">
+            <input type="radio" name="RadioGroup1" ng-value="true" ng-model="isCreat" id="RadioGroup1_0"  style=" float:left; height:30px;margin-top:0;">
+            <strong style="float:left; height:30px; line-height:30px; font-weight:normal;margin-right:10px;">创建</strong>
+          </label>
+          <label ng-click="chooseCreate(1)">
+            <input type="radio" name="RadioGroup1"   ng-value='false' ng-model="isCreat"  id="RadioGroup1_1" style=" float:left; height:30px;margin-top:0;">
+            <strong style="float:left; height:30px; line-height:30px; font-weight:normal;">引用</strong></label>
+        </form>
+      </div>
+      <div class="EditModal" ng-show="isCreat">
+        <div class="title" style="width:100px;"><span class="RED">*</span>代码库类型：</div>
+        <div class="svn codeTapy" >
+          <a id="SVN" ng-click="isSvn=true;chooseType(1)" style="margin-right:0px;height: 52px"><img ng-src="{{svnUrlPrefix}}images/svn.png" width="50" height="48"></a>
+          <a id="GIT" ng-click="isSvn=false;chooseType(2)" style="height: 52px"><img ng-src="{{svnUrlPrefix}}images/git.png" width="50" height="48" ></a>
+          <span ng-class="{'svn': isSvn, 'git': !isSvn}"><i class="fa fa-check-circle"></i></span>
+        </div>
+      </div>
+      <div class="EditModal" ng-show="isCreat">
+        <div class="title" style="width:90px;" ng-show="isSvn"><span class="RED">*</span>SVN路径：</div>
+        <div class="title" style="width:90px;" ng-show="!isSvn"><span class="RED">*</span>git路径：</div>
+        <div class="svn" ng-show="isSvn">
+          <input type="text" style="width:355px;"  ng-model="pageData.url"  ng-focus="setBaseUrl(pageData.url)" required >
+          <span ng-show="!ok" style="color:#d52100;font-size:12px;">请填写正确的路径</span>
+        </div>
+        <div class="svn" ng-show="!isSvn">
+          <input type="text" style="width:355px;"ng-model="pageData.git.url"  ng-focus="setBaseUrl(pageData.url)" required >
+          <span ng-show="!gitok" style="color:#d52100;font-size:12px;">请填写正确的路径</span>
+        </div>
+      </div>
+      <div class="EditModal" ng-show="isCreat">
+        <div class="title" style="width:90px;"><span class="RED">*</span>用户名：</div>
+        <div class="ures" ng-show="isSvn"><input type="text" ng-model='pageData.userName' ></div>
+        <div class="ures" ng-show="!isSvn"><input type="text" ng-model='pageData.git.userName' ></div>
+        <div class="title" style="margin-left:56px;"><span class="RED">*</span>密码：</div>
+        <div class="ures" ng-show="isSvn"><input type="password" ng-model='pageData.password' ng-blur="verification(pageData)"></div>
+        <div class="ures" ng-show="!isSvn"><input type="password" ng-model='pageData.git.password' ng-blur="verification(pageData.git)"></div>
+      </div>
+      <div class="EditModal" ng-show="isCreat&&!isSvn">
+        <div class="title" style="width:90px;"><span class="RED">*</span>分支名称：</div>
+        <div class="svn">
+          <select name="" style="width:355px;" ng-model="pageData.branchName" ng-change="banchChange()" >
+             <option ng-repeat="x in branchData track by $index" value="{{x.value}}">{{x.text}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="EditModal" ng-show="isCreat">
+        <div class="title" style="width:90px;">测试命令：</div>
+        <div class="svn" ng-show="isSvn">
+          <input type="text" style="width:355px;" ng-model="pageData.testCommand">
+          <p style="font-size:10px;margin:5px 0 0 86px;color:#999;">注：非必填项,默认执行所有脚本,如需执行子脚本请填写子脚本名称如[a.txt或a/b.txt]</p>
+        </div>
+        <div class="svn" ng-show="!isSvn">
+          <input type="text" style="width:355px;" ng-model="pageData.git.testCommand">
+          <p style="font-size:10px;margin:5px 0 0 86px;color:#999;">注：非必填项,默认执行所有脚本,如需执行子脚本请填写子脚本名称如[a.txt或a/b.txt]</p>
+        </div>
+      </div>
+      <div class="EditModal" ng-show="!isCreat">
+        <div class="title" style="width:90px;"><span class="RED">*</span>引用：</div>
+        <div class="svn">
+          <select  style=" width:355px;"  ng-model='pageData.selectedItem'  >
+            <option ng-repeat="x in pageData.flowIntegration" value="{{x.aliasName}}">{{x.aliasName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="modalBtnBox">
+      <button type="button" class="buildBtn" style="margin-right:10px;" ng-click="saveData(pageData)">确定</button>
+      <button type="button" class="ant-btn-ghost" style=" background:#999; color:#fff;"  data-dismiss="modal" id="cancel-btn">取消</button>
+    </div>
+  </div>
+</div>

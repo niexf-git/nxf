@@ -1,0 +1,586 @@
+<div class="ant-tabs-content" name="detailCard">
+
+  <!-- 下载审查卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.codeDownloadAndCheckEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.codeDownloadAndCheckEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">代码审查</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">触发方式：</div>
+              <div class="info">
+                <span ng-if="queryFlowSteps.data.codeDownloadAndCheckEntity.triggerType == 1">手动</span>
+                <span ng-if="queryFlowSteps.data.codeDownloadAndCheckEntity.triggerType == 2">轮询</span>
+                <span ng-if="queryFlowSteps.data.codeDownloadAndCheckEntity.triggerType == 3">定时</span>
+                <span ng-if="queryFlowSteps.data.codeDownloadAndCheckEntity.triggerType == 4">代码提交</span>
+              </div>
+            </div>
+            <div class="type commonInfo">
+              <div class="title card">代码审查：</div>
+              <div class="info">
+                <i ng-click="isCodeCheck(testabc)" class="fa fa-toggle-on" ng-class="{'fa fa-toggle-on': testabc, 'fa fa-toggle-off': !testabc}"></i>
+              </div>
+            </div>
+            <div class="branch commonInfo">
+              <div class="title" style=" width:58px;">时间：</div>
+              <div class="info">{{queryFlowSteps.data.codeDownloadAndCheckEntity.stepDetailInfo.time}}秒</div>
+            </div>
+          </div>
+          <div class="btnBox" style="margin-top:0px;">
+            <button type="button" style="margin-right:8px;" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('downloadcheck')">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <download-modal></download-modal>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='downloadcheck'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+
+  <!-- 编译&构建卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.compileBuildEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.compileBuildEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">编译构建</div>
+            </div>
+            <div class="type commonInfo">
+              <div class="title card">镜像名称：</div>
+              <div class="info">{{queryFlowSteps.data.compileBuildEntity.imageName}}</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">镜像版本：</div>
+              <div class="info">{{queryFlowSteps.data.compileBuildEntity.imageVersion}}</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title" style=" width:62px;">时间：</div>
+              <div class="info">{{queryFlowSteps.data.compileBuildEntity.stepDetailInfo.time}}秒</div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" style="margin-right:8px;" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('build')">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <deploy-compile-modal></deploy-compile-modal>
+          </div>
+        </div>
+      </div>
+      <div class="cicdBox">
+        <a ng-click="queryFlowSteps.data.compileBuildEntity.stepDetailInfo.status!='3'&&goCompileReport()">
+          <img ng-src="{{svnUrlPrefix}}images/ScanReport.png" width="12" height="12" />报告</a>
+      </div>
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='build'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+
+  <!-- 部署扫描卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.depScanEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.depScanEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">部署扫描</div>
+            </div>
+            <div class="type commonInfo">
+              <div class="title card">服务名：</div>
+              <div class="info" ng-click="skipDepScanService()" style="cursor: pointer;">{{queryFlowSteps.data.depScanEntity.appSvcName}}</div>
+            </div>
+            <div class="branch commonInfo">
+              <div class="title card">安全扫描：</div>
+              <div class="info" ng-mouseenter="show = queryFlowSteps.data.depScanEntity.appSvcName =='' ||queryFlowSteps.data.depScanEntity.webUrl == '' "
+                ng-mouseleave="show = false">
+                <i class="fa fa-toggle-on" ng-click="queryFlowSteps.data.depScanEntity.appSvcName =='' ||queryFlowSteps.data.depScanEntity.webUrl == ''||isSafeScan(onOff)"
+                  ng-class="{'fa fa-toggle-on': onOff, 'fa fa-toggle-off': !onOff}"></i>
+              </div>
+            </div>
+            <div ng-show="show">
+              <span style="font-size: 12px;color: red;">服务名或web服务地址为空时安全扫描按钮不可用</span>
+            </div>
+            <div class="code commonInfo">
+              <div class="title" style=" width:58px;">时间：</div>
+              <div class="info">{{queryFlowSteps.data.depScanEntity.stepDetailInfo.time}}秒</div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" style="margin-right:8px;" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('depscan');">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <deploy-scan-modal></deploy-scan-modal>
+          </div>
+        </div>
+      </div>
+      <div class="cicdBox">
+        <a ng-click="queryFlowSteps.data.depScanEntity.stepDetailInfo.status!='3' &&goScanReport()">
+          <img ng-src="{{svnUrlPrefix}}images/ScanReport.png" width="12" height="12" />报告</a>
+      </div>
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='depscan'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+
+  <!-- 自动化测试卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.autoTestEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.autoTestEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">自动化测试</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">失败数/总数：</div>
+              <div class="info" style="width:60px;">{{queryFlowSteps.data.autoTestEntity.fallNumber}}/{{queryFlowSteps.data.autoTestEntity.allNumber}}</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">缺陷率：</div>
+              <div class="info" style="width:80px;">{{queryFlowSteps.data.autoTestEntity.percent}}%</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title" style="width:80px;">时间：</div>
+              <div class="info" style="width:80px;">{{queryFlowSteps.data.autoTestEntity.stepDetailInfo.time}}秒</div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" style="margin-right:8px;" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('autotest')">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <auto-test-modal></auto-test-modal>
+          </div>
+        </div>
+      </div>
+      <div class="cicdBox">
+        <a ng-click="queryFlowSteps.data.autoTestEntity.stepDetailInfo.status !='3'&&goTestReport()">
+          <img ng-src="{{svnUrlPrefix}}images/ScanReport.png" width="12" height="12" />报告</a>
+        <!--<auto-test-detail></auto-test-detail>-->
+      </div>
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='autotest'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+
+  <!-- 集成测试卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.inteTestEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.inteTestEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">集成测试</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">失败数/总数：</div>
+              <div class="info" style="width:60px;">{{queryFlowSteps.data.inteTestEntity.fallNumber}}/{{queryFlowSteps.data.inteTestEntity.allNumber}}</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">缺陷率：</div>
+              <div class="info" style="width:80px;">{{queryFlowSteps.data.inteTestEntity.percent}}%</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title" style="width:80px;">时间：</div>
+              <div class="info" style="width:80px;">{{queryFlowSteps.data.inteTestEntity.stepDetailInfo.time}}秒</div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" style="margin-right:8px;" ng-click="showExecutionRecordPanel('intetest')" class="ant-btn-ghost">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <integration-test-modal></integration-test-modal>
+          </div>
+        </div>
+
+      </div>
+      <div class="cicdBox">
+        <a ng-click="queryFlowSteps.data.inteTestEntity.stepDetailInfo.status!='3'&&goReport()">
+          <img ng-src="{{svnUrlPrefix}}images/ScanReport.png" width="12" height="12" />报告</a>
+      </div>
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='intetest'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+  <!-- 开发：性能测试卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.performanceTestEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.performanceTestEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">性能测试</div>
+              <div class="code commonInfo">
+                <div class="title card" style=" width:84px;">失败数/总数：</div>
+                <div class="info" style=" width:60px;">{{queryFlowSteps.data.performanceTestEntity.fallNumber}}/{{queryFlowSteps.data.performanceTestEntity.allNumber}}</div>
+              </div>
+              <div class="code commonInfo">
+                <div class="title" style=" line-height:16px; width:98px; margin-right:5px;">最短/平均/最长响应时间：</div>
+                <div class="info" style=" line-height:16px; width:80px;">{{queryFlowSteps.data.performanceTestEntity.miniRespTime}}/{{queryFlowSteps.data.performanceTestEntity.averRespTime}}/{{queryFlowSteps.data.performanceTestEntity.maxRespTime}}毫秒</div>
+              </div>
+              <div class="code commonInfo">
+                <div class="title" style=" width:84px;">时间：</div>
+                <div class="info" style="width:80px;">{{queryFlowSteps.data.performanceTestEntity.stepDetailInfo.time}}秒</div>
+              </div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" style="margin-right:8px;" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('perftest')">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <performance-test-modal></performance-test-modal>
+          </div>
+        </div>
+      </div>
+      <div class="cicdBox">
+        <a ng-click="queryFlowSteps.data.performanceTestEntity.stepDetailInfo.status!='3'&&goPerforReport()">
+          <img ng-src="{{svnUrlPrefix}}images/ScanReport.png" width="12" height="12" />报告</a>
+      </div>
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='perftest'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+  <!-- 开发发布卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.releaseEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.releaseEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">发布</div>
+              <div class="code commonInfo">
+                <div class="title card">发布到：</div>
+                <div class="info" ng-if="queryFlowSteps.data.releaseEntity.destination == 2">测试</div>
+                <div class="info" ng-if="queryFlowSteps.data.releaseEntity.destination == 3">生产</div>
+              </div>
+              <div class="code commonInfo">
+                <div class="title card">版本号：</div>
+                <div class="info">{{queryFlowSteps.data.releaseEntity.versionNumber}}
+                  <span title="{{queryFlowSteps.data.releaseEntity.destination == 2?'发布测试':'发布生产'}}" ng-if="queryFlowSteps.data.releaseEntity.type === '0'" style="margin-right:0px; float: right;cursor: pointer;"
+                    ng-click="isReleaseProduction()">
+                    <i class="fa fa-edit"></i>
+                  </span>
+                </div>
+
+              </div>
+              <div class="code commonInfo">
+                <div class="title" style=" width:68px;">时间：</div>
+                <div class="info">{{queryFlowSteps.data.releaseEntity.stepDetailInfo.time}}秒</div>
+              </div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" style="margin-right:8px;" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('release')">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <publish-test-modal></publish-test-modal>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='release'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+
+  <!-- 部署卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.testDeployEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.testDeployEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT" style=" width:68px;">部署</div>
+              <div class="code commonInfo">
+                <div class="title card">服务名：</div>
+                <div class="info" ng-click="skipTestService()" style="cursor: pointer;">{{queryFlowSteps.data.testDeployEntity.appSvcName}}</div>
+              </div>
+              <div class="code commonInfo">
+                <div class="title" style=" width:68px;">时间：</div>
+                <div class="info">{{queryFlowSteps.data.testDeployEntity.stepDetailInfo.time}}秒</div>
+              </div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" style="margin-right:8px;" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('testdeploy')">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <deploy-test-modal></deploy-test-modal>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='testdeploy'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+
+  <!-- 自动化测试卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.testAutoTestEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.testAutoTestEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">自动化测试</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">失败数/总数：</div>
+              <div class="info" style="width:60px;">{{queryFlowSteps.data.testAutoTestEntity.fallNumber}}/{{queryFlowSteps.data.testAutoTestEntity.allNumber}}</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">缺陷率：</div>
+              <div class="info" style="width:80px;">{{queryFlowSteps.data.testAutoTestEntity.percent}}%</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title" style="width:78px;">时间：</div>
+              <div class="info" style="width:80px;">{{queryFlowSteps.data.testAutoTestEntity.stepDetailInfo.time}}秒
+              </div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" style="margin-right:8px;" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('testautotest')">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <auto-test-modal></auto-test-modal>
+          </div>
+        </div>
+      </div>
+      <div class="cicdBox">
+        <a ng-click="queryFlowSteps.data.testAutoTestEntity.stepDetailInfo.status!='3'&&goTestReport()">
+          <img ng-src="{{svnUrlPrefix}}images/ScanReport.png" width="12" height="12" />报告</a>
+        <!--<auto-test-detail></auto-test-detail>-->
+      </div>
+
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='testautotest'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+
+  <!-- 集成测试卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.testInteTestEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.testInteTestEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">集成测试</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">失败数/总数：</div>
+              <div class="info" style="width:60px;">{{queryFlowSteps.data.testInteTestEntity.fallNumber}}/{{queryFlowSteps.data.testInteTestEntity.allNumber}}</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">缺陷率：</div>
+              <div class="info" style=" width:80px;">{{queryFlowSteps.data.testInteTestEntity.percent}}%</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title" style=" width:78px;">时间：</div>
+              <div class="info" style=" width:80px;">{{queryFlowSteps.data.testInteTestEntity.stepDetailInfo.time}}秒
+              </div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" style="margin-right:8px;" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('testintetest')">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <integration-test-modal></integration-test-modal>
+          </div>
+        </div>
+      </div>
+      <div class="cicdBox">
+        <a ng-click="queryFlowSteps.data.testInteTestEntity.stepDetailInfo.status!='3'&&goReport()">
+          <img ng-src="{{svnUrlPrefix}}images/ScanReport.png" width="12" height="12" />报告</a>
+      </div>
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='testintetest'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+
+  <!-- 测试：性能测试卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.testPerformanceTestEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.testPerformanceTestEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">性能测试</div>
+              <div class="code commonInfo">
+                <div class="title card" style=" width:84px;">失败数/总数：</div>
+                <div class="info" style="width:60px;">{{queryFlowSteps.data.testPerformanceTestEntity.fallNumber}}/{{queryFlowSteps.data.testPerformanceTestEntity.allNumber}}</div>
+              </div>
+              <div class="code commonInfo">
+                <div class="title" style=" line-height:16px; padding-top:3px; widht:98px; margin-right:5px;">最短/平均/最长响应时间：</div>
+                <div class="info" style="width:80px;">{{queryFlowSteps.data.testPerformanceTestEntity.miniRespTime}}/{{queryFlowSteps.data.testPerformanceTestEntity.averRespTime}}/{{queryFlowSteps.data.testPerformanceTestEntity.maxRespTime}}毫秒</div>
+              </div>
+              <div class="code commonInfo">
+                <div class="title" style="width:84px;">时间：</div>
+                <div class="info" style="width:60px;">{{queryFlowSteps.data.testPerformanceTestEntity.stepDetailInfo.time}}秒</div>
+              </div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" style="margin-right:8px;" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('testperftest')">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <performance-test-modal></performance-test-modal>
+          </div>
+        </div>
+      </div>
+      <div class="cicdBox">
+        <a ng-click="queryFlowSteps.data.testPerformanceTestEntity.stepDetailInfo.status!='3'&&goPerforReport()">
+          <img ng-src="{{svnUrlPrefix}}images/ScanReport.png" width="12" height="12" />报告</a>
+      </div>
+    </div>
+    <div class="arrowBox" ng-show="queryFlowSteps.data.lastStep!=='testperftest'">
+      <img ng-src="{{svnUrlPrefix}}images/arrow.png" width="20" height="12" />
+    </div>
+  </div>
+
+  <!-- 测试发布生产卡片 -->
+  <div id="TenxFlowDetailFlowCard" ng-if="queryFlowSteps.data.testReleaseEntity.stepDetailInfo.isChoise === '1'">
+    <div class="ant-card commonCard ant-card-bordered">
+      <div class="contBox">
+        <card-state step-state="queryFlowSteps.data.testReleaseEntity.stepDetailInfo.status"></card-state>
+        <div class="statusBoxMmian">
+          <div style="height:140px;">
+            <div class="name commonInfo">
+              <div class="TIT">发布</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">发布到：</div>
+              <div class="info" ng-if="queryFlowSteps.data.testReleaseEntity.destination == 2">测试</div>
+              <div class="info" ng-if="queryFlowSteps.data.testReleaseEntity.destination == 3">生产</div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title card">版本号：</div>
+              <div class="info">{{queryFlowSteps.data.testReleaseEntity.versionNumber}}
+                 <span title="发布生产" ng-show="queryFlowSteps.data.testReleaseEntity.destination == '3' && queryFlowSteps.data.testReleaseEntity.type == '0'" style="margin-right:0px; float: right;cursor: pointer;" ng-click="isReleaseProduction()">
+                    <i class="fa fa-edit"></i>
+                   </span>
+              </div>
+            </div>
+            <div class="code commonInfo">
+              <div class="title" style=" width:50px;">时间：</div>
+              <div class="info">{{queryFlowSteps.data.testReleaseEntity.stepDetailInfo.time}}秒</div>
+            </div>
+          </div>
+          <div class="btnBox">
+            <button type="button" class="ant-btn-ghost" ng-click="showExecutionRecordPanel('testrelease')" style="margin-right:8px;">
+              <i class="fa fa-book"></i>执行记录
+            </button>
+            <publish-test-modal></publish-test-modal>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  #StageBuildLog .rightBox .collapse .collapse-header .header span.green {
+    color: #3fc000;
+  }
+
+  #StageBuildLog .rightBox .collapse .collapse-header .header span.blue {
+    color: #1613E8;
+  }
+
+  .collapse-content.collapse-content-active {
+    display: block;
+  }
+</style>
+
+<div id="executionRecordPanel" name="wzp">
+  <!--执行记录框背景层-->
+  <div id="background" class="modal-mask modal-mask-hidden" ng-click="recordCtrl.closeExecutionRecordPanel();"></div>
+  <!--执行记录框前景层-->
+  <div role="document" class="modal modal-wrap flowBuildLogModal" style="width: 520px; transform-origin: 133px 83px 0px; display: none;">
+
+    <div class="modal-content">
+      <div class="modal-body">
+        <div id="StageBuildLog" class="smallModal">
+          <div class="title">
+            <span>执行记录</span>
+            <i class="fa fa-expand" ng-click="recordCtrl.changeExecutionRecordPanel();"></i>
+            <div style="clear: both;">
+            </div>
+          </div>
+          <div class="paddingBox">
+            <div class="rightBox" ng-repeat="data in recordData">
+              <div class="collapse">
+                <div class="collapse-item LogDetail LogDetail0">
+                  <div class="collapse-header" role="tab" aria-expanded="false" ng-click="recordCtrl.openOrFoldContent($event);recordLog(data,$event)">
+                    <i class="fa fa-sort-desc"></i>
+                    <div class="header">
+                      <div class="leftHeader">
+                        <div class="line"></div>
+                        <i class="fail fa" aria-hidden="false" ng-class="{'1':'fa-check','2':'fa-times-circle'}[data.status]"></i>
+                      </div>
+                      <div class="rightHeader">
+                        <div class="borderBox">
+                          <span class="name commonHeader">{{stepname | checkStepName}}</span>
+                          <span class="status commonHeader">
+                            <span class="fail text" ng-class="{'1':'green','2':'fail','3':'blue'}[data.status]">{{data.status | executeStatus}}</span>
+                          </span>
+                          <span class="updateTime commonHeader" ng-show="false">
+                            <i class="fa fa-wpforms"></i>{{data.startTime}}</span>
+                          <span class="updateTime commonHeader" style="width:115px;">
+                            <i class="fa fa-wpforms"></i>{{data.executeTime}}</span>
+                          <span ng-if="$index==0&&data.status!='3'">此条为最新的执行记录</span>
+                          <div style="clear: both;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse-content collapse-content-inactive" ng-class="{'3':'collapse-content-active','1':'collapse-content-inactive','2':'collapse-content-inactive'}[data.status]"
+                    role="tabpanel">
+                    <div class="collapse-content-box">
+                      <div class="leftInfo">
+                        <div class="line"></div>
+                      </div>
+                      <div class="rightInfo">
+                        <div id="flowStageBuildLog">
+                          <div class="contBox" id="flowLog">
+                            <span>
+                              <font escape="false" ng-style="{color:(data.status=='1'||data.status=='3')?'#fff':(data.status=='2'?'#fff':'')}"
+                                ng-bind-html="data.text"></font>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div ng-show="!recordData" style="color:#d52100">无执行记录</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

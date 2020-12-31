@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper   
+
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"   
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="AlarmDetail">
+	<!-- ================================================================================= 
+		公用定义区域 ================================================================================= -->
+	<resultMap type="com.cmsz.paas.web.alarm.entity.AlarmDetail"
+		id="alarmDetailResultMap">
+		<id property="id" column="id" />
+		<result property="clusterLabel" column="cluster_label" />
+		<result property="podName" column="pod_name" />
+		<result property="containerId" column="containerid" />
+		<result property="insertTime" column="insert_time" />
+		<result property="alarmType" column="alarm_type" />
+		<result property="eventItem" column="alarm_item" />
+		<result property="alarmLevel" column="alarm_level" />
+		<result property="description" column="description" />
+		<result property="appName" column="app_name" />
+		<result property="namespace" column="namespace" />
+		<result property="hostip" column="hostIP"/>
+		<result property="operType" column="oper_type"/>
+		<result property="serviceName" column="service_name"/>
+	</resultMap>
+	<resultMap type="com.cmsz.paas.web.alarm.entity.AlarmDetail"
+		id="reClusterNameResultMap">
+		<id property="id" column="id" />
+		<result property="clusterLabel" column="cluster_label" />
+		<result property="podName" column="pod_name" />
+		<result property="containerId" column="containerid" />
+		<result property="insertTime" column="insert_time" />
+		<result property="alarmType" column="alarm_type" />
+		<result property="eventItem" column="alarm_item" />
+		<result property="alarmLevel" column="alarm_level" />
+		<result property="description" column="description" />
+		<result property="appName" column="app_name" />
+		<result property="namespace" column="namespace" />
+		<result property="hostip" column="hostIP"/>
+		<result property="operType" column="oper_type"/>
+		<result property="serviceName" column="service_name"/>
+	</resultMap>
+	<!-- ================================================================================= 
+		新增SQL区域 ================================================================================= -->
+
+	<select id="findPage" resultMap="reClusterNameResultMap"
+		parameterType="com.cmsz.paas.common.page.PageContext">
+		select a.* from (select * from ALARM_DETAIL where 1 =1
+		<if test="p.appNames != null and p.appNames != ''" >
+			and app_name in ${p.appNames}
+		</if>
+		<if test="p.appName != null and p.appName != ''" >
+			and app_name = #{p.appName}
+		</if>
+		<if test="p.keyWord != null and p.keyWord != ''" >
+			and pod_name like concat('%', #{p.keyWord}, '%')
+		</if>
+		<if test="p.operType != null and p.operType != ''" >
+			and oper_type = #{p.operType}
+		</if>
+		<if test="p.insertTimeStart != null and p.insertTimeStart != ''" >
+			and insert_time between #{p.insertTimeStart} and #{p.insertTimeEnd}
+		</if>
+		)a 
+	</select>
+	
+	<select id="findByMap" resultMap="alarmDetailResultMap" parameterType="java.util.HashMap">
+       select * from ALARM_DETAIL a  
+       where a.alarm_item in ${eventItem}
+       	and a.insert_time between #{insertTimeStart} and #{insertTimeEnd}
+       	and a.app_name in (${appName})
+       group by a.pod_name 
+       order by  a.insert_time desc
+    </select>
+    
+    <!--
+		功能：删除系统告警信息
+	-->
+	<delete id="delete" parameterType="com.cmsz.paas.web.alarm.entity.AlarmDetail">
+       delete from ALARM_DETAIL
+       where cluster_label = #{clusterLabel} and group_name = #{groupName} and app_name = #{appName}
+     </delete>
+</mapper> 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 执行记录 -->
+	<package name="excuteRecord" extends="global-struts" namespace="/excuteRecord">
+		
+		<action name="queryExcuteRecord" class="com.cmsz.paas.web.cicd.action.ExcuteRecordAction"
+			method="queryExcuteRecord">
+		</action>
+		
+		<!-- 流水执行记录列表展示 -->
+		<action name="queryFlowExcuteRecordList" class="com.cmsz.paas.web.cicd.action.ExcuteRecordAction"
+			method="queryFlowExcuteRecordList">
+		</action>
+		
+		<!-- 流水执行记录 -->
+		<action name="queryFlowExcuteRecord" class="com.cmsz.paas.web.cicd.action.ExcuteRecordAction"
+			method="queryFlowExcuteRecord">
+		</action>
+		<action name="queryBuildLogs" class="com.cmsz.paas.web.cicd.action.ExcuteRecordAction"
+			method="queryBuildLogs">
+		</action>
+	</package>
+</struts>

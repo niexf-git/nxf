@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  	<!-- 私有镜像 -->
+	<package name="privateImage" extends="global-struts" namespace="/privateImage">
+		<!-- 私有镜像 -->
+		<action name="queryPrivateImageList" class="com.cmsz.paas.web.image.action.PrivateImageAction" method="queryPrivateImageList">
+		</action>
+		
+		<!-- 私有镜像版本 -->
+		<action name="queryPrivateImageVersionList" class="com.cmsz.paas.web.image.action.PrivateImageAction" method="queryPrivateImageVersionList">
+		</action>
+		
+		<action name="queryPrivateImageInfo" class="com.cmsz.paas.web.image.action.PrivateImageAction" method="queryPrivateImageInfo">
+		</action>
+		<!-- 删除私有镜像 -->
+		<action name="deletePrivateImage" class="com.cmsz.paas.web.image.action.PrivateImageAction" method="deletePrivateImage">
+		</action>
+		
+		<!-- 修改私有镜像详情字段并保存 -->
+		<action name="updateDescription" class="com.cmsz.paas.web.image.action.PrivateImageAction" method="updateDescription">
+		</action>
+		
+		<!-- 删除私有镜像版本 -->
+		<action name="deletePrivateImageVersion" class="com.cmsz.paas.web.image.action.PrivateImageAction" method="deletePrivateImageVersion">
+		</action>
+		
+		<!-- 发布测试 -->
+		<action name="publish2Test" class="com.cmsz.paas.web.image.action.PrivateImageAction" method="publish2Test">
+		</action>
+		
+		<!-- 发布生产 -->
+		<action name="publish2Product" class="com.cmsz.paas.web.image.action.PrivateImageAction" method="publish2Product">
+		</action>
+		
+		<!-- 查询要发布的版本号是否存在 -->
+		<action name="queryPrivateImageVersion" class="com.cmsz.paas.web.image.action.PrivateImageAction" method="queryPrivateImageVersion">
+		</action>
+	</package>
+</struts>

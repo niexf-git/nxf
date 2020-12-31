@@ -1,0 +1,217 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-left:220px;">
+  <div id="CICD">
+    <div class="ant-tabs-nav-scroll" style="margin-bottom:20px;">
+      <div class="ant-tabs-nav">
+        <ul>
+          <li><a ui-sref="PaaS5.serial">流水</a></li>
+          <li><a ui-sref="PaaS5.outReport" style="border-bottom:2px solid #66baff; color:#66baff; height:28px; display:block;">报表</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="CICDContent">
+      <div id="TenxFLowDetailLog" class="ant-card ant-card-bordered">
+        <div class="report">
+          <ul>
+            <li ng-click="showTable('codeQuality')" ng-class="{reportHover: showName === 'codeQuality'}" ng-show="!isTest">
+              <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i><span ><strong>代码质量</strong><p>Code Quality</p></span></a>
+            </li>
+            <li ng-click="showTable('buildRecord')" ng-class="{reportHover: showName === 'buildRecord'}">
+              <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i><span ><strong>构建记录</strong><p>Build Record</p></span></a>
+            </li>
+            <li ng-click="showTable('autoTest')" ng-class="{reportHover: showName === 'autoTest'}">
+              <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i><span ><strong>自动化测试</strong><p>Automatic Test</p></span></a>
+            </li>
+            <li ng-click="showTable('integrateTest')" ng-class="{reportHover: showName === 'integrateTest'}">
+              <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i><span ><strong>集成测试</strong><p>Integration Test</p></span></a>
+            </li>
+            <li ng-click="showTable('unitTest')" ng-class="{reportHover: showName === 'unitTest'}" ng-show="!isTest">
+              <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i><span ><strong>单元测试</strong><p>Unit Test</p></span></a>
+            </li>
+            <li ng-click="showTable('performanceTest')" ng-class="{reportHover: showName === 'performanceTest'}">
+              <a><i class=""><img ng-src="{{svnUrlPrefix}}images/code-quality.png" width="27" height="27"></i><span><strong>性能测试</strong><p>Performance Test</p></span></a>
+            </li>
+          </ul>
+        </div>
+        <!--代码质量表格table-->
+        <div ng-show="showName === 'codeQuality'" class="ant-card-bordered">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+              <td width="11%" height="48" align="center" valign="middle"><p>流水名称</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>构建次数</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>问题总数</p></td>
+            </tr>
+            <tr ng-repeat="codeOne in tableData.codeQuality.list">
+              <td width="11%" height="48" align="center" valign="middle" style="cursor: pointer;" data-toggle="modal" data-target="#reportChart" ng-click="showChart('codeQuality', codeOne.flowId, codeOne.flowName)"><p>{{codeOne.flowName}}</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>{{codeOne.buildNum?codeOne.buildNum:'0'}}</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>{{codeOne.problemNum?codeOne.problemNum:'0'}}</p></td>
+            </tr>
+            </tbody>
+          </table>
+          <page limit="10"
+                current-page="1"
+                params="queryParams.codeQualityParams.pageParam"
+                total="tableData.codeQuality.totalCount"
+                data="tableData.codeQuality.list"
+                query="showTable('codeQuality')">
+          </page>
+        </div>
+        <!--构建记录table-->
+        <div ng-show="showName === 'buildRecord'" class="ant-card-bordered">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td width="11%" height="48" align="center" valign="middle"><p>流水名称</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>构建次数</p></td>
+                <td width="11%" height="48" align="center" valign="middle" ng-show="!isTest"><p>下载审查</p></td>
+                <td width="11%" height="48" align="center" valign="middle" ng-show="!isTest"><p>编译构建</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{!isTest?'部署扫描':'部署'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>自动测试</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>集成测试</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>性能测试</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{!isTest? '发布测试': '发布生产'}}</p></td>
+              </tr>
+              <tr ng-repeat="buildOne in tableData.buildRecord.list">
+                <td width="11%" height="48" align="center" valign="middle"><p>{{buildOne.flowName}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{buildOne.buildNum?buildOne.buildNum:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle" ng-show="!isTest"><p>{{buildOne.downloadCheck?buildOne.downloadCheck:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle" ng-show="!isTest"><p>{{buildOne.compileBuild?buildOne.compileBuild:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{buildOne.deployment?buildOne.deployment:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{buildOne.autoTest?buildOne.autoTest:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{buildOne.integrateTest?buildOne.integrateTest:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{buildOne.performanceTest?buildOne.performanceTest:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{buildOne.releaseTest?buildOne.releaseTest:'0'}}</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <page limit="10"
+                current-page="1"
+                params="queryParams.buildRecordParams.pageParam"
+                total="tableData.buildRecord.totalCount"
+                data="tableData.buildRecord.list"
+                query="showTable('buildRecord')">
+          </page>
+        </div>
+        <!--自动化测试table-->
+        <div ng-show="showName === 'autoTest'" class="ant-card-bordered">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td width="11%" height="48" align="center" valign="middle"><p>流水名称</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>构建次数</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>用例总数</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>问题总数</p></td>
+              </tr>
+              <tr ng-repeat="autoOne in tableData.autoTest.list">
+                <td width="11%" height="48" align="center" valign="middle" style="cursor: pointer;" data-toggle="modal" data-target="#reportChart" ng-click="showChart('autoTest', autoOne.flowId, autoOne.flowName)"><p>{{autoOne.flowName}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{autoOne.buildNum?autoOne.buildNum:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{autoOne.useCaseNum?autoOne.useCaseNum:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{autoOne.problemNum?autoOne.problemNum:'0'}}</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <page limit="10"
+                current-page="1"
+                params="queryParams.autoTestParams.pageParam"
+                total="tableData.autoTest.totalCount"
+                data="tableData.autoTest.list"
+                query="showTable('autoTest')">
+          </page>
+        </div>
+        <!--集成测试table-->
+        <div ng-show="showName === 'integrateTest'" class="ant-card-bordered">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td width="11%" height="48" align="center" valign="middle"><p>流水名称</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>构建次数</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>用例总数</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>问题总数</p></td>
+              </tr>
+              <tr ng-repeat="inteOne in tableData.integrateTest.list">
+                <td width="11%" height="48" align="center" valign="middle" style="cursor: pointer;" data-toggle="modal" data-target="#reportChart" ng-click="showChart('integrateTest', inteOne.flowId, inteOne.flowName)"><p>{{inteOne.flowName}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{inteOne.buildNum?inteOne.buildNum:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{inteOne.useCaseNum?inteOne.useCaseNum:'0'}}</p></td>
+                <td width="11%" height="48" align="center" valign="middle"><p>{{inteOne.problemNum?inteOne.problemNum:'0'}}</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <page limit="10"
+                current-page="1"
+                params="queryParams.integrateTestParams.pageParam"
+                total="tableData.integrateTest.totalCount"
+                data="tableData.integrateTest.list"
+                query="showTable('integrateTest')">
+          </page>
+        </div>
+        <!--单元测试table-->
+        <div ng-show="showName === 'unitTest'" class="ant-card-bordered">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+              <td width="11%" height="48" align="center" valign="middle"><p>流水名称</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>构建次数</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>用例总数</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>失败总数</p></td>
+            </tr>
+            <tr ng-repeat="unitOne in tableData.unitTest.list">
+              <td width="11%" height="48" align="center" valign="middle" style="cursor: pointer;" data-toggle="modal" data-target="#reportChart" ng-click="showChart('unitTest', unitOne.flowId, unitOne.flowName)"><p>{{unitOne.flowName}}</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>{{unitOne.buildNum?unitOne.buildNum:'0'}}</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>{{unitOne.useCaseNum?unitOne.useCaseNum:'0'}}</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>{{unitOne.failNum?unitOne.failNum:'0'}}</p></td>
+            </tr>
+            </tbody>
+          </table>
+          <page limit="10"
+                current-page="1"
+                params="queryParams.unitTestParams.pageParam"
+                total="tableData.unitTest.totalCount"
+                data="tableData.unitTest.list"
+                query="showTable('unitTest')">
+          </page>
+        </div>
+        <!--性能测试table-->
+        <div ng-show="showName === 'performanceTest'" class="ant-card-bordered">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+              <td width="11%" height="48" align="center" valign="middle"><p>流水名称</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>构建次数</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>总执行次数</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>失败次数</p></td>
+            </tr>
+            <tr ng-repeat="performanceOne in tableData.performanceTest.list">
+              <td width="11%" height="48" align="center" valign="middle" style="cursor: pointer;" data-toggle="modal" data-target="#reportChart" ng-click="showChart('performanceTest', performanceOne.flowId, performanceOne.flowName)"><p>{{performanceOne.flowName}}</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>{{performanceOne.buildNum?performanceOne.buildNum:'0'}}</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>{{performanceOne.executionNum?performanceOne.executionNum:'0'}}</p></td>
+              <td width="11%" height="48" align="center" valign="middle"><p>{{performanceOne.failNum?performanceOne.failNum:'0'}}</p></td>
+            </tr>
+            </tbody>
+          </table>
+          <page limit="10"
+                current-page="1"
+                params="queryParams.performanceTestParams.pageParam"
+                total="tableData.performanceTest.totalCount"
+                data="tableData.performanceTest.list"
+                query="showTable('performanceTest')">
+          </page>
+        </div>
+        <!--弹出框echarts图标-->
+        <div class="modal fade" tabindex="-1" role="dialog" id="reportChart">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">图表</h4>
+              </div>
+              <div class="modal-body">
+                <div id="outReportChart" style="width: 830px;height: 520px;"></div>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+      </div>
+    </div>
+  </div>
+</div>

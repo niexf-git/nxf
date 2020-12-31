@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings>
+	<mapping>
+		<method name="queryUserInfo">
+			<return-type componentType="com.cmsz.vo.UserInfoVO" />
+		</method>
+		<method name="addUserInfo">
+			<parameter index="0" componentType="com.cmsz.vo.UserInfoVO" />
+			<return-type componentType="com.cmsz.vo.ResultVO" />
+		</method>
+		<method name="modifyUserInfo">
+			<parameter index="0" componentType="com.cmsz.vo.UserInfoVO" />
+			<return-type componentType="com.cmsz.vo.ResultVO" />
+		</method>
+		<method name="modifyUserPassword">
+			<return-type componentType="com.cmsz.vo.ResultVO" />
+		</method>
+		<method name="delUserInfo">
+			<return-type componentType="com.cmsz.vo.ResultVO" />
+		</method>
+	</mapping>
+</mappings>

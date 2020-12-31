@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	<plugins>
+		<!-- 指定数据库分页方言Dialect, 其它方言:OracleDialect,SQLServerDialect,SybaseDialect,DB2Dialect,PostgreSQLDialect,MySQLDialect,DerbyDialect,HSQLDialect-->
+		<plugin interceptor="com.cmsz.paas.common.page.OffsetLimitInterceptor">
+			<!-- <property name="dialectClass" value="com.cmsz.framework.jdbc.dialect.OracleDialect"/>  -->
+			<property name="dialectClass" value="com.cmsz.paas.common.jdbc.dialect.MySQLDialect"/>			
+		</plugin>
+		
+		<!-- 日志记录的SQL监控 -->
+		<plugin interceptor="com.cmsz.paas.common.log.sqlmonitor.IBatis3SqlMonitorPlugin">
+			<property name="printSql" value="true"></property>
+		</plugin>
+
+	</plugins>
+</configuration>

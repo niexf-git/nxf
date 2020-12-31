@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="performancetest" extends="global-struts" namespace="/performancetest">
+		<!-- 查询性能测试配置信息 -->
+		<action name="queryPerformanceTest"
+			class="com.cmsz.paas.web.cicd.action.PerformanceTestAction"
+			method="queryPerformanceTest">
+		</action>
+		
+		<!-- 修改性能测试配置信息 -->
+		<action name="updatePerformanceTest"
+			class="com.cmsz.paas.web.cicd.action.PerformanceTestAction"
+			method="updatePerformanceTest">
+		</action>
+	</package>
+</struts>

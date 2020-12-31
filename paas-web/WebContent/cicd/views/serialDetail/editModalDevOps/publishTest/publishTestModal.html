@@ -1,0 +1,62 @@
+<button type="button" class="buildBtn" style="margin-right:0px;" ng-click="queryData()" data-toggle="modal" data-target="#publishTest" ng-disabled="flowInfo.FLOWINFO.buildStatus=== '3'" ng-class="{'buildBtnDisable':flowInfo.FLOWINFO.buildStatus === '3'}">
+  <i class="fa fa-edit" ></i>编辑
+</button>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="publishTest" data-backdrop="static" style="position: fixed;">
+  <div class="creatDevOps">
+          <div class="creatDevOps-title">
+              <div class="name">编辑项目</div>
+                <div class="close" data-dismiss="modal"><i class="fa fa-close"></i></div>
+          </div>
+          <div class="creatDevOps-content">
+          <form name="pubishModify" novalidate="novalidate">
+              <div class="EditModal">
+                <div class="title" style="width:90px;">发布到：</div>
+                <div class="input" ng-if="flowInfo.FLOWINFO.roleType === '1' || flowInfo.FLOWINFO.operType === '1'">
+                    <select name="destination" ng-model="saveParams.destination" style="border:1px solid #d6dae3; height:30px; width:156px;"  ng-change="change(saveParams.destination)" >
+                      <option value="2">测试</option>
+                      <option value="3">生产</option>
+                    </select>
+                </div>
+                <div class="input" ng-if="flowInfo.FLOWINFO.roleType === '2' || flowInfo.FLOWINFO.operType === '2'">
+                    <select name="destination" ng-model="saveParams.destination" style="border:1px solid #d6dae3; height:30px; width:156px; background-color: #EEEEEE;"
+                    ng-disabled="flowInfo.FLOWINFO.roleType === '2' || flowInfo.FLOWINFO.operType === '2'" >
+                      <option value="2">测试</option>
+                      <option value="3">生产</option>
+                    </select>
+                </div>
+              </div>
+              <div class="EditModal">
+                <div class="title" style="width:90px;" >版本号：</div>
+                  <div class="input"><input name="versionNumber" ng-model="saveParams.versionNumber" type="text" ng-pattern="/^[a-zA-X0-9-_\.]+$/" ng-disabled="saveParams.type==1">
+                    <span ng-show="saveParams.type==1" style="color: #7b7b7b; font-size: 12px; width: 480px;">当发布方式为自动时，不填写版本号！</span>
+                  </div>
+                  <span ng-show="pubishModify.versionNumber.$invalid" style="color: red; display: block; width: 480px;">版本号只能包含字母、数字、下划线、中划线、点号，不能有其他特殊字符！</span>
+
+              </div>
+              <div class="EditModal">
+                <div class="title" style="width:90px;">发布方式：</div>
+                  <div class="input" id="radios">
+                        <label>
+                          <input type="radio" name="RadioGroup1" id="RadioGroup1_0" style=" float:left;"
+                          ng-value="0" ng-model="saveParams.type" >
+                          <strong style="float:left; height:30px; line-height:30px; font-weight:normal; margin-right:30px;">手动</strong>
+                        </label>
+                        <label>
+                          <input type="radio" name="RadioGroup1"  id="RadioGroup1_1" style=" float:left;"
+                                 ng-click="isAutoPublish()"
+                          ng-value="1" ng-model="saveParams.type" ng-disabled="saveParams.destination === '3' && (flowInfo.FLOWINFO.roleType === '1' || flowInfo.FLOWINFO.operType === '1')">
+                          <strong style="float:left; height:30px; line-height:30px; font-weight:normal;">自动</strong>
+                        </label>
+                  </div>
+              </div>
+            <div class="clear"></div>
+            </form>
+          </div>
+          <div class="modalBtnBox">
+              <button type="button" class="buildBtn" style="margin-right:10px;" ng-disabled="pubishModify.$dirty && pubishModify.$invalid" ng-click="modifyData(data)">确定</button>
+              <button type="button" class="ant-btn-ghost" style=" background:#999; color:#fff;" data-dismiss="modal"
+              id="publishCancelId">取消</button>
+          </div>
+        </div>
+</div>

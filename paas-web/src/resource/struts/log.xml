@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 日志管理 -->
+	<package name="log" extends="global-struts" namespace="/log">
+		<action name="querySysLog" class="com.cmsz.paas.web.log.action.SysLogManageAction"
+			method="querySysLog">
+		</action>
+		<action name="queryUserList" class="com.cmsz.paas.web.log.action.SysLogManageAction"
+			method="queryUserList">
+		</action>
+		
+		<action name="stdLogAction" class="com.cmsz.paas.web.log.action.StdLogManageAction">
+			<result name="success" type="stream">
+				<param name="inputName">file</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">40960</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+			</result>
+		</action>
+		
+		<action name="downloadIppasStdFile" class="com.cmsz.paas.web.log.action.StdLogManageAction" method="downloadIppasStdFile">
+			<result name="success" type="stream">
+				<param name="inputName">file</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">40960</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+			</result>
+		</action>
+		
+		
+		<action name="initDate" class="com.cmsz.paas.web.log.action.StdLogManageAction" method="initDate"></action>
+		<action name="queryInstance" class="com.cmsz.paas.web.log.action.StdLogManageAction" method="queryInstance"></action>
+		<!-- <action name="queryStdLog" class="com.cmsz.paas.web.log.action.StdLogManageAction"
+			method="queryStdLog">
+		</action>
+		<action name="queryInst" class="com.cmsz.paas.web.log.action.StdLogManageAction"
+			method="queryInst">
+		</action>
+		<action name="downloadStdFile" class="com.cmsz.paas.web.log.action.StdLogManageAction"
+			method="downloadStdFile">
+			<result name="success" type="stream">
+				<param name="inputName">file</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">40960</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+			</result>
+		</action> -->
+		<action name="downloadStdFile" class="com.cmsz.paas.web.log.action.StdLogManageAction"
+			method="downloadStdFile">
+			<result name="success" type="stream">
+				<param name="inputName">file</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">40960</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+			</result>
+		</action>
+		
+		<action name="downloadChLogFile" class="com.cmsz.paas.web.log.action.StdLogManageAction"
+			method="downloadChLogFile">
+			<result name="success" type="stream">
+				<param name="inputName">file</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">40960</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+			</result>
+		</action>
+		
+		<action name="queryAppLog" class="com.cmsz.paas.web.log.action.AppLogManageAction"
+			method="queryAppLog">
+		</action>
+		<action name="queryLogPath" class="com.cmsz.paas.web.log.action.AppLogManageAction"
+			method="queryLogPath">
+		</action>
+		<action name="queryIpaasLog" class="com.cmsz.paas.web.log.action.AppLogManageAction"
+			method="queryIpaasLog">
+		</action>
+		<action name="queryIpaasLogPath" class="com.cmsz.paas.web.log.action.AppLogManageAction"
+			method="queryIpaasLogPath">
+		</action>
+		<action name="downloadFile" class="com.cmsz.paas.web.log.action.AppLogManageAction"
+			method="downloadFile">
+			<result name="success" type="stream">
+				<param name="inputName">file</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">40960</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+			</result>
+		</action>
+		
+		<action name="viewAppLog" class="com.cmsz.paas.web.log.action.AppLogManageAction"
+			method="viewAppLog">
+		</action>
+		
+		<action name="deleteFile" class="com.cmsz.paas.web.log.action.AppLogManageAction" method="deleteFile">
+		</action>
+		
+		<action name="queryChLogs" class="com.cmsz.paas.web.log.action.StdLogManageAction" method="queryChLogs"></action>
+	</package>
+</struts>

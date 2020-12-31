@@ -1,0 +1,228 @@
+@charset "utf-8";
+/* CSS Document */
+
+@charset "utf-8";
+/* CSS Document */
+ul,li,span,p,a,h1{ margin:0; padding:0; list-style-type:none;}
+
+body{
+	
+	height:auto;
+	font-family:"微软雅黑";
+	font-size:12px;
+	margin:0px;
+	padding:0px;
+	overflow-y:hidden;
+	overflow-x:hidden;
+	width:100%;
+}
+
+.autoHeightImg{ width:100%;}
+.login{
+	width: 100%;
+	height: 0;
+	padding-top:70%;
+	overflow:hidden;
+	background: url(../imgs/loginbg_main.png) center top no-repeat;
+	background-size: 100% 100%;
+	position:relative;
+
+}
+ input:-webkit-autofill { 
+-webkit-box-shadow: 0 0 0px 1000px #fff inset; 
+}
+input:focus{
+    outline: none;
+}
+textarea {resize:none;} 
+/*.login-top{
+	margin:0 auto;
+	width:100%;
+	height:63px;
+	background:#333;
+	min-width:1346px;
+}
+.top-left{
+	float:left;
+	margin-left:70px;
+	margin-top:15px;
+}
+.top-right{
+	float:right;
+	margin-right:70px;
+	line-height:60px;
+	font-size:16px;
+	font-weight:bold;
+	color:#fff;
+}*/
+.login-main{
+	width: 350px;
+	height: 378px;
+	position: absolute;
+	left:38%;
+	top:120px;
+	background: #fff;
+	border-radius:5px;
+	overflow-x:hidden;
+	overflow-y:hidden;
+}
+
+
+.login-main-top{
+	width: 338px;
+	height: 74px;
+	float:left;
+	background:url(../imgs/login-logo.png) no-repeat #fff;
+	margin-left:12px;
+}
+.login-main-content{ float:left; padding-left:32px; padding-top:30px; background:#f3f7fb; padding-bottom:48px;}
+.login-User{
+	background:#fff;
+	border:1px solid #dce6f3;
+	width:282px;
+	height:37px;
+	float:left;
+	line-height:37px;
+	margin-bottom:15px;
+	border-radius:3px;
+}
+.login-User strong{
+	display:block;
+	width:37px;
+	border-right:1px solid #dce6f3;
+	background:#f3f6f8;
+	text-align:center;
+	float:left;
+	height:37px;
+}
+.login-User input{
+	width:235px;
+	height:35px;
+	float:left;
+	margin-bottom:20px;
+	font-family:"微软雅黑";
+	border:none;
+	color:#cbcbcb;
+	padding-left:5px;
+}
+.login-ClosedLock strong{
+	display:block;
+	width:37px;
+	border-right:1px solid #dce6f3;
+	background:#f3f6f8;
+	text-align:center;
+	float:left;
+	height:37px;
+}
+.login-ClosedLock{
+	background:#fff;
+	border:1px solid #dce6f3;
+	width:282px;
+	height:37px;
+	float:left;
+	line-height:37px;
+	margin-bottom:15px;
+	border-radius:3px;
+}
+.login-ClosedLock input{
+	width:235px;
+	height:35px;
+	float:left;
+	margin-bottom:20px;
+	font-family:"微软雅黑";
+	border:none;
+	color:#cbcbcb;
+	padding-left:5px;
+
+}
+.login-main-right p{
+	width:300px;
+	float:left;
+	color:#c41200;
+	margin:10px 0px;
+}
+.login-submit{
+	width:283px;
+	height:39px;
+	border-radius:3px;
+	background:#0094e8;
+	float:left;
+	line-height:39px;
+	text-align:center;
+	margin-top:43px;
+}
+.login-submit input{
+	width:283px;
+	height:39px;
+	border:none;
+	border-radius:3px;
+	background:#0094e8;
+	float:left;
+	line-height:39px;
+	text-align:center;
+	cursor:pointer;
+	color:#fff;
+	font-size:16px;
+}
+.login-bottom{
+	width:100%;
+	text-align:center;
+	margin-top:560px;
+	color:#333;
+
+}
+.login-User span{
+	float:left;
+	width:22px;
+	display:block;
+	height:28px;
+	cursor:pointer;
+	background:url(../imgs/login-CLOSE.png) no-repeat 5px 10px;
+}
+.login-User span:hover{
+	float:left;
+	width:22px;
+	display:block;
+	height:28px;
+	cursor:pointer;
+	background:url(../imgs/login-CLOSE-hover.png) no-repeat 5px 10px;
+}
+.login-ClosedLock span{
+	float:left;
+	width:22px;
+	display:block;
+	height:28px;
+	cursor:pointer;
+	background:url(../imgs/login-CLOSE.png) no-repeat 5px 10px;
+}
+.login-ClosedLock span:hover{
+	float:left;
+	width:22px;
+	display:block;
+	height:28px;
+	cursor:pointer;
+	background:url(../imgs/login-CLOSE-hover.png) no-repeat 5px 10px;
+}
+
+.login-verification1{width:280px;
+	height:37px;
+	float:left;
+}
+.login-verification1 input{ width:131px; height:35px; border:1px solid #dce6f3; border-radius:2px; float:left; color:#999; text-align:center;}
+
+.login-verification{width:280px;
+	height:37px;
+	float:left;
+}
+.login-verification input{ width:97px; height:35px; border:1px solid #dce6f3; border-radius:2px; float:left; color:#999; text-align:center;}
+.login-verification span{float:left; width:65px; height:26px; display:block; margin-left:12px;  margin-top:8px; color:#a0b1c1;}
+.login-verification a{width:88px; height:20px; line-height:20px; float:left; font-size:12px; color:#a0b1c1; margin-top:6px;}
+.login-tips{ 
+	position:fixed; 
+	bottom:0;
+	text-align:center;
+	color:#fff;
+	display:block;
+	height:70px;
+	width:100%;
+}

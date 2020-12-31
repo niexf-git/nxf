@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 告警管理 -->
+	<package name="codedetails" extends="global-struts" namespace="/codedetails">
+		<action name="queryCodeDetailsList" class="com.cmsz.paas.web.cicd.action.CodeDetailsAction"
+			method="queryCodeDetailsList">
+		</action>
+		
+		<action name="queryCodeDetails" class="com.cmsz.paas.web.cicd.action.CodeDetailsAction"
+			method="queryCodeDetails">
+		</action>
+		
+		<action name="queryProblemDetails" class="com.cmsz.paas.web.cicd.action.CodeDetailsAction"
+			method="queryProblemDetails">
+		</action>
+	</package>
+</struts>

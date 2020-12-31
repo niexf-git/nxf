@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  	<!-- 公共镜像 -->
+	<package name="publicImage" extends="global-struts" namespace="/publicImage">
+		<action name="queryPublicImageList" class="com.cmsz.paas.web.image.action.PublicImageAction" method="queryPublicImageList">
+		</action>
+		
+		<action name="queryPublicImageById" class="com.cmsz.paas.web.image.action.PublicImageAction" method="queryPublicImageById">
+			<result name="success">/jsp/imagemanager/publicimage/updatePublicImage.jsp</result>
+		</action>
+		
+		<action name="updatePublicImage" class="com.cmsz.paas.web.image.action.PublicImageAction" method="updatePublicImage">
+		</action>
+		
+		<action name="updateDescription" class="com.cmsz.paas.web.image.action.PublicImageAction" method="updateDescription">
+		</action>
+		
+		<action name="changeStatus" class="com.cmsz.paas.web.image.action.PublicImageAction" method="changeStatus">
+		</action>
+		
+		<action name="queryPublicImageVersionById" class="com.cmsz.paas.web.image.action.PublicImageAction" method="queryPublicImageVersionById">
+		</action>
+		
+		<!-- 加载数据中心信息 
+		<action name="loadDataCenterInfo" class="com.cmsz.paas.web.image.action.PublicImageAction" method="loadDataCenterInfo">
+			<result name="success">/jsp/imagemanager/publicimage/publish2Product.jsp</result>
+		</action>
+		-->
+		
+		<!-- 发布生产 -->
+		<action name="publish2Product" class="com.cmsz.paas.web.image.action.PublicImageAction" method="publish2Product">
+		</action>
+	</package>
+</struts>

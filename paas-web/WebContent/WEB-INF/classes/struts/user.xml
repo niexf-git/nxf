@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  	<!-- 用户管理 -->
+	<package name="user" extends="global-struts" namespace="/user">
+		<action name="queryUserList" class="com.cmsz.paas.web.user.action.UserManagerAction" method="queryUserList">
+		</action>
+		<action name="addUser" class="com.cmsz.paas.web.user.action.UserManagerAction" method="addUser">
+		</action>
+		<action name="queryUserById" class="com.cmsz.paas.web.user.action.UserManagerAction" method="queryUserById">
+  			<result name="success">/jsp/systemmanager/usermanager/updateUser.jsp</result>
+  	    </action>
+  	    <action name="updateUser" class="com.cmsz.paas.web.user.action.UserManagerAction" method="updateUser">
+  	    </action>
+  	    <action name="updatePassword" class="com.cmsz.paas.web.user.action.UserManagerAction" method="updatePassword">
+  	    </action>
+		<action name="deleteUser" class="com.cmsz.paas.web.user.action.UserManagerAction" method="deleteUser">
+		</action>
+		<action name="queryCurrentUser" class="com.cmsz.paas.web.user.action.UserManagerAction" method="queryCurrentUser">
+		</action>
+		<action name="queryUserRoleTree" class="com.cmsz.paas.web.user.action.UserManagerAction" method="queryUserRoleTree">
+		</action>
+		<action name="updateUserRole" class="com.cmsz.paas.web.user.action.UserManagerAction" method="updateUserRole">
+		</action>
+		<action name="queryCurrenEvn" class="com.cmsz.paas.web.user.action.UserManagerAction" method="queryCurrenEvn">
+		</action>		
+		<!-- 验证登录参数 -->
+		<action name="verifyLoginParams" class="com.cmsz.paas.web.user.action.UserManagerAction" method="verifyLoginParams">
+		</action>
+		<!-- 登录 -->
+		<action name="login" class="com.cmsz.paas.web.user.action.UserManagerAction" method="login">
+			<!-- <interceptor-ref name="paramsValidateInterceptor"/>
+			<interceptor-ref name="defaultStack" />							
+			<interceptor-ref name="sessionout" />
+			<interceptor-ref name="logInterceptor"/>
+			<interceptor-ref name="token"/> -->
+		  <result name="success" type="redirect">/index.html</result>
+		  <result name="input">/login.jsp</result>
+		  <result name="resultMsg">/resultMsg.jsp</result>
+		  <result name="invalid.token" >/login.jsp</result>
+		</action>
+		<action name="getImage" class="com.cmsz.paas.web.user.action.CreateImageAction" method="getImage">
+			<result name="success" type="stream">  
+		        <param name="contentType">image/jpeg</param>  
+		        <param name="inputName">bais</param>  
+ 			</result>  
+		</action>
+		<action name="logout" class="com.cmsz.paas.web.user.action.UserManagerAction" method="logout">
+		  <result  name="success" type="redirect">/login.jsp</result>
+		</action>
+		<action name="queryAppType" class="com.cmsz.paas.web.user.action.UserManagerAction" method="queryAppType">
+		</action>
+		
+		<action name="queryAppInfo" class="com.cmsz.paas.web.user.action.UserManagerAction" method="queryAppInfo"></action>
+		
+		<action name="changeAppInfo" class="com.cmsz.paas.web.user.action.UserManagerAction" method="changeAppInfo"></action>
+		
+		<action name="queryCurrentUserOperType" class="com.cmsz.paas.web.user.action.UserManagerAction" method="queryCurrentUserOperType"></action>
+		
+		<action name="deleteSessionInfo" class="com.cmsz.paas.web.user.action.UserManagerAction" method="deleteSessionInfo"></action>
+		
+		<action name="queryUserOperTypeByUserId" class="com.cmsz.paas.web.user.action.UserManagerAction" method="queryUserOperTypeByUserId"></action>
+	</package>
+</struts>

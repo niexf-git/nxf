@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 发布 -->
+	<package name="release" extends="global-struts" namespace="/release">
+
+		<action name="queryRelease"
+			class="com.cmsz.paas.web.cicd.action.ReleaseAction"
+			method="queryRelease">
+		</action>
+		
+		<action name="modifyRelease"
+			class="com.cmsz.paas.web.cicd.action.ReleaseAction"
+			method="modifyRelease">
+		</action>
+		
+		<action name="releaseProduction"
+			class="com.cmsz.paas.web.cicd.action.ReleaseAction"
+			method="releaseProduction">
+		</action>
+		
+	</package>
+</struts>

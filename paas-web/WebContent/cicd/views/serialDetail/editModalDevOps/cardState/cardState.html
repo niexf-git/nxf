@@ -1,0 +1,17 @@
+<div class="statusBox">
+  <div class="failStatus status" style="color:#999;" ng-if="stepState === '0'">
+    <i class="fa fa-clock-o fa-lg"></i><p>未执行</p>
+  </div><!-- 未执行图片 -->
+  <div class="failStatus status" style="color:#3fc000;" ng-if="stepState === '1'">
+    <i class="fa fa-check-circle-o"></i><p>执行成功</p>
+  </div><!-- 执行成功图片 -->
+  <div class="failStatus status" style="color:#e4342f;" ng-if="stepState === '2'">
+    <i><img ng-src="{{svnUrlPrefix}}images/failStatus.png" width="25" height="25"/></i><p>执行失败</p>
+  </div><!-- 执行失败图片 -->
+  <div class="failStatus status" style="color:#999;" ng-if="stepState === '4'">
+    <i class="fa fa-clock-o fa-lg"></i><p>等待执行</p>
+  </div><!-- 等待执行图片 -->
+  <div class="failStatus status" ng-if="stepState === '3'">
+    <i class="fa fa-cog fa-spin fa-3x fa-fw"></i><p>执行中</p>
+  </div><!-- 执行中图片 -->
+</div>

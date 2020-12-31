@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 基础服务实例管理 -->
+	<package name="ipaasInstance" extends="global-struts"
+		namespace="/ipaasInstance">
+
+		<action name="queryIpaasServiceInstsById"
+			class="com.cmsz.paas.web.ipaasinstance.action.IpaasInstanceAction"
+			method="queryIpaasServiceInstsById">
+		</action>
+		<action name="diagnosisIpass"
+			class="com.cmsz.paas.web.ipaasinstance.action.IpaasInstanceAction"
+			method="diagnosisIpass">
+		</action>
+
+		<action name="queryIpaasServiceInstList"
+			class="com.cmsz.paas.web.ipaasinstance.action.IpaasInstanceAction"
+			method="queryIpaasServiceInstList">
+		</action>
+		<action name="queryIpaasServiceInstById"
+			class="com.cmsz.paas.web.ipaasinstance.action.IpaasInstanceAction"
+			method="queryIpaasServiceInstById">
+			<result>/jsp/monitoroperation/instanceInfo.jsp</result>
+		</action>
+		
+		<action name="queryNewIpaasServiceInstById"
+			class="com.cmsz.paas.web.ipaasinstance.action.IpaasInstanceAction"
+			method="queryNewIpaasServiceInstById">
+			<result>/jsp/newmonitor/newInstanceInfo.jsp</result>
+		</action>
+	</package>
+</struts>
